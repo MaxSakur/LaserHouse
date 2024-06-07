@@ -1,0 +1,15 @@
+export const colors = {
+  primary: '#0B1F35',
+  secondary: '#6D7986',
+  tertiary: '#B6BCC3',
+  white: '#FFFFFF',
+  black: '#000000',
+  quaternary: '#DADEE3',
+  buttonAccent: '#FF1744',
+  uiBackground: '#f1f4f8',
+  uiRed: '#B6BCC3',
+  uiRedSecondary: '#DADEE3',
+  uiGradientRed: '#FF0000',
+  uiGradientBlue: '#0000FF',
+  uiGradientGreen: '#00FF00',
+};
