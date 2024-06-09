@@ -7,8 +7,23 @@
     "enter": "Увійти",
     "create": "Створити карту клієнта"
   },
-  "registerScreen": {
+  "verificationScreen": {
     "message": "Введіть код підтвердження!",
     "details": "SMS на номер <bold>{{number}}</bold> повинно прийти протягом одної хвилини!"
+  },
+  "registerScreen": {
+    "personalData": {
+      "label": "Персональні дані",
+      "name": "Ім’я",
+      "surname": "Призвище",
+      "parentName": "По батькові",
+      "dob": "Дата народження"
+    },
+    "contactData": {
+      "label": "Контакти",
+      "phone": "Телефон",
+      "email": "E-mail"
+    },
+    "register": "Зареєструватись"
   }
 }

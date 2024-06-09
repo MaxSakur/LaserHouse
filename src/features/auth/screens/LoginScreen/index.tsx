@@ -12,7 +12,7 @@ import {
 import {RootStackParamList} from '../../../../types/navigation';
 import {styles} from './styles';
 import {useTranslation} from 'react-i18next';
-import {CustomTextInput} from '../../components/inputs';
+import {MaskedTextInput} from '../../components/inputs';
 import {countyPhoneCode, phoneMask} from '../../../../utils';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {authService} from '../../services/authService';
@@ -28,15 +28,19 @@ export const LoginScreen: React.FC = () => {
   const {t} = useTranslation();
 
   const handleLogin = async () => {
-    const res = await authService.login(phone);
-    console.log(res);
-    if (res.success) {
-      navigation.navigate('Register', {phone, code: res.code});
+    const {code, success} = await authService.login(phone);
+
+    if (success) {
+      navigation.navigate('Verification', {phone, code});
       setPhone('');
       return;
     } else {
       console.log('Error');
     }
+  };
+
+  const handleRegister = () => {
+    navigation.navigate('Register', {phone});
   };
 
   const conditionsToLogin =
@@ -54,7 +58,7 @@ export const LoginScreen: React.FC = () => {
               {t('loginScreen.enterPhone')}
             </Text>
 
-            <CustomTextInput
+            <MaskedTextInput
               value={phone}
               onChange={setPhone}
               isMajor={true}
@@ -79,7 +83,7 @@ export const LoginScreen: React.FC = () => {
         </ScrollView>
       </KeyboardAvoidingView>
 
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>{t('loginScreen.create')}</Text>
       </TouchableOpacity>
     </SafeAreaView>

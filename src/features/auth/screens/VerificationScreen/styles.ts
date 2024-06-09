@@ -2,49 +2,50 @@ import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
 import {colors, sizes, textStyles, presets} from '../../../../theme';
 
 interface Styles {
-  registerScreen: ViewStyle;
-  personalData: ViewStyle;
-  inputsSection: ViewStyle;
-  input: TextStyle;
-  focusedInput: ViewStyle;
-  inputsSectionTitle: TextStyle;
+  VerificationScreen: ViewStyle;
+  title: ViewStyle | TextStyle;
+  VerificationScreen_content: ViewStyle;
+  description: TextStyle;
+  privacyText: TextStyle;
+  privacyLink: TextStyle;
   button: ViewStyle;
   buttonText: TextStyle;
 }
 
 export const styles = StyleSheet.create<Styles>({
-  registerScreen: {
+  VerificationScreen: {
     ...textStyles.headline1,
     ...presets.flexCenter,
     flex: 1,
     padding: sizes.l,
     backgroundColor: colors.white,
-    justifyContent: 'flex-start',
   },
-  inputsSection: {
-    width: '100%',
-    gap: sizes.xl,
+  VerificationScreen_content: {
+    gap: sizes.l,
+    paddingBottom: sizes.xl,
   },
-  focusedInput: {
-    backgroundColor: colors.uiBackground,
-    borderColor: colors.white,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: colors.quaternary,
-
-    padding: sizes.l,
-    borderRadius: sizes.radius,
-  },
-  inputsSectionTitle: {
+  title: {
     ...textStyles.title1,
+    color: colors.primary,
+    marginBottom: sizes.l,
+    textAlign: 'center',
+  },
+  description: {
+    ...textStyles.headline2,
     color: colors.primary,
     textAlign: 'center',
   },
-  personalData: {
-    width: '100%',
-    gap: sizes.xl,
-    justifyContent: 'center',
+  boldText: {
+    fontWeight: 'bold',
+  },
+  privacyText: {
+    ...textStyles.headline2,
+    color: colors.quaternary,
+    textAlign: 'center',
+  },
+  privacyLink: {
+    ...textStyles.headline2,
+    color: colors.buttonAccent,
   },
   button: {
     width: '100%',

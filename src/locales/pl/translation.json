@@ -6,7 +6,7 @@
     "privacyPolicyLink": "обробку персональних даних",
     "enter": "Увійти"
   },
-  "registerScreen": {
+  "VerificationScreen": {
     "message": "Введіть код підтвердження!",
     "details": "SMS на номер <bold>{{number}}</bold> повинно прийти протягом одної хвилини!"
   }

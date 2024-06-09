@@ -1,4 +1,25 @@
-const fonts = {
+interface FontStyles {
+  black?: string; // Сделаем свойства необязательными, чтобы избежать ошибок
+  blackItalic?: string;
+  bold?: string;
+  boldItalic?: string;
+  heavyItalic?: string;
+  lightItalic?: string;
+  medium?: string;
+  mediumItalic?: string;
+  regular?: string;
+  semiboldItalic?: string;
+  thinItalic?: string;
+  ultralightItalic?: string;
+  [key: string]: string | undefined; // Разрешим дополнительные свойства для гибкости
+}
+
+interface Fonts {
+  SFProDisplay: FontStyles;
+  Roboto: FontStyles;
+}
+
+const fonts: Fonts = {
   SFProDisplay: {
     blackItalic: 'SFPRODISPLAYBLACKITALIC',
     bold: 'SFPRODISPLAYBOLD',
@@ -26,7 +47,38 @@ const fonts = {
   },
 };
 
-const textStyles = {
+// Типизация для стилей текста
+interface TextStyles {
+  fontFamily?: string;
+  fontSize: number;
+  fontWeight?:
+    | 'normal'
+    | 'bold'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900'
+    | undefined;
+}
+
+interface TextStylesCollection {
+  title1: TextStyles;
+  verificationCode: TextStyles;
+  title2: TextStyles;
+  headline1: TextStyles;
+  headline2: TextStyles;
+  button: TextStyles;
+  body1: TextStyles;
+  body2: TextStyles;
+  tabBarIconText: TextStyles;
+}
+
+const textStyles: TextStylesCollection = {
   title1: {
     fontFamily: fonts.SFProDisplay.bold,
     fontSize: 32,

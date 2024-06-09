@@ -5,7 +5,7 @@ interface Styles {
   loginScreen: ViewStyle;
   container: ViewStyle;
   scrollContainer: ViewStyle;
-  title: TextStyle | ViewStyle;
+  title: TextStyle;
   loginScreenContent: ViewStyle;
   description: TextStyle;
   privacyText: TextStyle;

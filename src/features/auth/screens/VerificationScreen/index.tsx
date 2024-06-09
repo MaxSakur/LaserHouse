@@ -5,31 +5,33 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {View, Text} from 'react-native';
 import {RootStackParamList} from '../../../../types/navigation';
 import {VerificationCodeInput} from '../../components/inputs';
-import {countyPhoneCode} from '../../../../utils/masks.ts';
+import {countyPhoneCode} from '../../../../utils/masks';
 import {styles} from './styles';
 import useNotification, {
   NotificationType,
 } from '../../../../hooks/useNotification';
 
-type RegisterScreenNavigationProp = StackNavigationProp<
+type VerificationScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  'Register'
+  'Verification'
 >;
 
-type RegisterScreenRouteProp = RouteProp<RootStackParamList, 'Register'>;
+type VerificationScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'Verification'
+>;
 
-export const RegisterScreen: React.FC = () => {
-  const navigation = useNavigation<RegisterScreenNavigationProp>();
+export const VerificationScreen: React.FC = () => {
+  const navigation = useNavigation<VerificationScreenNavigationProp>();
   const [code, setCode] = useState('');
   const {t} = useTranslation();
-  const route = useRoute<RegisterScreenRouteProp>();
+  const route = useRoute<VerificationScreenRouteProp>();
   const {phone, code: verificationCode} = route.params;
   const {showNotification} = useNotification();
 
   useEffect(() => {
     if (code.length === 4) {
       if (verificationCode === code) {
-        showNotification(NotificationType.INFO, 'Code is valid');
         navigation.navigate('Login');
       } else {
         showNotification(NotificationType.ERROR, 'Invalid code =>');
@@ -40,13 +42,13 @@ export const RegisterScreen: React.FC = () => {
   }, [code, navigation]);
 
   return (
-    <View style={styles.registerScreen}>
-      <Text style={styles.title}>{t('registerScreen.message')}</Text>
+    <View style={styles.VerificationScreen}>
+      <Text style={styles.title}>{t('verificationScreen.message')}</Text>
 
-      <View style={styles.registerScreen_content}>
+      <View style={styles.VerificationScreen_content}>
         <Text style={styles.description}>
           <Trans
-            i18nKey="registerScreen.details"
+            i18nKey="verificationScreen.details"
             values={{number: countyPhoneCode + phone}}
             components={{bold: <Text />}}
           />

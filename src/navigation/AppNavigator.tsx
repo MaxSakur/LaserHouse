@@ -3,12 +3,13 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {RootStackParamList} from '../types/navigation';
-import {LoginScreen, RegisterScreen} from '../features/auth/screens';
+import {LoginScreen, VerificationScreen} from '../features/auth/screens';
 import BackButton from '../features/auth/components/buttons/BackButton';
+import {RegisterScreen} from '../features/auth/screens/RegisterScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-const RegisterScreenOptions = {
+const VerificationScreenOptions = {
   headerLeft: () => <BackButton />,
   headerTitle: '',
   headerTransparent: true,
@@ -29,9 +30,14 @@ const AppNavigator: React.FC = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
+          name="Verification"
+          component={VerificationScreen}
+          options={VerificationScreenOptions}
+        />
+        <Stack.Screen
           name="Register"
           component={RegisterScreen}
-          options={RegisterScreenOptions}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

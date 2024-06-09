@@ -1,2 +1,3 @@
 export * from './VerificationCodeInput';
-export * from './TextInput.tsx';
+export * from './MaskedTextInput';
+export * from './MaskedTextInput';
