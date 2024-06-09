@@ -8,7 +8,7 @@ interface VerificationCodeInputProps {
   countyPhoneCode: string;
 }
 
-const VerificationCodeInput: React.FC<VerificationCodeInputProps> = ({
+export const VerificationCodeInput: React.FC<VerificationCodeInputProps> = ({
   value,
   onChange,
   countyPhoneCode,
@@ -29,7 +29,7 @@ const VerificationCodeInput: React.FC<VerificationCodeInputProps> = ({
     <TextInput
       style={styles.input as TextStyle}
       value={maskedValue}
-      placeholder="0 0 0 0"
+      placeholder="0000"
       onChangeText={handleChangeText}
       keyboardType="number-pad"
       textContentType="oneTimeCode"
@@ -48,5 +48,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default VerificationCodeInput;

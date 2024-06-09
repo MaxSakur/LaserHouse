@@ -4,9 +4,12 @@ import React, {useEffect, useState} from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {View, Text} from 'react-native';
 import {RootStackParamList} from '../../../../types/navigation';
-import {styles} from './styles';
-import VerificationCodeInput from '../../components/inputs/VerificationCodeInput.tsx';
+import {VerificationCodeInput} from '../../components/inputs';
 import {countyPhoneCode} from '../../../../utils/masks.ts';
+import {styles} from './styles';
+import useNotification, {
+  NotificationType,
+} from '../../../../hooks/useNotification';
 
 type RegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -20,14 +23,20 @@ export const RegisterScreen: React.FC = () => {
   const [code, setCode] = useState('');
   const {t} = useTranslation();
   const route = useRoute<RegisterScreenRouteProp>();
-  const {phone} = route.params;
+  const {phone, code: verificationCode} = route.params;
+  const {showNotification} = useNotification();
 
   useEffect(() => {
     if (code.length === 4) {
-      // validateCode(code, phone);
-      console.log('code', code);
-      navigation.navigate('Login');
+      if (verificationCode === code) {
+        showNotification(NotificationType.INFO, 'Code is valid');
+        navigation.navigate('Login');
+      } else {
+        showNotification(NotificationType.ERROR, 'Invalid code =>');
+        setCode('');
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code, navigation]);
 
   return (
@@ -39,7 +48,7 @@ export const RegisterScreen: React.FC = () => {
           <Trans
             i18nKey="registerScreen.details"
             values={{number: countyPhoneCode + phone}}
-            components={{bold: <Text style={styles.boldText} />}}
+            components={{bold: <Text />}}
           />
         </Text>
 

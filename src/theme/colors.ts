@@ -8,7 +8,7 @@ export const colors = {
   buttonAccent: '#FF1744',
   uiBackground: '#f1f4f8',
   uiRed: '#B6BCC3',
-  uiRedSecondary: '#DADEE3',
+  uiRedSecondary: '#FFE1E6',
   uiGradientRed: '#FF0000',
   uiGradientBlue: '#0000FF',
   uiGradientGreen: '#00FF00',

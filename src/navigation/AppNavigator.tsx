@@ -4,8 +4,20 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import {RootStackParamList} from '../types/navigation';
 import {LoginScreen, RegisterScreen} from '../features/auth/screens';
+import BackButton from '../features/auth/components/buttons/BackButton';
 
 const Stack = createStackNavigator<RootStackParamList>();
+
+const RegisterScreenOptions = {
+  headerLeft: () => <BackButton />,
+  headerTitle: '',
+  headerTransparent: true,
+  headerStyle: {
+    borderBottomWidth: 0,
+    elevation: 0,
+    shadowOpacity: 0,
+  },
+};
 
 const AppNavigator: React.FC = () => {
   return (
@@ -14,16 +26,12 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen
           name="Login"
           component={LoginScreen}
-          options={{
-            headerShown: false,
-          }}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="Register"
           component={RegisterScreen}
-          options={{
-            headerShown: false,
-          }}
+          options={RegisterScreenOptions}
         />
       </Stack.Navigator>
     </NavigationContainer>

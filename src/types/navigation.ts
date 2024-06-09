@@ -1,4 +1,4 @@
 export type RootStackParamList = {
   Login: undefined;
-  Register: {phone: string};
+  Register: {phone: string; code: string};
 };

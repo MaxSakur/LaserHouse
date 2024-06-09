@@ -12,7 +12,7 @@ interface CustomTextInputProps {
   countyPhoneCode: string;
 }
 
-const CustomTextInput: React.FC<CustomTextInputProps> = ({
+export const CustomTextInput: React.FC<CustomTextInputProps> = ({
   value,
   placeholder,
   onChange,
@@ -79,5 +79,3 @@ const styles = StyleSheet.create({
     ...presets.shadow,
   },
 });
-
-export default CustomTextInput;
