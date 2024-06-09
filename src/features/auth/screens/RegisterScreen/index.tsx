@@ -1,13 +1,12 @@
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import {RootStackParamList} from '../../../../types/navigation';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../../../types/navigation';
+import {CustomCalendarDropdown, CustomTextInput} from '../../components/inputs';
 import {styles} from './styles';
-import {CustomTextInput} from '../../components/inputs/CustomTextInput';
-import CustomDropdown from '../../components/inputs/CustomDropdown';
 
 type RegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -19,7 +18,7 @@ type RegisterScreenRouteProp = RouteProp<RootStackParamList, 'Register'>;
 interface InputData {
   key: string;
   label: string;
-  value: string;
+  value: string | Date;
 }
 
 const inputsData: InputData[] = [
@@ -30,7 +29,7 @@ const inputsData: InputData[] = [
     key: 'parentName',
     value: '',
   },
-  {label: 'registerScreen.personalData.dob', key: 'dob', value: ''},
+  {label: 'registerScreen.personalData.dob', key: 'dob', value: new Date()},
   {label: 'registerScreen.contactData.phone', key: 'phone', value: ''},
   {label: 'registerScreen.contactData.email', key: 'email', value: ''},
 ];
@@ -39,6 +38,7 @@ export const RegisterScreen: React.FC = () => {
   const navigation = useNavigation<RegisterScreenNavigationProp>();
   const {t} = useTranslation();
   const route = useRoute<RegisterScreenRouteProp>();
+  const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
   const [userData, setUserData] = useState<InputData[]>(inputsData);
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
   const {phone} = route.params;
@@ -51,7 +51,7 @@ export const RegisterScreen: React.FC = () => {
     );
   }, [phone]);
 
-  const handleInputChange = (key: string, text: string) => {
+  const handleInputChange = (key: string, text: string | Date) => {
     setUserData(prevUserData =>
       prevUserData.map(input =>
         input.key === key ? {...input, value: text} : input,
@@ -75,7 +75,7 @@ export const RegisterScreen: React.FC = () => {
             <CustomTextInput
               key={input.key + index}
               inputKey={input.key + index}
-              value={input.value}
+              value={input.value as string}
               placeholder={t(input.label)}
               onChangeText={text => handleInputChange(input.key, text)}
               onFocus={() => setFocusedInput(input.key)}
@@ -83,13 +83,11 @@ export const RegisterScreen: React.FC = () => {
               isFocused={focusedInput === input.key}
             />
           ))}
-          <CustomDropdown
-            value={userData[4].value}
-            onChange={text => handleInputChange(userData[4].key, text)}
-            items={[
-              {label: '1', value: '1'},
-              {label: '2', value: '2'},
-            ]}
+          <CustomCalendarDropdown
+            value={userData[3].value as Date}
+            isModalOpen={isDateDropdownOpen}
+            setIsModalOpen={setIsDateDropdownOpen}
+            onChange={value => handleInputChange(userData[3].key, value)}
           />
         </View>
       </View>
@@ -104,7 +102,7 @@ export const RegisterScreen: React.FC = () => {
             <CustomTextInput
               key={input.key + index}
               inputKey={input.key + index}
-              value={input.value}
+              value={input.value as string}
               placeholder={t(input.label)}
               onChangeText={text => handleInputChange(input.key, text)}
               onFocus={() => setFocusedInput(input.key)}
