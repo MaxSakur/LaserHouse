@@ -10,9 +10,6 @@ interface Styles {
   description: TextStyle;
   privacyText: TextStyle;
   privacyLink: TextStyle;
-  button: ViewStyle;
-  buttonText: TextStyle;
-  disabledButton: ViewStyle;
   buttonContainer: ViewStyle;
 }
 
@@ -64,20 +61,5 @@ export const styles = StyleSheet.create<Styles>({
     gap: sizes.xl,
     flex: 1,
     justifyContent: 'flex-end',
-  },
-  button: {
-    width: '100%',
-    paddingVertical: sizes.l,
-    backgroundColor: colors.buttonAccent,
-    borderRadius: sizes.radius,
-    alignItems: 'center',
-    marginBottom: sizes.l,
-  },
-  buttonText: {
-    ...textStyles.button,
-    color: colors.white,
-  },
-  disabledButton: {
-    backgroundColor: colors.quaternary,
   },
 });

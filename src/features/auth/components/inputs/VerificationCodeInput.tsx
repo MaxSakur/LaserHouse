@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, TextInput, TextStyle} from 'react-native';
-import {colors, sizes, textStyles} from '../../../../theme';
+import {sizes, textStyles} from '../../../../theme';
 
 interface VerificationCodeInputProps {
   value: string;
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   input: {
     ...textStyles.verificationCode,
     letterSpacing: sizes.xl,
-    backgroundColor: colors.white,
+    backgroundColor: 'transparent',
     padding: sizes.l,
     borderRadius: sizes.radius,
     textAlign: 'center',

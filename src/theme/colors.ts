@@ -7,6 +7,7 @@ export const colors = {
   quaternary: '#DADEE3',
   buttonAccent: '#FF1744',
   uiBackground: '#f1f4f8',
+  success: '#00EBB6',
   uiRed: '#B6BCC3',
   uiRedSecondary: '#FFE1E6',
   uiGradientRed: '#FF0000',

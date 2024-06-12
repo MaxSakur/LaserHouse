@@ -6,6 +6,7 @@ import {RootStackParamList} from '../types/navigation';
 import {LoginScreen, VerificationScreen} from '../features/auth/screens';
 import BackButton from '../features/auth/components/buttons/BackButton';
 import {RegisterScreen} from '../features/auth/screens/RegisterScreen';
+import {useTranslation} from 'react-i18next';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -20,24 +21,35 @@ const VerificationScreenOptions = {
   },
 };
 
+const RegistrationScreenOptions = {
+  headerLeft: () => <BackButton />,
+};
+
 const AppNavigator: React.FC = () => {
+  const {t} = useTranslation();
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
           component={LoginScreen}
-          options={{headerShown: false}}
+          options={{headerShown: false, title: t('loginScreen.title')}}
         />
         <Stack.Screen
           name="Verification"
           component={VerificationScreen}
-          options={VerificationScreenOptions}
+          options={{
+            ...VerificationScreenOptions,
+            title: t('verificationScreen.title'),
+          }}
         />
         <Stack.Screen
           name="Register"
           component={RegisterScreen}
-          options={{headerShown: false}}
+          options={{
+            ...RegistrationScreenOptions,
+            title: t('registerScreen.title'),
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

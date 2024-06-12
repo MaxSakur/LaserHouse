@@ -1,38 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-import {Text, TouchableOpacity, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {Text, View} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {RootStackParamList} from '../../../../types/navigation';
-import {CustomCalendarDropdown, CustomTextInput} from '../../components/inputs';
+import {CalendarDropdown, DefaultInput} from '../../components/inputs';
 import {styles} from './styles';
+import {PrivacyAgreement} from '../../components/PrivacyAgreement';
+import {InputData, inputsData} from './screenData';
+import {DefaultButton} from '../../components/buttons/DefaultButton';
+import {validateEmail} from '../../../../utils';
+import useModalContent from '../../../../hooks/useModalContent';
+import {authService} from '../../services/authService';
+import {IRegisterRequest} from '../../../../types/auth';
 
 type RegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Register'
 >;
-
 type RegisterScreenRouteProp = RouteProp<RootStackParamList, 'Register'>;
-
-interface InputData {
-  key: string;
-  label: string;
-  value: string | Date;
-}
-
-const inputsData: InputData[] = [
-  {label: 'registerScreen.personalData.name', key: 'name', value: ''},
-  {label: 'registerScreen.personalData.surname', key: 'surname', value: ''},
-  {
-    label: 'registerScreen.personalData.parentName',
-    key: 'parentName',
-    value: '',
-  },
-  {label: 'registerScreen.personalData.dob', key: 'dob', value: new Date()},
-  {label: 'registerScreen.contactData.phone', key: 'phone', value: ''},
-  {label: 'registerScreen.contactData.email', key: 'email', value: ''},
-];
 
 export const RegisterScreen: React.FC = () => {
   const navigation = useNavigation<RegisterScreenNavigationProp>();
@@ -40,7 +27,14 @@ export const RegisterScreen: React.FC = () => {
   const route = useRoute<RegisterScreenRouteProp>();
   const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
   const [userData, setUserData] = useState<InputData[]>(inputsData);
+  const [isPrivacyAgr, setIsPrivacyAgr] = useState(false);
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const {open, ModalComponent} = useModalContent({
+    headerText: t('registerScreen.privacyAgreementHeader'),
+    contentText: t('registerScreen.privacyAgreementText'),
+  });
+
   const {phone} = route.params;
 
   useEffect(() => {
@@ -51,6 +45,11 @@ export const RegisterScreen: React.FC = () => {
     );
   }, [phone]);
 
+  useEffect(() => {
+    setIsFormValid(validateForm());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData]);
+
   const handleInputChange = (key: string, text: string | Date) => {
     setUserData(prevUserData =>
       prevUserData.map(input =>
@@ -59,12 +58,43 @@ export const RegisterScreen: React.FC = () => {
     );
   };
 
-  const handleRegister = () => {
-    navigation.navigate('Register', {phone});
+  const validateForm = () => {
+    return userData.every(input => {
+      if (input.isRequired) {
+        return input.value !== '';
+      }
+      return true;
+    });
+  };
+
+  const handleRegister = async () => {
+    const pretifiedUserData: IRegisterRequest = userData.reduce(
+      (acc, input) => {
+        return {...acc, [input.key]: input.value};
+      },
+      {} as IRegisterRequest,
+    );
+
+    const {statusCode} = await authService.register(pretifiedUserData);
+    if (statusCode === 200) {
+      navigation.navigate('Login');
+    }
+  };
+
+  const handleEmailValid = () => {
+    const emailInput = userData.find(input => input.key === 'email');
+    if (emailInput) {
+      return !validateEmail(emailInput.value as string);
+    }
+    return false;
   };
 
   return (
-    <SafeAreaView style={styles.registerScreen}>
+    <KeyboardAwareScrollView
+      style={styles.container}
+      contentContainerStyle={styles.registerScreen}
+      enableOnAndroid={true}
+      extraHeight={200}>
       <View style={styles.inputsSection}>
         <Text style={styles.inputsSectionTitle}>
           {t('registerScreen.personalData.label')}
@@ -72,9 +102,9 @@ export const RegisterScreen: React.FC = () => {
 
         <View style={styles.personalData}>
           {userData.slice(0, 3).map((input, index) => (
-            <CustomTextInput
+            <DefaultInput
+              inputKey={input.key}
               key={input.key + index}
-              inputKey={input.key + index}
               value={input.value as string}
               placeholder={t(input.label)}
               onChangeText={text => handleInputChange(input.key, text)}
@@ -83,7 +113,7 @@ export const RegisterScreen: React.FC = () => {
               isFocused={focusedInput === input.key}
             />
           ))}
-          <CustomCalendarDropdown
+          <CalendarDropdown
             value={userData[3].value as Date}
             isModalOpen={isDateDropdownOpen}
             setIsModalOpen={setIsDateDropdownOpen}
@@ -99,9 +129,10 @@ export const RegisterScreen: React.FC = () => {
 
         <View style={styles.personalData}>
           {userData.slice(4, 6).map((input, index) => (
-            <CustomTextInput
+            <DefaultInput
               key={input.key + index}
-              inputKey={input.key + index}
+              inputKey={input.key}
+              disabled={input.isDisabled}
               value={input.value as string}
               placeholder={t(input.label)}
               onChangeText={text => handleInputChange(input.key, text)}
@@ -111,11 +142,22 @@ export const RegisterScreen: React.FC = () => {
             />
           ))}
         </View>
+
+        <PrivacyAgreement
+          isApproved={isPrivacyAgr}
+          onCheckBoxClick={() => setIsPrivacyAgr(!isPrivacyAgr)}
+          onLinkClick={open}
+        />
+        {ModalComponent}
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>{t('registerScreen.register')}</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+      <View style={styles.buttonContainer}>
+        <DefaultButton
+          buttonText={t('registerScreen.register')}
+          disabled={!isFormValid || !isPrivacyAgr || handleEmailValid()}
+          onPress={handleRegister}
+        />
+      </View>
+    </KeyboardAwareScrollView>
   );
 };

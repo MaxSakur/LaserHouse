@@ -1,21 +1,21 @@
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import React, {useState} from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
 } from 'react-native';
 import {RootStackParamList} from '../../../../types/navigation';
 import {styles} from './styles';
-import {useTranslation} from 'react-i18next';
-import {MaskedTextInput} from '../../components/inputs';
+import {MaskedPhoneInput} from '../../components/inputs';
 import {countyPhoneCode, phoneMask} from '../../../../utils';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {authService} from '../../services/authService';
+import {DefaultButton} from '../../components/buttons/DefaultButton';
 
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -28,19 +28,11 @@ export const LoginScreen: React.FC = () => {
   const {t} = useTranslation();
 
   const handleLogin = async () => {
-    const {code, success} = await authService.login(phone);
-
-    if (success) {
-      navigation.navigate('Verification', {phone, code});
+    const {statusCode, data} = await authService.sendVerificationCode(phone);
+    if (statusCode === 200 && data !== null) {
+      navigation.navigate('Verification', {phone, data});
       setPhone('');
-      return;
-    } else {
-      console.log('Error');
     }
-  };
-
-  const handleRegister = () => {
-    navigation.navigate('Register', {phone});
   };
 
   const conditionsToLogin =
@@ -58,7 +50,7 @@ export const LoginScreen: React.FC = () => {
               {t('loginScreen.enterPhone')}
             </Text>
 
-            <MaskedTextInput
+            <MaskedPhoneInput
               value={phone}
               onChange={setPhone}
               isMajor={true}
@@ -73,19 +65,13 @@ export const LoginScreen: React.FC = () => {
               </Text>
             </Text>
           </View>
-
-          <TouchableOpacity
-            style={[styles.button, conditionsToLogin && styles.disabledButton]}
+          <DefaultButton
+            buttonText={t('loginScreen.enter')}
             disabled={conditionsToLogin}
-            onPress={handleLogin}>
-            <Text style={styles.buttonText}>{t('loginScreen.enter')}</Text>
-          </TouchableOpacity>
+            onPress={handleLogin}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
-
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>{t('loginScreen.create')}</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 };

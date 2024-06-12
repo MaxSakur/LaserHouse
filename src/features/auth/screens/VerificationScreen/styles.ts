@@ -1,28 +1,35 @@
 import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
-import {colors, sizes, textStyles, presets} from '../../../../theme';
+import {colors, sizes, textStyles} from '../../../../theme';
 
 interface Styles {
-  VerificationScreen: ViewStyle;
-  title: ViewStyle | TextStyle;
-  VerificationScreen_content: ViewStyle;
+  safeArea: ViewStyle;
+  content: ViewStyle;
+  contentBody: ViewStyle;
+  title: TextStyle;
   description: TextStyle;
   privacyText: TextStyle;
   privacyLink: TextStyle;
-  button: ViewStyle;
-  buttonText: TextStyle;
+  boldText: TextStyle;
+  notRegistered: ViewStyle;
+  notRegisteredText: TextStyle;
+  notRegisteredHighlight: TextStyle;
 }
 
 export const styles = StyleSheet.create<Styles>({
-  VerificationScreen: {
-    ...textStyles.headline1,
-    ...presets.flexCenter,
+  safeArea: {
     flex: 1,
-    padding: sizes.l,
     backgroundColor: colors.white,
+    padding: sizes.l,
   },
-  VerificationScreen_content: {
+  content: {
+    flex: 1,
+    justifyContent: 'space-between',
     gap: sizes.l,
-    paddingBottom: sizes.xl,
+  },
+  contentBody: {
+    justifyContent: 'center',
+    flex: 1,
+    gap: sizes.l,
   },
   title: {
     ...textStyles.title1,
@@ -47,15 +54,16 @@ export const styles = StyleSheet.create<Styles>({
     ...textStyles.headline2,
     color: colors.buttonAccent,
   },
-  button: {
-    width: '100%',
-    paddingVertical: sizes.l,
-    backgroundColor: colors.buttonAccent,
-    borderRadius: sizes.radius,
-    alignItems: 'center',
+  notRegistered: {
+    gap: sizes.xl,
   },
-  buttonText: {
-    ...textStyles.button,
-    color: colors.white,
+  notRegisteredText: {
+    ...textStyles.headline2,
+    paddingHorizontal: sizes.l,
+    textAlign: 'center',
+    lineHeight: 24,
+  },
+  notRegisteredHighlight: {
+    fontWeight: 'bold',
   },
 });

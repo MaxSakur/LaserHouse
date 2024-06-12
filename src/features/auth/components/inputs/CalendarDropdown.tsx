@@ -3,6 +3,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {format} from 'date-fns';
 import {colors, sizes} from '../../../../theme';
+import {useTranslation} from 'react-i18next';
 
 interface CustomCalendarDropdownProps {
   value: Date;
@@ -11,24 +12,35 @@ interface CustomCalendarDropdownProps {
   onChange: (value: Date) => void;
 }
 
-export const CustomCalendarDropdown: React.FC<CustomCalendarDropdownProps> = ({
+export const CalendarDropdown: React.FC<CustomCalendarDropdownProps> = ({
   value,
   isModalOpen,
   setIsModalOpen,
   onChange,
 }) => {
+  const {t} = useTranslation();
+
   return (
     <>
       <TouchableOpacity
         style={[styles.input, isModalOpen && styles.focusedInput]}
         onPress={() => setIsModalOpen(true)}>
-        <Text>{format(value, 'dd-MM HH:MM:SS')}</Text>
+        <Text style={!value && styles.placeholder}>
+          {!value
+            ? t('registerScreen.personalData.dob')
+            : format(value, 'dd.MM.yyyy')}
+        </Text>
       </TouchableOpacity>
 
       <DatePicker
         modal
         open={isModalOpen}
-        date={value}
+        date={value || new Date()}
+        mode="date"
+        locale="uk"
+        title={t('selectDate')}
+        confirmText={t('approve')}
+        cancelText={t('cancel')}
         onConfirm={date => {
           setIsModalOpen(false);
           onChange(date);
@@ -47,6 +59,9 @@ const styles = StyleSheet.create({
     borderColor: colors.quaternary,
     padding: sizes.l,
     borderRadius: sizes.radius,
+  },
+  placeholder: {
+    color: '#c5c5c7',
   },
   focusedInput: {
     backgroundColor: colors.uiBackground,

@@ -72,6 +72,7 @@ interface TextStylesCollection {
   title2: TextStyles;
   headline1: TextStyles;
   headline2: TextStyles;
+  sectionLabel: TextStyles;
   button: TextStyles;
   body1: TextStyles;
   body2: TextStyles;
@@ -100,6 +101,11 @@ const textStyles: TextStylesCollection = {
   headline2: {
     fontFamily: fonts.SFProDisplay.regular,
     fontSize: 16,
+  },
+  sectionLabel: {
+    fontFamily: fonts.SFProDisplay.regular,
+    fontSize: 16,
+    fontWeight: '600',
   },
   button: {
     fontFamily: fonts.SFProDisplay.medium,

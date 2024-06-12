@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {TextInputMask} from 'react-native-masked-text';
 import {colors, presets, sizes, textStyles} from '../../../../theme';
 
-interface MaskedTextInputProps {
+interface MaskedPhoneInputProps {
   value: string;
   placeholder?: string;
   onChange: (text: string) => void;
@@ -12,7 +12,7 @@ interface MaskedTextInputProps {
   countyPhoneCode: string;
 }
 
-export const MaskedTextInput: React.FC<MaskedTextInputProps> = ({
+export const MaskedPhoneInput: React.FC<MaskedPhoneInputProps> = ({
   value,
   placeholder,
   onChange,
@@ -41,7 +41,7 @@ export const MaskedTextInput: React.FC<MaskedTextInputProps> = ({
     <TextInputMask
       type={'custom'}
       options={{
-        mask: mask,
+        mask,
       }}
       style={[
         styles.input,

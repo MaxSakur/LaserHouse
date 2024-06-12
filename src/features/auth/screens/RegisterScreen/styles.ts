@@ -1,7 +1,8 @@
 import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
-import {colors, sizes, textStyles, presets} from '../../../../theme';
+import {colors, sizes, textStyles} from '../../../../theme';
 
 interface Styles {
+  container: ViewStyle;
   registerScreen: ViewStyle;
   personalData: ViewStyle;
   inputsSection: ViewStyle;
@@ -9,21 +10,26 @@ interface Styles {
   focusedInput: ViewStyle;
   inputsSectionTitle: TextStyle;
   button: ViewStyle;
+  buttonContainer: ViewStyle;
   buttonText: TextStyle;
 }
 
 export const styles = StyleSheet.create<Styles>({
+  container: {
+    flex: 1,
+  },
   registerScreen: {
     ...textStyles.headline1,
-    ...presets.flexCenter,
-    flex: 1,
-    padding: sizes.l,
     backgroundColor: colors.white,
+    flex: 1,
     justifyContent: 'flex-start',
+    padding: sizes.l,
+    gap: sizes.xl,
+    borderRadius: sizes.radius,
   },
   inputsSection: {
     width: '100%',
-    gap: sizes.xl,
+    gap: sizes.l,
   },
   focusedInput: {
     backgroundColor: colors.uiBackground,
@@ -32,22 +38,26 @@ export const styles = StyleSheet.create<Styles>({
   input: {
     borderWidth: 1,
     borderColor: colors.quaternary,
-
     padding: sizes.l,
     borderRadius: sizes.radius,
   },
   inputsSectionTitle: {
-    ...textStyles.title1,
+    ...textStyles.sectionLabel,
+    paddingHorizontal: sizes.l,
     color: colors.primary,
-    textAlign: 'center',
   },
   personalData: {
     width: '100%',
     gap: sizes.xl,
     justifyContent: 'center',
   },
-  button: {
+  buttonContainer: {
+    flex: 1,
     width: '100%',
+    justifyContent: 'flex-end',
+    paddingVertical: sizes.l,
+  },
+  button: {
     paddingVertical: sizes.l,
     backgroundColor: colors.buttonAccent,
     borderRadius: sizes.radius,

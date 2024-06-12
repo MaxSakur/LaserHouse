@@ -1,21 +1,77 @@
 import {
+  IDefaultResponse,
+  // IVarificateRequest,
+  IVarificateResponse,
+  // ILoginRequest,
   ILoginResponse,
-  login as apiLogin,
-  register as apiRegister,
-} from '../../../api/auth';
+  // IRegisterRequest,
+  IRegisterResponse,
+  IRegisterRequest,
+} from '../../../types/auth';
 
-export const login = async (phone: string): Promise<ILoginResponse> => {
-  return apiLogin(phone);
+const sendVerificationCode = async (
+  phone: string,
+): Promise<IDefaultResponse<IVarificateResponse>> => {
+  // const requestBody: IVarificateRequest = {phone};
+
+  // const response = await api.post<IDefaultResponse<IVarificateResponse>>(
+  //   '/varificate',
+  //   requestBody,
+  // );
+
+  return {
+    success: true,
+    statusCode: 200,
+    message: `Verification code was sent to ${phone}`,
+    data: {
+      isRegistered: false,
+      code: '1234',
+    },
+  };
 };
 
-export const register = async (
-  email: string,
-  password: string,
-): Promise<void> => {
-  return apiRegister(email, password);
+const login = async (
+  phone: string,
+): Promise<IDefaultResponse<ILoginResponse>> => {
+  // const requestBody: ILoginRequest = {phone};
+
+  // const response = await api.post<IDefaultResponse<IVarificateResponse>>(
+  //   '/login',
+  //   requestBody,
+  // );
+
+  return {
+    success: true,
+    statusCode: 200,
+    message: `User with ${phone} successfully logged in`,
+    data: {
+      token: '1234567890',
+    },
+  };
+};
+
+const register = async (
+  data: IRegisterRequest,
+): Promise<IDefaultResponse<IRegisterResponse>> => {
+  // const requestBody: IRegisterRequest = {data};
+
+  // const response = await api.post<IDefaultResponse<IVarificateResponse>>(
+  //   '/register',
+  //   requestBody,
+  // );
+
+  return {
+    success: true,
+    statusCode: 200,
+    message: `User with ${data.phone} successfully registered`,
+    data: {
+      token: '1234567890',
+    },
+  };
 };
 
 export const authService = {
+  sendVerificationCode,
   login,
   register,
 };

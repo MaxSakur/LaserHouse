@@ -2,7 +2,7 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {Trans, useTranslation} from 'react-i18next';
 import React, {useEffect, useState} from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {View, Text} from 'react-native';
+import {View, Text, Keyboard} from 'react-native';
 import {RootStackParamList} from '../../../../types/navigation';
 import {VerificationCodeInput} from '../../components/inputs';
 import {countyPhoneCode} from '../../../../utils/masks';
@@ -10,6 +10,9 @@ import {styles} from './styles';
 import useNotification, {
   NotificationType,
 } from '../../../../hooks/useNotification';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {DefaultButton} from '../../components/buttons/DefaultButton';
+import {authService} from '../../services/authService';
 
 type VerificationScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -24,42 +27,115 @@ type VerificationScreenRouteProp = RouteProp<
 export const VerificationScreen: React.FC = () => {
   const navigation = useNavigation<VerificationScreenNavigationProp>();
   const [code, setCode] = useState('');
+  const [isResendAvailable, setIsResendAvailable] = useState(true);
+  const [isCreateAvailable, setIsCreateAvailable] = useState(false);
+  const [isCodeValid, setIsCodeValid] = useState(true);
+  const [resendCounter, setResendCounter] = useState(0);
   const {t} = useTranslation();
   const route = useRoute<VerificationScreenRouteProp>();
-  const {phone, code: verificationCode} = route.params;
+  const {phone, data: verificationData} = route.params;
   const {showNotification} = useNotification();
 
   useEffect(() => {
-    if (code.length === 4) {
-      if (verificationCode === code) {
-        navigation.navigate('Login');
-      } else {
-        showNotification(NotificationType.ERROR, 'Invalid code =>');
-        setCode('');
+    const verifyCode = async () => {
+      if (code.length === 4) {
+        if (verificationData?.code === code) {
+          if (verificationData?.isRegistered) {
+            const {statusCode} = await authService.login(phone);
+            if (statusCode === 200) {
+              navigation.navigate('Login');
+            }
+          } else {
+            setIsCodeValid(false);
+            setIsCreateAvailable(true);
+          }
+        } else {
+          showNotification(
+            NotificationType.ERROR,
+            t('verificationScreen.error'),
+          );
+          setCode('');
+        }
+        Keyboard.dismiss();
       }
+    };
+
+    verifyCode();
+  }, [code, navigation, showNotification, t, verificationData, phone]);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (resendCounter > 0) {
+      timer = setInterval(() => {
+        setResendCounter(prevCounter => prevCounter - 1);
+      }, 1000);
+    } else {
+      setIsResendAvailable(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [code, navigation]);
+    return () => clearInterval(timer);
+  }, [resendCounter]);
+
+  const handleResendCode = async () => {
+    const {statusCode, data} = await authService.sendVerificationCode(phone);
+    if (statusCode === 200 && data !== null) {
+      setIsResendAvailable(false);
+      setResendCounter(60);
+    }
+  };
+
+  const handleRegister = () => {
+    navigation.navigate('Register', {phone: `${countyPhoneCode}${phone}`});
+  };
 
   return (
-    <View style={styles.VerificationScreen}>
-      <Text style={styles.title}>{t('verificationScreen.message')}</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.content}>
+        <View style={styles.contentBody}>
+          <Text style={styles.title}>{t('verificationScreen.message')}</Text>
+          <Text style={styles.description}>
+            <Trans
+              i18nKey="verificationScreen.details"
+              values={{number: countyPhoneCode + phone}}
+              components={{bold: <Text style={styles.boldText} />}}
+            />
+          </Text>
 
-      <View style={styles.VerificationScreen_content}>
-        <Text style={styles.description}>
-          <Trans
-            i18nKey="verificationScreen.details"
-            values={{number: countyPhoneCode + phone}}
-            components={{bold: <Text />}}
+          <VerificationCodeInput
+            value={code}
+            onChange={setCode}
+            countyPhoneCode={countyPhoneCode}
           />
-        </Text>
+        </View>
 
-        <VerificationCodeInput
-          value={code}
-          onChange={setCode}
-          countyPhoneCode={countyPhoneCode}
-        />
+        {!verificationData?.isRegistered && (
+          <View style={styles.notRegistered}>
+            <Text style={styles.notRegisteredText}>
+              <Trans
+                i18nKey="verificationScreen.notRegistered"
+                components={{
+                  bold: <Text style={styles.notRegisteredHighlight} />,
+                }}
+              />
+            </Text>
+            <DefaultButton
+              buttonText={t('verificationScreen.create')}
+              disabled={!isCreateAvailable}
+              onPress={handleRegister}
+            />
+          </View>
+        )}
+
+        {isCodeValid && (
+          <DefaultButton
+            buttonText={
+              t('verificationScreen.resend') +
+              (resendCounter > 0 ? ` (${resendCounter})` : '')
+            }
+            disabled={!isResendAvailable}
+            onPress={handleResendCode}
+          />
+        )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
