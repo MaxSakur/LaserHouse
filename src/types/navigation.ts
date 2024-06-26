@@ -4,4 +4,5 @@ export type RootStackParamList = {
   Login: undefined;
   Verification: {phone: string; data: IVarificateResponse | null};
   Register: {phone: string};
+  LoggedIn: {screen: string};
 };

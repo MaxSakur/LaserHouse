@@ -7,9 +7,7 @@ import {RootStackParamList} from '../../../../types/navigation';
 import {VerificationCodeInput} from '../../components/inputs';
 import {countyPhoneCode} from '../../../../utils/masks';
 import {styles} from './styles';
-import useNotification, {
-  NotificationType,
-} from '../../../../hooks/useNotification';
+import useNotification from '../../../../hooks/useNotification';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {DefaultButton} from '../../components/buttons/DefaultButton';
 import {authService} from '../../services/authService';
@@ -41,20 +39,18 @@ export const VerificationScreen: React.FC = () => {
       if (code.length === 4) {
         if (verificationData?.code === code) {
           if (verificationData?.isRegistered) {
-            const {statusCode} = await authService.login(phone);
-            if (statusCode === 200) {
-              navigation.navigate('Login');
+            const {statusCode, data} = await authService.login(phone);
+            if (statusCode === 200 && data?.token && data.token !== null) {
+              await authService.storeToken(data.token);
+
+              navigation.navigate('LoggedIn', {
+                screen: 'Home',
+              });
             }
           } else {
             setIsCodeValid(false);
             setIsCreateAvailable(true);
           }
-        } else {
-          showNotification(
-            NotificationType.ERROR,
-            t('verificationScreen.error'),
-          );
-          setCode('');
         }
         Keyboard.dismiss();
       }

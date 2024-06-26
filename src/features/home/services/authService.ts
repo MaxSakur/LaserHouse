@@ -8,7 +8,6 @@ import {
   IRegisterResponse,
   IRegisterRequest,
 } from '../../../types/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const sendVerificationCode = async (
   phone: string,
@@ -25,7 +24,7 @@ const sendVerificationCode = async (
     statusCode: 200,
     message: `Verification code was sent to ${phone}`,
     data: {
-      isRegistered: true,
+      isRegistered: false,
       code: '1234',
     },
   };
@@ -71,52 +70,8 @@ const register = async (
   };
 };
 
-const storeToken = async (token: string) => {
-  console.log('storeToken', token);
-  try {
-    await AsyncStorage.setItem('@user_token', token);
-  } catch (e) {
-    // saving error
-  }
-};
-
-const getToken = async () => {
-  try {
-    const token = await AsyncStorage.getItem('@user_token');
-    return token !== null ? token : null;
-  } catch (e) {
-    // error reading value
-    return null;
-  }
-};
-
-const removeToken = async () => {
-  try {
-    await AsyncStorage.removeItem('@user_token');
-  } catch (e) {
-    // remove error
-  }
-};
-
-const isTokenValid = async (): Promise<boolean> => {
-  // const response = await api.get<IDefaultResponse<IVarificateResponse>>(
-  //   '/validate',
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   },
-  // );
-  const token = await getToken();
-  return token ? true : false;
-};
-
 export const authService = {
   sendVerificationCode,
   login,
   register,
-  getToken,
-  removeToken,
-  storeToken,
-  isTokenValid,
 };
