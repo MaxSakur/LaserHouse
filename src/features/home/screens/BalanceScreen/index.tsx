@@ -5,26 +5,11 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import {styles} from './styles';
-
-import DeviceInfo from 'react-native-device-info';
 import {BonusFounds, BonusQRCode} from './parts';
+import {styles} from './styles';
 
 export const BalanceScreen: React.FC = () => {
   const fullName = 'Давиденко Іван Іванович';
-
-  useEffect(() => {
-    const fetchDeviceId = async () => {
-      try {
-        const id = await DeviceInfo.getDeviceId();
-        console.log(id);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchDeviceId();
-  }, []);
 
   return (
     <SafeAreaView style={styles.balanceScreen}>

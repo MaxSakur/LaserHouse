@@ -1,9 +1,13 @@
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {Trans, useTranslation} from 'react-i18next';
+// VerificationScreen.tsx
 import React, {useEffect, useState} from 'react';
-import {StackNavigationProp} from '@react-navigation/stack';
 import {View, Text, Keyboard} from 'react-native';
-import {RootStackParamList} from '../../../../types/navigation';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {Trans, useTranslation} from 'react-i18next';
+import {
+  RootStackParamList,
+  LoggedInNavigationRoutes,
+  AuthNavigationRoutes,
+} from '../../../../types/navigation';
 import {VerificationCodeInput} from '../../components/inputs';
 import {countyPhoneCode} from '../../../../utils/masks';
 import {styles} from './styles';
@@ -11,11 +15,7 @@ import useNotification from '../../../../hooks/useNotification';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {DefaultButton} from '../../components/buttons/DefaultButton';
 import {authService} from '../../services/authService';
-
-type VerificationScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'Verification'
->;
+import {RouteService} from '../../services/routeService';
 
 type VerificationScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -23,7 +23,6 @@ type VerificationScreenRouteProp = RouteProp<
 >;
 
 export const VerificationScreen: React.FC = () => {
-  const navigation = useNavigation<VerificationScreenNavigationProp>();
   const [code, setCode] = useState('');
   const [isResendAvailable, setIsResendAvailable] = useState(true);
   const [isCreateAvailable, setIsCreateAvailable] = useState(false);
@@ -43,9 +42,7 @@ export const VerificationScreen: React.FC = () => {
             if (statusCode === 200 && data?.token && data.token !== null) {
               await authService.storeToken(data.token);
 
-              navigation.navigate('LoggedIn', {
-                screen: 'Home',
-              });
+              RouteService.navigate(LoggedInNavigationRoutes.balance);
             }
           } else {
             setIsCodeValid(false);
@@ -57,7 +54,7 @@ export const VerificationScreen: React.FC = () => {
     };
 
     verifyCode();
-  }, [code, navigation, showNotification, t, verificationData, phone]);
+  }, [code, showNotification, t, verificationData, phone]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -80,7 +77,9 @@ export const VerificationScreen: React.FC = () => {
   };
 
   const handleRegister = () => {
-    navigation.navigate('Register', {phone: `${countyPhoneCode}${phone}`});
+    RouteService.navigate(AuthNavigationRoutes.register, {
+      phone: `${countyPhoneCode}${phone}`,
+    });
   };
 
   return (

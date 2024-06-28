@@ -7,7 +7,7 @@ export const sizes = {
   l: scale(16),
   xl: scale(24),
   xxl: scale(32),
-
+  xxxl: scale(48),
   radius: scale(10),
   headerHeight: scale(40),
 };

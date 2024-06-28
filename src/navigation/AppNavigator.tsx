@@ -3,12 +3,13 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 
-import {RootStackParamList} from '../types/navigation';
+import {AuthNavigationRoutes, RootStackParamList} from '../types/navigation';
 import {LoginScreen, VerificationScreen} from '../features/auth/screens';
 import BackButton from '../features/auth/components/buttons/BackButton';
 import {RegisterScreen} from '../features/auth/screens/RegisterScreen';
 import {LoggedInStackNavigator} from './LoggedInStackNavigator';
 import {AuthProvider, useAuth} from '../hooks/useAuth';
+import {RouteService} from '../features/auth/services/routeService';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -36,17 +37,17 @@ const AppNavigator: React.FC = () => {
   }, [checkAuthStatus]);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={RouteService.navigationRef}>
       <Stack.Navigator initialRouteName="Login">
         {!isLoggedIn ? (
           <>
             <Stack.Screen
-              name="Login"
+              name={AuthNavigationRoutes.login}
               component={LoginScreen}
               options={{headerShown: false, title: t('loginScreen.title')}}
             />
             <Stack.Screen
-              name="Verification"
+              name={AuthNavigationRoutes.verification}
               component={VerificationScreen}
               options={{
                 ...VerificationScreenOptions,
@@ -54,7 +55,7 @@ const AppNavigator: React.FC = () => {
               }}
             />
             <Stack.Screen
-              name="Register"
+              name={AuthNavigationRoutes.register}
               component={RegisterScreen}
               options={{
                 ...RegistrationScreenOptions,
@@ -63,11 +64,7 @@ const AppNavigator: React.FC = () => {
             />
           </>
         ) : (
-          <Stack.Screen
-            name="LoggedIn"
-            component={LoggedInStackNavigator}
-            options={{headerShown: false}}
-          />
+          <Stack.Screen name="LoggedIn" component={LoggedInStackNavigator} />
         )}
       </Stack.Navigator>
     </NavigationContainer>
