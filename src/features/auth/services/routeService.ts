@@ -8,55 +8,55 @@ import {
 const navigationRef = createNavigationContainerRef();
 
 const navigate = (name: string, params?: object) => {
-  if (navigationRef.isReady()) {
-    navigationRef.current?.dispatch(CommonActions.navigate({name, params}));
+  if (navigationRef.isReady() && navigationRef.current) {
+    navigationRef.current.dispatch(CommonActions.navigate({name, params}));
   }
 };
 
 const openDrawer = () => {
-  if (navigationRef?.current) {
-    navigationRef.current?.dispatch(DrawerActions.openDrawer());
+  if (navigationRef.isReady() && navigationRef.current) {
+    navigationRef.current.dispatch(DrawerActions.openDrawer());
   }
 };
 
 const closeDrawer = () => {
-  if (navigationRef?.current) {
-    navigationRef.current?.dispatch(DrawerActions.closeDrawer());
+  if (navigationRef.isReady() && navigationRef.current) {
+    navigationRef.current.dispatch(DrawerActions.closeDrawer());
   }
 };
 
 const goBack = () => {
-  if (navigationRef?.current && navigationRef.current?.canGoBack()) {
-    navigationRef.current?.dispatch(CommonActions.goBack());
+  if (navigationRef.isReady() && navigationRef.current?.canGoBack()) {
+    navigationRef.current.dispatch(CommonActions.goBack());
   }
 };
 
 const pop = (screenCount?: number) => {
-  if (navigationRef?.current && navigationRef.current?.canGoBack()) {
-    navigationRef.current?.dispatch(StackActions.pop(screenCount));
+  if (navigationRef.isReady() && navigationRef.current?.canGoBack()) {
+    navigationRef.current.dispatch(StackActions.pop(screenCount));
   }
 };
 
 const popToTop = () => {
-  if (navigationRef?.current && navigationRef.current?.canGoBack()) {
-    navigationRef.current?.dispatch(StackActions.popToTop());
+  if (navigationRef.isReady() && navigationRef.current?.canGoBack()) {
+    navigationRef.current.dispatch(StackActions.popToTop());
   }
 };
 
 const push = (name: string, params?: object) => {
-  if (navigationRef?.current) {
-    navigationRef.current?.dispatch(StackActions.push(name, params));
+  if (navigationRef.isReady() && navigationRef.current) {
+    navigationRef.current.dispatch(StackActions.push(name, params));
   }
 };
 
 const replace = (name: string, params?: object) => {
-  if (navigationRef.isReady()) {
-    navigationRef.current?.dispatch(StackActions.replace(name, params));
+  if (navigationRef.isReady() && navigationRef.current) {
+    navigationRef.current.dispatch(StackActions.replace(name, params));
   }
 };
 
 const reset = (name: string, params?: object) => {
-  if (navigationRef?.current) {
+  if (navigationRef.isReady() && navigationRef.current) {
     navigationRef.current.dispatch(
       CommonActions.reset({
         index: 0,
@@ -70,7 +70,7 @@ const setParamsByRouteKey = (
   routeKey?: string,
   params: Record<string, unknown> = {},
 ) => {
-  if (routeKey) {
+  if (navigationRef.isReady() && routeKey) {
     navigationRef.current?.dispatch({
       ...CommonActions.setParams(params),
       source: routeKey,
