@@ -67,6 +67,8 @@ interface TextStyles {
 }
 
 interface TextStylesCollection {
+  mainValue: TextStyles;
+  currency: TextStyles;
   title1: TextStyles;
   verificationCode: TextStyles;
   title2: TextStyles;
@@ -80,6 +82,14 @@ interface TextStylesCollection {
 }
 
 const textStyles: TextStylesCollection = {
+  mainValue: {
+    fontFamily: fonts.SFProDisplay.medium,
+    fontSize: 58,
+  },
+  currency: {
+    fontFamily: fonts.SFProDisplay.medium,
+    fontSize: 38,
+  },
   title1: {
     fontFamily: fonts.SFProDisplay.bold,
     fontSize: 32,
@@ -92,6 +102,7 @@ const textStyles: TextStylesCollection = {
   },
   title2: {
     fontFamily: fonts.SFProDisplay.medium,
+    fontWeight: '600',
     fontSize: 20,
   },
   headline1: {

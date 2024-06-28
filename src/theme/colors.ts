@@ -4,6 +4,7 @@ export const colors = {
   tertiary: '#B6BCC3',
   white: '#FFFFFF',
   black: '#000000',
+  notificationBackground: '#F1F2F3',
   quaternary: '#DADEE3',
   buttonAccent: '#FF1744',
   uiBackground: '#f1f4f8',

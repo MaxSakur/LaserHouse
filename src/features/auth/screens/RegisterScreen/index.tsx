@@ -32,7 +32,11 @@ export const RegisterScreen: React.FC = () => {
   const [isFormValid, setIsFormValid] = useState(false);
   const {open, ModalComponent} = useModalContent({
     headerText: t('registerScreen.privacyAgreementHeader'),
-    contentText: t('registerScreen.privacyAgreementText'),
+    content: (
+      <Text style={styles.modalContentText}>
+        {t('registerScreen.privacyAgreementText')}
+      </Text>
+    ),
   });
 
   const {phone} = route.params;

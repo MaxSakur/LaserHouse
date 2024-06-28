@@ -1,13 +1,12 @@
 import React, {ReactNode, useState, useCallback} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
-import {LeftArrowIcon} from '../icons';
+import {CloseIcon} from '../icons';
 import {colors, sizes, textStyles} from '../theme';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {width} from '../utils';
 
 interface IModalContentProps {
   headerText: string;
-  contentText: string;
+  content: ReactNode;
 }
 
 interface UseModalContentResult {
@@ -18,7 +17,7 @@ interface UseModalContentResult {
 
 const useModalContent = ({
   headerText,
-  contentText,
+  content,
 }: IModalContentProps): UseModalContentResult => {
   const [isVisible, setIsVisible] = useState(false);
   const insets = useSafeAreaInsets();
@@ -35,16 +34,12 @@ const useModalContent = ({
       <View style={styles.container}>
         <View style={[styles.content, {top: Math.max(insets.top, 16)}]}>
           <View style={styles.contentHeader}>
+            <Text style={styles.headerText}>{headerText}</Text>
             <TouchableOpacity style={styles.backButton} onPress={close}>
-              <LeftArrowIcon />
+              <CloseIcon />
             </TouchableOpacity>
-            <View>
-              <Text style={styles.headerText}>{headerText}</Text>
-            </View>
           </View>
-          <View style={styles.contentBody}>
-            <Text style={styles.bodyText}>{contentText}</Text>
-          </View>
+          <View style={styles.contentBody}>{content}</View>
         </View>
       </View>
     </Modal>
@@ -68,26 +63,22 @@ const styles = StyleSheet.create({
   },
   contentHeader: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    paddingBottom: sizes.l,
     marginBottom: sizes.l,
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: sizes.l,
+    borderBottomWidth: 1,
   },
   backButton: {
     flexDirection: 'row',
-    marginRight: sizes.l,
   },
   contentBody: {
     alignItems: 'flex-start',
   },
   headerText: {
-    fontSize: sizes.l,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    textAlign: 'left',
-    width: width - sizes.xl * 6,
-  },
-  bodyText: {
-    ...textStyles.body1,
+    ...textStyles.title2,
+    textAlign: 'center',
+    flex: 1,
   },
 });
 

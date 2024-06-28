@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Svg, {SvgProps, G, Path, Defs, ClipPath} from 'react-native-svg';
 
-export const Checked = (props: SvgProps) => (
+export const CheckedIcon = (props: SvgProps) => (
   <Svg width={24} height={24} viewBox="0 0 24 24" fill="none" {...props}>
     <G clipPath="url(#a)">
       <Path

@@ -9,4 +9,5 @@ export const sizes = {
   xxl: scale(32),
 
   radius: scale(10),
+  headerHeight: scale(40),
 };
