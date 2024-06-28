@@ -9,22 +9,15 @@ import BonusInfoModal from '../BonusInfoModal';
 
 interface IBonusFounds {
   fullName: string;
-  bonusFounds: {
-    value: number;
-    currency: string;
-  };
 }
 
-// API
+// TODO: API
 const testData = {
   value: 300,
   currency: '₴',
 };
 
-export const BonusFounds: FC<IBonusFounds> = ({
-  fullName,
-  bonusFounds = testData,
-}) => {
+export const BonusFounds: FC<IBonusFounds> = ({fullName}) => {
   const {t} = useTranslation();
 
   const {open, ModalComponent} = useModalContent({
@@ -57,8 +50,8 @@ export const BonusFounds: FC<IBonusFounds> = ({
           <Trans
             i18nKey="balanceScreen.bonusValue"
             values={{
-              value: bonusFounds.value,
-              currency: bonusFounds.currency,
+              value: testData.value,
+              currency: testData.currency,
             }}
             components={{small: <Text style={styles.currency} />}}
           />
