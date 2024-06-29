@@ -15,19 +15,32 @@ export const AuthNavigationRoutes = {
   register: 'Register',
 } as const;
 
+export type BalanceStackParamList = {
+  BalanceScreen: undefined;
+  HistoryIncomeScreen: undefined;
+  BonusFoundsScreen: undefined;
+};
+
+export const BalanceNavigationRoutes = {
+  balance: 'BalanceScreen',
+  incomeHistory: 'HistoryIncomeScreen',
+  bonusFounds: 'BonusFoundsScreen',
+} as const;
+
 export type LoggedInStackParamList = {
-  Balance: undefined;
   Coupons: undefined;
   Records: undefined;
   Account: undefined;
-  LoggedIn: undefined;
+  LoggedStack: undefined;
+  BalanceStack: undefined;
 };
 
 export const LoggedInNavigationRoutes = {
-  balance: 'Balance',
+  balance: 'BalanceStack',
   records: 'Records',
   coupons: 'Coupons',
   account: 'Account',
+  loggedStack: 'LoggedStack',
 } as const;
 
 export type RootStackParamList = AuthStackParamList & LoggedInStackParamList;

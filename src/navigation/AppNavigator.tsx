@@ -13,6 +13,7 @@ import {RegisterScreen} from '../features/auth/screens/RegisterScreen';
 import {LoggedInStackNavigator} from './LoggedInStackNavigator';
 import {AuthProvider, useAuth} from '../hooks/useAuth';
 import {RouteService} from '../features/auth/services/routeService';
+import {View, ActivityIndicator} from 'react-native'; // Импортируем необходимые компоненты
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -33,11 +34,19 @@ const RegistrationScreenOptions = {
 
 const AppNavigator: React.FC = () => {
   const {t} = useTranslation();
-  const {isLoggedIn, checkAuthStatus} = useAuth();
+  const {isLoggedIn, loading, checkAuthStatus} = useAuth();
 
   useEffect(() => {
     checkAuthStatus();
   }, [checkAuthStatus]);
+
+  if (loading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer ref={RouteService.navigationRef}>
@@ -47,7 +56,7 @@ const AppNavigator: React.FC = () => {
         }}
         initialRouteName={
           isLoggedIn
-            ? LoggedInNavigationRoutes.balance
+            ? LoggedInNavigationRoutes.loggedStack
             : AuthNavigationRoutes.login
         }>
         <Stack.Screen
@@ -71,8 +80,10 @@ const AppNavigator: React.FC = () => {
             title: t('registerScreen.title'),
           }}
         />
-
-        <Stack.Screen name="LoggedIn" component={LoggedInStackNavigator} />
+        <Stack.Screen
+          name={LoggedInNavigationRoutes.loggedStack}
+          component={LoggedInStackNavigator}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

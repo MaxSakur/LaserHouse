@@ -4,8 +4,8 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import {InfoIcon, BonusHystoryIcon} from '../../../../../../icons';
 import {styles} from './styles';
 import {colors} from '../../../../../../theme';
-import useModalContent from '../../../../../../hooks/useModalContent';
-import BonusInfoModal from '../BonusInfoModal';
+import {RouteService} from '../../../../../auth/services/routeService';
+import {BalanceNavigationRoutes} from '../../../../../../types/navigation';
 
 interface IBonusFounds {
   fullName: string;
@@ -20,16 +20,13 @@ const testData = {
 export const BonusFounds: FC<IBonusFounds> = ({fullName}) => {
   const {t} = useTranslation();
 
-  const {open, ModalComponent} = useModalContent({
-    headerText: t('bonusInfoModal.modalTitle'),
-    content: <BonusInfoModal />,
-  });
-
   const handleOpenHistory = () => {
-    // navigation.navigate('BonusHistory');
+    RouteService.navigate(BalanceNavigationRoutes.incomeHistory);
   };
 
-  const handleOpenBunusInfo = () => open();
+  const handleOpenBunusInfo = () => {
+    RouteService.navigate(BalanceNavigationRoutes.bonusFounds);
+  };
 
   return (
     <View style={styles.container}>
@@ -70,7 +67,6 @@ export const BonusFounds: FC<IBonusFounds> = ({fullName}) => {
           {t('balanceScreen.bonusHistoryLabel')}
         </Text>
       </TouchableOpacity>
-      {ModalComponent}
     </View>
   );
 };

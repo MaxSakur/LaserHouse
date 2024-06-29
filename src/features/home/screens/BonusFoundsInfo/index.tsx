@@ -3,7 +3,7 @@ import {useTranslation, Trans} from 'react-i18next';
 import {ScrollView, Text, View} from 'react-native';
 import {styles} from './styles';
 
-const BonusInfoModal = () => {
+export const BonusFoundsInfo = () => {
   const {t} = useTranslation();
 
   const data = [
@@ -56,5 +56,3 @@ const BonusInfoModal = () => {
     </ScrollView>
   );
 };
-
-export default BonusInfoModal;

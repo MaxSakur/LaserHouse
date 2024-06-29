@@ -1,5 +1,6 @@
 import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
 import {colors, sizes, textStyles, presets} from '../../../../theme';
+import {ImageStyle} from 'react-native-fast-image';
 
 interface Styles {
   loginScreen: ViewStyle;
@@ -11,6 +12,7 @@ interface Styles {
   privacyText: TextStyle;
   privacyLink: TextStyle;
   buttonContainer: ViewStyle;
+  image: ImageStyle;
 }
 
 export const styles = StyleSheet.create<Styles>({
@@ -61,5 +63,9 @@ export const styles = StyleSheet.create<Styles>({
     gap: sizes.xl,
     flex: 1,
     justifyContent: 'flex-end',
+  },
+  image: {
+    height: 100,
+    marginBottom: sizes.l,
   },
 });

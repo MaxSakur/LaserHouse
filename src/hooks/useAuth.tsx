@@ -1,4 +1,3 @@
-// authContext.tsx
 import React, {
   createContext,
   useContext,
@@ -10,6 +9,7 @@ import {authService} from '../features/auth/services/authService';
 
 interface AuthContextProps {
   isLoggedIn: boolean;
+  loading: boolean;
   checkAuthStatus: () => Promise<void>;
 }
 
@@ -21,6 +21,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const {isTokenValid} = authService;
 
   const checkAuthStatus = async () => {
@@ -29,6 +30,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     } else {
       setIsLoggedIn(false);
     }
+    setLoading(false); // Завершаем загрузку после проверки токена
   };
 
   useEffect(() => {
@@ -37,7 +39,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{isLoggedIn, checkAuthStatus}}>
+    <AuthContext.Provider value={{isLoggedIn, loading, checkAuthStatus}}>
       {children}
     </AuthContext.Provider>
   );

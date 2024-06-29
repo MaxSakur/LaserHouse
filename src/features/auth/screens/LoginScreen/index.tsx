@@ -16,6 +16,7 @@ import {countyPhoneCode, phoneMask} from '../../../../utils';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {authService} from '../../services/authService';
 import {DefaultButton} from '../../components/buttons/DefaultButton';
+import FastImage from 'react-native-fast-image';
 
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -45,6 +46,12 @@ export const LoginScreen: React.FC = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.loginScreenContent}>
+            <FastImage
+              style={styles.image}
+              source={require('../../../../../assets/images/logo.png')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+
             <Text style={styles.title}>{t('loginScreen.welcome')}</Text>
             <Text style={styles.description}>
               {t('loginScreen.enterPhone')}

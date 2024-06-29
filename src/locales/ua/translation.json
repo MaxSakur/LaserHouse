@@ -46,7 +46,6 @@
     "bonusHistoryLabel": "Історія накопичення"
   },
   "bonusInfoModal": {
-    "modalTitle": "Бонусні кошти",
     "title": "кожна ваша оплата фінансує наступний візит!",
 
     "pointCalculationHeader": "Як нараховуються бали?",
@@ -57,6 +56,11 @@
     "bonusConditionsHeader": "Коли буде нараховано бонус?",
     "bonusConditionsBody": "Бонус буде нараховано протягом 24 годин після візиту запрошеного клієнта"
   },
+
+  "historyIncomeScreen": {
+    "title": "Бонусні кошти"
+  },
+
   "recordsScreen": {
     "title": "Записи",
     "noRecords": "У Вас немає записів"

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, TextInput, TextStyle} from 'react-native';
-import {sizes, textStyles} from '../../../../theme';
+import {colors, sizes, textStyles} from '../../../../theme';
 
 interface VerificationCodeInputProps {
   value: string;
@@ -30,6 +30,7 @@ export const VerificationCodeInput: React.FC<VerificationCodeInputProps> = ({
       style={styles.input as TextStyle}
       value={maskedValue}
       placeholder="0000"
+      placeholderTextColor={colors.quaternary}
       onChangeText={handleChangeText}
       keyboardType="number-pad"
       textContentType="oneTimeCode"

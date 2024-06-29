@@ -8,6 +8,7 @@ import {colors} from '../theme';
 import {ScreenHeader} from './ScreenHeader';
 import {AccountScreen} from '../features/home/screens/AccountScreen';
 import {LoggedInNavigationRoutes} from '../types/navigation';
+import {BalanceStackNavigator} from './BalanceNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,6 +45,7 @@ export const LoggedInStackNavigator: React.FC = () => {
 
   return (
     <Tab.Navigator
+      initialRouteName={LoggedInNavigationRoutes.balance}
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, size}) =>
           getTabBarIcon(route.name, focused, size),
@@ -53,8 +55,8 @@ export const LoggedInStackNavigator: React.FC = () => {
       })}>
       <Tab.Screen
         name={LoggedInNavigationRoutes.balance}
-        component={BalanceScreen}
-        options={{title: t('balanceScreen.title')}}
+        component={BalanceStackNavigator}
+        options={{title: t('balanceScreen.title'), headerShown: false}}
       />
       <Tab.Screen
         name={LoggedInNavigationRoutes.records}

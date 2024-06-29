@@ -42,7 +42,7 @@ export const VerificationScreen: React.FC = () => {
             if (statusCode === 200 && data?.token && data.token !== null) {
               await authService.storeToken(data.token);
 
-              RouteService.navigate('LoggedIn', {
+              RouteService.navigate(LoggedInNavigationRoutes.loggedStack, {
                 screen: LoggedInNavigationRoutes.balance,
               });
             }
