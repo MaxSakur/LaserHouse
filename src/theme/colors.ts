@@ -13,5 +13,5 @@ export const colors = {
   uiRedSecondary: '#FFE1E6',
   uiGradientRed: '#FF0000',
   uiGradientBlue: '#0000FF',
-  uiGradientGreen: '#00FF00',
+  uiGradientGreen: '#99F7E2',
 };

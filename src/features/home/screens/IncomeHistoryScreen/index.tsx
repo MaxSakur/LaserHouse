@@ -10,28 +10,55 @@ import {
 import {useTranslation} from 'react-i18next';
 import {format, parseISO} from 'date-fns';
 import {uk, pl} from 'date-fns/locale';
-import {styles} from './styles';
 import {
   Transaction,
   TransactionType,
   transactionsData,
 } from './userIncomeHistoryData';
 import {DebitIcon} from '../../../../icons/DebitIcon';
-
 import {colors} from '../../../../theme';
 import {IconWithinContainer} from '../../../../components/IconWithinContainer';
+import {styles} from './styles';
+import {CreditIcon} from '../../../../icons/CreditIcon';
 
-const TransactionItem: React.FC<{transaction: Transaction}> = ({
-  transaction,
-}) => (
-  <View style={styles.transactionItem}>
-    <Text>{transaction.description}</Text>
-    <Text>
-      {transaction.amount} {transaction.currency}
-    </Text>
-    <Text>{transaction.time}</Text>
-  </View>
-);
+const TransactionItem: React.FC<{
+  transaction: Transaction;
+  isLastItem: boolean;
+}> = ({transaction, isLastItem}) => {
+  return (
+    <View
+      style={[
+        styles.transactionItem,
+        !isLastItem && styles.borderedTransactionItem,
+      ]}>
+      <View style={styles.transactionItemBody}>
+        <Text
+          style={styles.transactionItemDescription}
+          numberOfLines={1}
+          ellipsizeMode="tail">
+          {transaction.description}
+        </Text>
+        <Text style={styles.dateTime}>
+          {format(transaction.date, 'dd.MM - ')}
+          {transaction.time}
+        </Text>
+      </View>
+
+      <Text
+        style={[
+          styles.transactionItemValue,
+          {
+            color:
+              transaction.type === TransactionType.BONUS
+                ? colors.uiGradientGreen
+                : colors.uiRedSecondary,
+          },
+        ]}>
+        {transaction.amount} {transaction.currency}
+      </Text>
+    </View>
+  );
+};
 
 const groupTransactionsByMonth = (transactions: Transaction[]) => {
   return transactions.reduce((acc, transaction) => {
@@ -74,23 +101,34 @@ export const HistoryIncomeScreen: React.FC = () => {
               <Text style={styles.monthText}>{title}</Text>
             </View>
           )}
-          renderItem={({item}) => (
-            <View style={styles.dateItemContainer}>
-              <IconWithinContainer
-                containerStyle={[
-                  styles.iconContainer,
-                  {
-                    backgroundColor:
-                      item.type === TransactionType.BONUS
-                        ? colors.buttonAccent
-                        : colors.notificationBackground,
-                  },
+          renderItem={({item, index, section}) => {
+            const isLastItem = index === section.data.length - 1;
+            return (
+              <View
+                style={[
+                  styles.dateItemContainer,
+                  isLastItem && styles.dateItemBorder,
                 ]}>
-                <DebitIcon style={styles.icon} />
-              </IconWithinContainer>
-              <TransactionItem transaction={item} />
-            </View>
-          )}
+                <IconWithinContainer
+                  containerStyle={[
+                    styles.iconContainer,
+                    {
+                      backgroundColor:
+                        item.type === TransactionType.BONUS
+                          ? colors.uiGradientGreen
+                          : colors.uiRedSecondary,
+                    },
+                  ]}>
+                  {item.type === TransactionType.BONUS ? (
+                    <CreditIcon />
+                  ) : (
+                    <DebitIcon />
+                  )}
+                </IconWithinContainer>
+                <TransactionItem transaction={item} isLastItem={isLastItem} />
+              </View>
+            );
+          }}
           contentContainerStyle={styles.scrolledContent}
         />
       </KeyboardAvoidingView>

@@ -4,11 +4,11 @@ import {colors} from '../theme';
 
 export const CreditIcon = ({
   color = colors.primary,
-  size,
+  size = 18,
   ...props
 }: {
-  color: string;
-  size: number;
+  color?: string;
+  size?: number;
 }) => (
   <Svg width={size} height={size} viewBox="0 0 16 18" fill="none" {...props}>
     <Path
