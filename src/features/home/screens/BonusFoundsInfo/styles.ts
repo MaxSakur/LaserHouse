@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontWeight: '600',
     color: colors.primary,
+    paddingBottom: sizes.l,
   },
   content: {
     gap: sizes.l,

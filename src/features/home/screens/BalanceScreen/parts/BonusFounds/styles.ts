@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: sizes.m,
     padding: sizes.l,
-    gap: sizes.l,
+    gap: sizes.xxl,
   },
   bonusLabel: {
     ...textStyles.headline1,

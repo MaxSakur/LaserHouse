@@ -4,28 +4,18 @@ import {
   SafeAreaView,
   Platform,
   ScrollView,
-  TouchableOpacity,
-  Text,
 } from 'react-native';
 import {styles} from './styles';
-import {authService} from '../../../auth/services/authService';
-import {RouteService} from '../../../auth/services/routeService';
-import {AuthNavigationRoutes} from '../../../../types/navigation';
+
+import {BonusFoundsInfo} from '../BonusFoundsInfo';
 
 export const BonusFoundsScreen: React.FC = () => {
-  const handleClearUser = () => {
-    authService.removeToken();
-    RouteService.reset(AuthNavigationRoutes.login);
-  };
-
   return (
-    <SafeAreaView style={styles.accountScreen}>
+    <SafeAreaView style={styles.bonusFoundsScreen}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <ScrollView>
-          <TouchableOpacity onPress={handleClearUser}>
-            <Text>CLEAR</Text>
-          </TouchableOpacity>
+        <ScrollView contentContainerStyle={styles.container}>
+          <BonusFoundsInfo />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

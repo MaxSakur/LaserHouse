@@ -1,17 +1,22 @@
 import {StyleSheet, ViewStyle} from 'react-native';
-import {colors, textStyles, presets} from '../../../../theme';
+import {colors, textStyles, presets, sizes} from '../../../../theme';
 
 interface Styles {
-  accountScreen: ViewStyle;
+  bonusFoundsScreen: ViewStyle;
+  container: ViewStyle;
 }
 
 export const styles = StyleSheet.create<Styles>({
-  accountScreen: {
+  bonusFoundsScreen: {
     ...textStyles.headline1,
     ...presets.flexCenter,
     flex: 1,
     backgroundColor: colors.white,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
+  },
+  container: {
+    padding: sizes.l,
+    paddingHorizontal: sizes.xxl,
   },
 });
