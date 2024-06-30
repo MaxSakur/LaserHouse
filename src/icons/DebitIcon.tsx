@@ -9,7 +9,7 @@ interface DebitIconProps extends SvgProps {
 
 export const DebitIcon: React.FC<DebitIconProps> = ({
   color = colors.primary,
-  size = 18,
+  size = 24,
   ...props
 }) => (
   <Svg width={size} height={size} viewBox="0 0 16 18" fill="none" {...props}>

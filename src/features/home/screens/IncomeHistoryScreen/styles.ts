@@ -36,16 +36,16 @@ export const styles = StyleSheet.create<Styles>({
   },
   iconContainer: {
     ...presets.flexCenter,
-    width: sizes.headerHeight,
-    height: sizes.headerHeight,
     borderRadius: sizes.radius,
   },
   dateItemContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: sizes.xl,
     backgroundColor: colors.white,
     gap: sizes.l,
-    paddingTop: sizes.m,
+    paddingTop: sizes.s,
   },
   dateItemBorder: {
     paddingBottom: sizes.m,
@@ -55,13 +55,15 @@ export const styles = StyleSheet.create<Styles>({
     flexDirection: 'row',
   },
   transactionItemBody: {
-    flex: 1,
     gap: sizes.s,
-    height: '100%',
+    justifyContent: 'space-around',
+    marginRight: sizes.l,
+    flex: 1,
   },
   dateTime: {
     ...textStyles.body2,
     color: colors.tertiary,
+    justifyContent: 'flex-end',
   },
   transactionItemDescription: {
     ...textStyles.headline2,
@@ -71,6 +73,7 @@ export const styles = StyleSheet.create<Styles>({
     ...textStyles.title2,
     fontWeight: 'bold',
     textAlignVertical: 'center',
+    alignSelf: 'flex-start',
   },
   borderedTransactionItem: {
     borderColor: colors.quaternary,

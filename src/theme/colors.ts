@@ -10,8 +10,8 @@ export const colors = {
   uiBackground: '#f1f4f8',
   success: '#00EBB6',
   uiRed: '#B6BCC3',
-  uiRedSecondary: '#FFE1E6',
+  uiRedSecondary: '#FF1744',
   uiGradientRed: '#FF0000',
   uiGradientBlue: '#0000FF',
-  uiGradientGreen: '#99F7E2',
+  uiGradientGreen: '#00C9A1',
 };

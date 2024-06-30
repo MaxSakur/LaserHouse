@@ -4,7 +4,7 @@ import {colors} from '../theme';
 
 export const CreditIcon = ({
   color = colors.primary,
-  size = 18,
+  size = 24,
   ...props
 }: {
   color?: string;

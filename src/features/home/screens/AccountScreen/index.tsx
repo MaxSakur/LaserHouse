@@ -11,6 +11,7 @@ import {styles} from './styles';
 import {authService} from '../../../auth/services/authService';
 import {RouteService} from '../../../auth/services/routeService';
 import {AuthNavigationRoutes} from '../../../../types/navigation';
+import {AccountControls} from './parts/AccountControls';
 
 export const AccountScreen: React.FC = () => {
   const handleClearUser = () => {
@@ -23,6 +24,8 @@ export const AccountScreen: React.FC = () => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView>
+          <AccountControls />
+
           <TouchableOpacity onPress={handleClearUser}>
             <Text>CLEAR</Text>
           </TouchableOpacity>

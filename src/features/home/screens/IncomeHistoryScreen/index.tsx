@@ -23,14 +23,9 @@ import {CreditIcon} from '../../../../icons/CreditIcon';
 
 const TransactionItem: React.FC<{
   transaction: Transaction;
-  isLastItem: boolean;
-}> = ({transaction, isLastItem}) => {
+}> = ({transaction}) => {
   return (
-    <View
-      style={[
-        styles.transactionItem,
-        !isLastItem && styles.borderedTransactionItem,
-      ]}>
+    <View style={[styles.transactionItem]}>
       <View style={styles.transactionItemBody}>
         <Text
           style={styles.transactionItemDescription}
@@ -101,14 +96,9 @@ export const HistoryIncomeScreen: React.FC = () => {
               <Text style={styles.monthText}>{title}</Text>
             </View>
           )}
-          renderItem={({item, index, section}) => {
-            const isLastItem = index === section.data.length - 1;
+          renderItem={({item}) => {
             return (
-              <View
-                style={[
-                  styles.dateItemContainer,
-                  isLastItem && styles.dateItemBorder,
-                ]}>
+              <View style={[styles.dateItemContainer]}>
                 <IconWithinContainer
                   containerStyle={[
                     styles.iconContainer,
@@ -120,12 +110,12 @@ export const HistoryIncomeScreen: React.FC = () => {
                     },
                   ]}>
                   {item.type === TransactionType.BONUS ? (
-                    <CreditIcon />
+                    <CreditIcon color={colors.white} />
                   ) : (
-                    <DebitIcon />
+                    <DebitIcon color={colors.white} />
                   )}
                 </IconWithinContainer>
-                <TransactionItem transaction={item} isLastItem={isLastItem} />
+                <TransactionItem transaction={item} />
               </View>
             );
           }}
