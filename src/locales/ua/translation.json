@@ -70,7 +70,13 @@
     "noCoupons": "У Вас немає купонів"
   },
   "accountScreen": {
-    "title": "Акаунт"
+    "title": "Акаунт",
+    "chooseLanguage": "Обрати мову",
+    "pushMessages": "Push подідомлення",
+    "aboutCompany": "Про нас",
+    "historyIncomeMessage": "Історія сповіщень",
+    "socialMedias": "Ми у соціальніх мережах",
+    "logout": "Вийти з аккаунта"
   },
   "approve": "Підтвердити",
   "cancel": "Скасувати",

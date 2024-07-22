@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {View, ActivityIndicator} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
@@ -13,7 +14,6 @@ import {RegisterScreen} from '../features/auth/screens/RegisterScreen';
 import {LoggedInStackNavigator} from './LoggedInStackNavigator';
 import {AuthProvider, useAuth} from '../hooks/useAuth';
 import {RouteService} from '../features/auth/services/routeService';
-import {View, ActivityIndicator} from 'react-native'; // Импортируем необходимые компоненты
 
 const Stack = createStackNavigator<RootStackParamList>();
 

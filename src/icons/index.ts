@@ -12,3 +12,4 @@ export * from './InfoIcon';
 export * from './CloseIcon';
 export * from './BonusHystoryIcon';
 export * from './LetterIcon';
+export * from './BellIcon';

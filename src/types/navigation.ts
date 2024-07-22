@@ -44,3 +44,20 @@ export const LoggedInNavigationRoutes = {
 } as const;
 
 export type RootStackParamList = AuthStackParamList & LoggedInStackParamList;
+
+export enum CouponNavigationRoutes {
+  laserEpilation = 'LaserEpilation',
+  cosmetology = 'Cosmetology',
+  myCoupons = 'MyCoupons',
+  couponDetail = 'CouponDetail',
+}
+
+export type CouponStackParamList = {
+  [CouponNavigationRoutes.laserEpilation]: {activeTab: CouponNavigationRoutes};
+  [CouponNavigationRoutes.cosmetology]: {activeTab: CouponNavigationRoutes};
+  [CouponNavigationRoutes.myCoupons]: {activeTab: CouponNavigationRoutes};
+  [CouponNavigationRoutes.couponDetail]: {
+    couponID: number;
+    activeTab: CouponNavigationRoutes;
+  };
+};

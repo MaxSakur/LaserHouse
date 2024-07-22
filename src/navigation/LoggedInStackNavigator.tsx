@@ -1,14 +1,15 @@
 // LoggedInStackNavigator.tsx
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {BalanceScreen} from '../features/home/screens';
 import {useTranslation} from 'react-i18next';
+import {BalanceScreen} from '../features/home/screens';
 import {RecordsIcon, BalanceIcon, AccountIcon, CouponsIcon} from '../icons';
 import {colors} from '../theme';
 import {ScreenHeader} from './ScreenHeader';
 import {AccountScreen} from '../features/home/screens/AccountScreen';
 import {LoggedInNavigationRoutes} from '../types/navigation';
 import {BalanceStackNavigator} from './BalanceNavigator';
+import CouponStackNavigator from './CouponStackNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -65,8 +66,8 @@ export const LoggedInStackNavigator: React.FC = () => {
       />
       <Tab.Screen
         name={LoggedInNavigationRoutes.coupons}
-        component={BalanceScreen}
-        options={{title: t('couponsScreen.title')}}
+        component={CouponStackNavigator}
+        options={{title: t('couponsScreen.title'), headerShown: false}}
       />
       <Tab.Screen
         name={LoggedInNavigationRoutes.account}
