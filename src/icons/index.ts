@@ -13,3 +13,4 @@ export * from './CloseIcon';
 export * from './BonusHystoryIcon';
 export * from './LetterIcon';
 export * from './BellIcon';
+export * from './ClockIcon';

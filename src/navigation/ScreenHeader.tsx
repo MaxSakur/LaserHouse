@@ -14,6 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 interface ScreenHeaderProps {
   title?: string;
   withBackButton?: boolean;
+  withMessagesIndicator?: boolean;
 }
 
 const REFRESH_INTERVAL = 60000;
@@ -21,6 +22,7 @@ const REFRESH_INTERVAL = 60000;
 export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
   title,
   withBackButton = false,
+  withMessagesIndicator = true,
 }) => {
   const navigation = useNavigation();
   const [isGotNewMessages, setIsGotNewMessages] = useState(false);
@@ -77,19 +79,21 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
           {title && <Text style={styles.title}>{title}</Text>}
         </View>
 
-        <View style={styles.rightIconContainer}>
-          <TouchableOpacity
-            style={[
-              styles.iconContainer,
-              isGotNewMessages && {
-                backgroundColor: colors.notificationBackground,
-              },
-            ]}
-            onPress={handleNavigateTo}>
-            <LetterIcon />
-            {isGotNewMessages && <View style={styles.dot} />}
-          </TouchableOpacity>
-        </View>
+        {withMessagesIndicator && (
+          <View style={styles.rightIconContainer}>
+            <TouchableOpacity
+              style={[
+                styles.iconContainer,
+                isGotNewMessages && {
+                  backgroundColor: colors.notificationBackground,
+                },
+              ]}
+              onPress={handleNavigateTo}>
+              <LetterIcon />
+              {isGotNewMessages && <View style={styles.dot} />}
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );

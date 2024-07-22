@@ -10,4 +10,6 @@ export const sizes = {
   xxxl: scale(48),
   radius: scale(10),
   headerHeight: scale(40),
+
+  couponHeight: scale(260),
 };

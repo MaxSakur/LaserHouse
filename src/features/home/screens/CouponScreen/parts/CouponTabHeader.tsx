@@ -14,6 +14,7 @@ import {
   CouponStackParamList,
 } from '../../../../../types/navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {colors, sizes, textStyles} from '../../../../../theme';
 
 type NavigationProp = StackNavigationProp<CouponStackParamList>;
 
@@ -68,7 +69,7 @@ const CouponHeaderTabs: React.FC = () => {
         {tabs.map(tab => (
           <TouchableOpacity
             key={tab.name}
-            style={[styles.tab, activeTab === tab.name && styles.activeTab]}
+            style={styles.tab}
             onPress={() => handleTabPress(tab.name)}>
             <Text
               style={[
@@ -77,6 +78,7 @@ const CouponHeaderTabs: React.FC = () => {
               ]}>
               {t(tab.label)}
             </Text>
+            {activeTab === tab.name && <View style={styles.activeLine} />}
           </TouchableOpacity>
         ))}
       </View>
@@ -86,30 +88,34 @@ const CouponHeaderTabs: React.FC = () => {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
   },
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#fff',
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    backgroundColor: colors.white,
   },
   tab: {
     paddingHorizontal: 16,
     paddingVertical: 8,
-  },
-  activeTab: {
-    borderBottomWidth: 2,
-    borderBottomColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
   },
   label: {
-    fontSize: 16,
-    fontWeight: '600',
+    ...textStyles.sectionLabel,
+    paddingBottom: sizes.m,
   },
   activeLabel: {
-    color: 'red',
+    color: colors.buttonAccent,
+  },
+  activeLine: {
+    position: 'absolute',
+    bottom: 0,
+    height: 2,
+    backgroundColor: colors.buttonAccent,
+    borderRadius: 100,
+    width: '100%',
   },
 });
 

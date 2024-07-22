@@ -1,12 +1,20 @@
-import {StackNavigationProp} from '@react-navigation/stack';
+// features/home/screens/CouponScreen.tsx
 import React from 'react';
 import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
-import FastImage, {Source} from 'react-native-fast-image';
+import FastImage from 'react-native-fast-image';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RouteProp} from '@react-navigation/native';
 import {
   CouponNavigationRoutes,
   CouponStackParamList,
 } from '../../../../types/navigation';
-import {RouteProp} from '@react-navigation/native';
+import {sizes} from '../../../../theme';
+import {
+  getCosmetologyCoupons,
+  getLaserEpilationCoupons,
+  getMyCoupons,
+} from './apiStaticData';
+import {Coupon} from '../../../../types/coupons';
 
 type CouponScreenNavigationProp = StackNavigationProp<
   CouponStackParamList,
@@ -27,42 +35,19 @@ type Props = {
   route: CouponScreenRouteProp;
 };
 
-const data = [
-  {
-    path: require('./../../../../../assets/images/coupons/coupon5.png'),
-    couponID: 0,
-  },
-  {
-    path: require('./../../../../../assets/images/coupons/coupon4.png'),
-    couponID: 1,
-  },
-  {
-    path: require('./../../../../../assets/images/coupons/coupon5.png'),
-    couponID: 2,
-  },
-  {
-    path: require('./../../../../../assets/images/coupons/coupon4.png'),
-    couponID: 3,
-  },
-  {
-    path: require('./../../../../../assets/images/coupons/coupon5.png'),
-    couponID: 4,
-  },
-];
-
 const renderItem = ({
   item,
   navigation,
   activeTab,
 }: {
-  item: {path: Source; couponID: number};
+  item: Coupon;
   navigation: CouponScreenNavigationProp;
   activeTab: CouponNavigationRoutes;
 }) => (
   <TouchableOpacity
     onPress={() =>
       navigation.navigate(CouponNavigationRoutes.couponDetail, {
-        couponID: item.couponID,
+        coupon: item,
         activeTab,
       })
     }>
@@ -80,11 +65,11 @@ export const CouponScreen: React.FC<Props> = ({navigation, route}) => {
   const renderContentData = () => {
     switch (activeTab) {
       case CouponNavigationRoutes.laserEpilation:
-        return data.slice(0, 2);
+        return getLaserEpilationCoupons();
       case CouponNavigationRoutes.cosmetology:
-        return data.slice(1, 4);
+        return getCosmetologyCoupons();
       case CouponNavigationRoutes.myCoupons:
-        return data.slice(4, 5);
+        return getMyCoupons();
       default:
         return null;
     }
@@ -105,13 +90,12 @@ export const CouponScreen: React.FC<Props> = ({navigation, route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
   },
   image: {
     width: '100%',
-    height: 260,
+    height: sizes.couponHeight,
   },
   collection: {
-    paddingHorizontal: 16,
+    paddingHorizontal: sizes.md,
   },
 });

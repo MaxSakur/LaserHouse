@@ -1,3 +1,5 @@
+import {Coupon} from './coupons';
+
 export interface IVarificateResponse {
   isRegistered: boolean;
   code: string;
@@ -57,7 +59,7 @@ export type CouponStackParamList = {
   [CouponNavigationRoutes.cosmetology]: {activeTab: CouponNavigationRoutes};
   [CouponNavigationRoutes.myCoupons]: {activeTab: CouponNavigationRoutes};
   [CouponNavigationRoutes.couponDetail]: {
-    couponID: number;
+    coupon: Coupon;
     activeTab: CouponNavigationRoutes;
   };
 };

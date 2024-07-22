@@ -46,6 +46,7 @@ const createScreenOptions = (
             <ScreenHeader
               {...props}
               withBackButton
+              withMessagesIndicator={false}
               title={getHeaderTitle(route, t, activeTab)}
             />
           );

@@ -72,7 +72,8 @@
       "laserEpilation": "Лазерна епіляція",
       "cosmetology": "Косметологія",
       "myCoupons": "Мої купони"
-    }
+    },
+    "couponDueDate": "Акція діє до {{date}} р."
   },
   "accountScreen": {
     "title": "Акаунт",

@@ -1,5 +1,5 @@
 interface FontStyles {
-  black?: string; // Сделаем свойства необязательными, чтобы избежать ошибок
+  black?: string;
   blackItalic?: string;
   bold?: string;
   boldItalic?: string;
@@ -11,7 +11,7 @@ interface FontStyles {
   semiboldItalic?: string;
   thinItalic?: string;
   ultralightItalic?: string;
-  [key: string]: string | undefined; // Разрешим дополнительные свойства для гибкости
+  [key: string]: string | undefined;
 }
 
 interface Fonts {
@@ -47,7 +47,6 @@ const fonts: Fonts = {
   },
 };
 
-// Типизация для стилей текста
 interface TextStyles {
   fontFamily?: string;
   fontSize: number;
@@ -72,6 +71,7 @@ interface TextStylesCollection {
   title1: TextStyles;
   verificationCode: TextStyles;
   title2: TextStyles;
+  couponTitle: TextStyles;
   headline1: TextStyles;
   headline2: TextStyles;
   sectionLabel: TextStyles;
@@ -79,6 +79,7 @@ interface TextStylesCollection {
   body1: TextStyles;
   body2: TextStyles;
   tabBarIconText: TextStyles;
+  dueDate: TextStyles;
 }
 
 const textStyles: TextStylesCollection = {
@@ -104,6 +105,11 @@ const textStyles: TextStylesCollection = {
     fontFamily: fonts.SFProDisplay.medium,
     fontWeight: '600',
     fontSize: 20,
+  },
+  couponTitle: {
+    fontFamily: fonts.SFProDisplay.bold,
+    fontSize: 18,
+    fontWeight: '600',
   },
   headline1: {
     fontFamily: fonts.SFProDisplay.bold,
@@ -132,6 +138,10 @@ const textStyles: TextStylesCollection = {
   },
   tabBarIconText: {
     fontFamily: fonts.SFProDisplay.medium,
+    fontSize: 10,
+  },
+  dueDate: {
+    fontFamily: fonts.SFProDisplay.regular,
     fontSize: 10,
   },
 };
