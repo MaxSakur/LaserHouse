@@ -13,16 +13,31 @@ import {ScreenHeader} from './ScreenHeader';
 
 const Stack = createStackNavigator<CouponStackParamList>();
 
-const getHeaderTitle = (route: string, t: (key: string) => string) => {
-  switch (route) {
-    case CouponNavigationRoutes.couponDetail:
-      return t('couponDetailScreen.title');
-    default:
-      return '';
+const getHeaderTitle = (
+  route: string,
+  t: (key: string) => string,
+  activeTab?: CouponNavigationRoutes,
+) => {
+  if (route === CouponNavigationRoutes.couponDetail && activeTab) {
+    switch (activeTab) {
+      case CouponNavigationRoutes.laserEpilation:
+        return t('couponsScreen.couponTabs.laserEpilation');
+      case CouponNavigationRoutes.cosmetology:
+        return t('couponsScreen.couponTabs.cosmetology');
+      case CouponNavigationRoutes.myCoupons:
+        return t('couponsScreen.couponTabs.myCoupons');
+      default:
+        return t('couponsScreen.couponDetail');
+    }
   }
+  return t('couponsScreen.couponDetail');
 };
 
-const createScreenOptions = (route: string, t: (key: string) => string) => {
+const createScreenOptions = (
+  route: string,
+  t: (key: string) => string,
+  activeTab?: CouponNavigationRoutes,
+) => {
   return {
     header: (props: any) => {
       switch (route) {
@@ -31,7 +46,7 @@ const createScreenOptions = (route: string, t: (key: string) => string) => {
             <ScreenHeader
               {...props}
               withBackButton
-              title={getHeaderTitle(route, t)}
+              title={getHeaderTitle(route, t, activeTab)}
             />
           );
         default:
@@ -68,7 +83,10 @@ const CouponStackNavigator: React.FC = () => {
       <Stack.Screen
         name={CouponNavigationRoutes.couponDetail}
         component={CouponDetailScreen}
-        options={({route}) => createScreenOptions(route.name, t)}
+        options={({route}) => {
+          const {activeTab} = route.params;
+          return createScreenOptions(route.name, t, activeTab);
+        }}
       />
     </Stack.Navigator>
   );

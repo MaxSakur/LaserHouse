@@ -67,7 +67,12 @@
   },
   "couponsScreen": {
     "title": "Купони",
-    "noCoupons": "У Вас немає купонів"
+    "noCoupons": "У Вас немає купонів",
+    "couponTabs": {
+      "laserEpilation": "Лазерна епіляція",
+      "cosmetology": "Косметологія",
+      "myCoupons": "Мої купони"
+    }
   },
   "accountScreen": {
     "title": "Акаунт",

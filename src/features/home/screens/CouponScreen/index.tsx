@@ -96,7 +96,7 @@ export const CouponScreen: React.FC<Props> = ({navigation, route}) => {
         data={renderContentData()}
         renderItem={({item}) => renderItem({item, navigation, activeTab})}
         keyExtractor={(_, index) => index.toString()}
-        style={{paddingHorizontal: 10}}
+        style={styles.collection}
       />
     </View>
   );
@@ -110,5 +110,8 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: 260,
+  },
+  collection: {
+    paddingHorizontal: 16,
   },
 });

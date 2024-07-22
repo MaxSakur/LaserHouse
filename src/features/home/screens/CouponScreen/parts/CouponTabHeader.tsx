@@ -7,31 +7,59 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
+import {
+  CouponNavigationRoutes,
+  CouponStackParamList,
+} from '../../../../../types/navigation';
+import {StackNavigationProp} from '@react-navigation/stack';
+
+type NavigationProp = StackNavigationProp<CouponStackParamList>;
 
 interface Tab {
-  name: string;
+  name:
+    | CouponNavigationRoutes.laserEpilation
+    | CouponNavigationRoutes.cosmetology
+    | CouponNavigationRoutes.myCoupons;
   label: string;
 }
 
 const tabs: Tab[] = [
-  {name: 'LaserEpilation', label: 'Лазерна епіляція'},
-  {name: 'Cosmetology', label: 'Косметологія'},
-  {name: 'MyCoupons', label: 'Мої купони'},
+  {
+    name: CouponNavigationRoutes.laserEpilation,
+    label: 'couponsScreen.couponTabs.laserEpilation',
+  },
+  {
+    name: CouponNavigationRoutes.cosmetology,
+    label: 'couponsScreen.couponTabs.cosmetology',
+  },
+  {
+    name: CouponNavigationRoutes.myCoupons,
+    label: 'couponsScreen.couponTabs.myCoupons',
+  },
 ];
 
 const CouponHeaderTabs: React.FC = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
+  const navigation = useNavigation<NavigationProp>();
+  const route = useRoute<RouteProp<CouponStackParamList>>();
+  const {t} = useTranslation();
 
-  const [activeTab, setActiveTab] = useState(route.name);
+  const [activeTab, setActiveTab] = useState(
+    route.name as CouponNavigationRoutes,
+  );
 
   useEffect(() => {
-    setActiveTab(route.name);
+    setActiveTab(route.name as CouponNavigationRoutes);
   }, [route.name]);
 
-  const handleTabPress = (name: string) => {
-    navigation.navigate({name});
+  const handleTabPress = (
+    name:
+      | CouponNavigationRoutes.laserEpilation
+      | CouponNavigationRoutes.cosmetology
+      | CouponNavigationRoutes.myCoupons,
+  ) => {
+    navigation.navigate(name, {activeTab: name});
   };
 
   return (
@@ -47,7 +75,7 @@ const CouponHeaderTabs: React.FC = () => {
                 styles.label,
                 activeTab === tab.name && styles.activeLabel,
               ]}>
-              {tab.label}
+              {t(tab.label)}
             </Text>
           </TouchableOpacity>
         ))}
