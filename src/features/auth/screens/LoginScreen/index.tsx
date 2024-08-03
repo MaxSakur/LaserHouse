@@ -12,7 +12,6 @@ import {
 import {RootStackParamList} from '../../../../types/navigation';
 import {styles} from './styles';
 import {MaskedPhoneInput} from '../../components/inputs';
-import {countyPhoneCode, phoneMask} from '../../../../utils';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {authService} from '../../services/authService';
 import {DefaultButton} from '../../components/buttons/DefaultButton';
@@ -36,13 +35,11 @@ export const LoginScreen: React.FC = () => {
     }
   };
 
-  const conditionsToLogin =
-    countyPhoneCode.length + phone.length !== phoneMask.length;
-
   return (
     <SafeAreaView style={styles.loginScreen}>
       <KeyboardAvoidingView
         style={styles.container}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.loginScreenContent}>
@@ -61,8 +58,6 @@ export const LoginScreen: React.FC = () => {
               value={phone}
               onChange={setPhone}
               isMajor={true}
-              mask={phoneMask}
-              countyPhoneCode={countyPhoneCode}
             />
 
             <Text style={styles.privacyText}>
@@ -74,7 +69,7 @@ export const LoginScreen: React.FC = () => {
           </View>
           <DefaultButton
             buttonText={t('loginScreen.enter')}
-            disabled={conditionsToLogin}
+            disabled={phone.length === 0}
             onPress={handleLogin}
           />
         </ScrollView>

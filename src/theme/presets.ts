@@ -14,8 +14,8 @@ export const presets: Presets = {
   shadow: {
     shadowColor: colors.black,
     shadowOffset: {width: 0, height: 1},
-    elevation: 5,
+    elevation: 2,
     shadowOpacity: 0.1,
-    shadowRadius: 5,
+    shadowRadius: 2,
   },
 };

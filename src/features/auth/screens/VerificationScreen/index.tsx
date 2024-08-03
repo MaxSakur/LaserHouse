@@ -1,6 +1,12 @@
 // VerificationScreen.tsx
 import React, {useEffect, useState} from 'react';
-import {View, Text, Keyboard} from 'react-native';
+import {
+  View,
+  Text,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {Trans, useTranslation} from 'react-i18next';
 import {
@@ -9,7 +15,6 @@ import {
   AuthNavigationRoutes,
 } from '../../../../types/navigation';
 import {VerificationCodeInput} from '../../components/inputs';
-import {countyPhoneCode} from '../../../../utils/masks';
 import {styles} from './styles';
 import useNotification from '../../../../hooks/useNotification';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -80,59 +85,60 @@ export const VerificationScreen: React.FC = () => {
 
   const handleRegister = () => {
     RouteService.navigate(AuthNavigationRoutes.register, {
-      phone: `${countyPhoneCode}${phone}`,
+      phone,
     });
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.content}>
-        <View style={styles.contentBody}>
-          <Text style={styles.title}>{t('verificationScreen.message')}</Text>
-          <Text style={styles.description}>
-            <Trans
-              i18nKey="verificationScreen.details"
-              values={{number: countyPhoneCode + phone}}
-              components={{bold: <Text style={styles.boldText} />}}
-            />
-          </Text>
-
-          <VerificationCodeInput
-            value={code}
-            onChange={setCode}
-            countyPhoneCode={countyPhoneCode}
-          />
-        </View>
-
-        {!verificationData?.isRegistered && (
-          <View style={styles.notRegistered}>
-            <Text style={styles.notRegisteredText}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <View style={styles.content}>
+          <View style={styles.contentBody}>
+            <Text style={styles.title}>{t('verificationScreen.message')}</Text>
+            <Text style={styles.description}>
               <Trans
-                i18nKey="verificationScreen.notRegistered"
-                components={{
-                  bold: <Text style={styles.notRegisteredHighlight} />,
-                }}
+                i18nKey="verificationScreen.details"
+                values={{number: phone}}
+                components={{bold: <Text style={styles.boldText} />}}
               />
             </Text>
-            <DefaultButton
-              buttonText={t('verificationScreen.create')}
-              disabled={!isCreateAvailable}
-              onPress={handleRegister}
-            />
-          </View>
-        )}
 
-        {isCodeValid && (
-          <DefaultButton
-            buttonText={
-              t('verificationScreen.resend') +
-              (resendCounter > 0 ? ` (${resendCounter})` : '')
-            }
-            disabled={!isResendAvailable}
-            onPress={handleResendCode}
-          />
-        )}
-      </View>
+            <VerificationCodeInput value={code} onChange={setCode} />
+          </View>
+
+          {!verificationData?.isRegistered && (
+            <View style={styles.notRegistered}>
+              <Text style={styles.notRegisteredText}>
+                <Trans
+                  i18nKey="verificationScreen.notRegistered"
+                  components={{
+                    bold: <Text style={styles.notRegisteredHighlight} />,
+                  }}
+                />
+              </Text>
+              <DefaultButton
+                buttonText={t('verificationScreen.create')}
+                disabled={!isCreateAvailable}
+                onPress={handleRegister}
+              />
+            </View>
+          )}
+
+          {isCodeValid && (
+            <DefaultButton
+              buttonText={
+                t('verificationScreen.resend') +
+                (resendCounter > 0 ? ` (${resendCounter})` : '')
+              }
+              disabled={!isResendAvailable}
+              onPress={handleResendCode}
+            />
+          )}
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

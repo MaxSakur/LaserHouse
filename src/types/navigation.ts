@@ -1,5 +1,7 @@
 import {Coupon} from './coupons';
 
+// TODO: SPLIT FOR EACH STACK
+
 export interface IVarificateResponse {
   isRegistered: boolean;
   code: string;
@@ -28,6 +30,24 @@ export const BalanceNavigationRoutes = {
   incomeHistory: 'HistoryIncomeScreen',
   bonusFounds: 'BonusFoundsScreen',
 } as const;
+
+export const RecordsNavigationRoutes = {
+  RecordsMain: 'RecordsMain',
+  RecordSignUp: 'RecordSignUp',
+  RecordScheduled: 'RecordScheduled',
+  RecordPrevious: 'RecordPrevious',
+  RecordPaid: 'RecordPaid',
+  RecordHome: 'RecordHome',
+} as const;
+
+export type RecordsStackParamList = {
+  [RecordsNavigationRoutes.RecordsMain]: undefined;
+  [RecordsNavigationRoutes.RecordSignUp]: undefined;
+  [RecordsNavigationRoutes.RecordScheduled]: undefined;
+  [RecordsNavigationRoutes.RecordPrevious]: undefined;
+  [RecordsNavigationRoutes.RecordPaid]: undefined;
+  [RecordsNavigationRoutes.RecordHome]: undefined;
+};
 
 export type LoggedInStackParamList = {
   Coupons: undefined;

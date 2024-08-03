@@ -53,10 +53,12 @@ export const styles = StyleSheet.create<Styles>({
     ...textStyles.headline2,
     color: colors.quaternary,
     textAlign: 'center',
+    zIndex: -1,
   },
   privacyLink: {
     ...textStyles.headline2,
     color: colors.buttonAccent,
+    zIndex: -1,
   },
   buttonContainer: {
     width: '100%',
@@ -66,6 +68,5 @@ export const styles = StyleSheet.create<Styles>({
   },
   image: {
     height: 100,
-    marginBottom: sizes.l,
   },
 });

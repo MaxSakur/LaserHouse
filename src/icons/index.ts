@@ -14,3 +14,13 @@ export * from './BonusHystoryIcon';
 export * from './LetterIcon';
 export * from './BellIcon';
 export * from './ClockIcon';
+
+export * from './RecordHomeIcon';
+export * from './RecordPaidIcon';
+export * from './RecordPreviousIcon';
+export * from './RecordScheduledIcon';
+export * from './RecordSignUpIcon';
+export * from './ArrowRightIcon';
+export * from './NoContentIcon';
+export * from './PrevRedIcon';
+export * from './PaidPinkIcon';

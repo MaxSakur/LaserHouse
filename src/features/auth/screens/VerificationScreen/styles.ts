@@ -3,6 +3,7 @@ import {colors, sizes, textStyles} from '../../../../theme';
 
 interface Styles {
   safeArea: ViewStyle;
+  container: ViewStyle;
   content: ViewStyle;
   contentBody: ViewStyle;
   title: TextStyle;
@@ -16,6 +17,9 @@ interface Styles {
 }
 
 export const styles = StyleSheet.create<Styles>({
+  container: {
+    flex: 1,
+  },
   safeArea: {
     flex: 1,
     backgroundColor: colors.white,

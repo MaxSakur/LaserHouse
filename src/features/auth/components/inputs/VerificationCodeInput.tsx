@@ -5,15 +5,13 @@ import {colors, sizes, textStyles} from '../../../../theme';
 interface VerificationCodeInputProps {
   value: string;
   onChange: (text: string) => void;
-  countyPhoneCode: string;
 }
 
 export const VerificationCodeInput: React.FC<VerificationCodeInputProps> = ({
   value,
   onChange,
-  countyPhoneCode,
 }) => {
-  const [maskedValue, setMaskedValue] = useState(countyPhoneCode);
+  const [maskedValue, setMaskedValue] = useState<string>();
 
   useEffect(() => {
     setMaskedValue(value);
