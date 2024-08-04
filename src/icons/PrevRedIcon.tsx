@@ -8,7 +8,7 @@ interface CustomIconProps extends SvgProps {
 }
 
 export const PrevRedIcon: React.FC<CustomIconProps> = ({
-  color = colors.success,
+  color = colors.buttonAccent,
   size = 18,
   ...props
 }) => (

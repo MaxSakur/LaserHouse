@@ -24,3 +24,8 @@ export * from './ArrowRightIcon';
 export * from './NoContentIcon';
 export * from './PrevRedIcon';
 export * from './PaidPinkIcon';
+
+export * from './LocationIcon';
+export * from './BorderedDropDownIcon';
+export * from './BuildingIcon';
+export * from './GlassIcon';

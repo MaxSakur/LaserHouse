@@ -1,10 +1,11 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {styles} from '../styles';
 import {authService} from '../../../../auth/services/authService';
 import {RouteService} from '../../../../auth/services/routeService';
 import {AuthNavigationRoutes} from '../../../../../types/navigation';
+import {sizes} from '../../../../../theme';
 
 export const AccountLogOut = () => {
   const {t} = useTranslation();
@@ -14,8 +15,18 @@ export const AccountLogOut = () => {
     RouteService.reset(AuthNavigationRoutes.login);
   };
   return (
-    <TouchableOpacity style={styles.logOut} onPress={handleClearUser}>
-      <Text style={styles.logOutText}>{t('accountScreen.logout')}</Text>
-    </TouchableOpacity>
+    <View style={{gap: sizes.l}}>
+      <TouchableOpacity style={styles.logOut} onPress={handleClearUser}>
+        <Text style={styles.logOutText}>{t('accountScreen.logout')}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.logOut}
+        onPress={() => null}
+        disabled={true}>
+        <Text style={styles.logOutText}>
+          {t('accountScreen.deleteAccount')}
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 };

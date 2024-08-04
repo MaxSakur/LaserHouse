@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   prevCollectionElement: {},
   location: {
     ...textStyles.body1,
-    fontWeight: 'bold',
+    paddingBottom: sizes.s,
   },
   name: {
     ...textStyles.body2,
@@ -132,10 +132,10 @@ const styles = StyleSheet.create({
   },
   doctor: {
     ...textStyles.body2,
-    color: colors.secondary,
+    color: colors.tertiary,
   },
   dateTime: {
     ...textStyles.body2,
-    color: colors.secondary,
+    color: colors.tertiary,
   },
 });

@@ -31,7 +31,11 @@ export const RegisterScreen: React.FC = () => {
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const {open, ModalComponent} = useModalContent({
-    headerText: t('registerScreen.privacyAgreementHeader'),
+    header: (
+      <Text style={styles.modalContentHeader}>
+        {t('registerScreen.privacyAgreementHeader')}
+      </Text>
+    ),
     content: (
       <Text style={styles.modalContentText}>
         {t('registerScreen.privacyAgreementText')}

@@ -72,7 +72,14 @@
     "recordSignUp": {
       "title": "Запис на візит",
       "description": "Запис через чат на актуальні  для вашого міста процедури",
-      "noRecordsLabel": ""
+      "noRecordsLabel": "",
+      "note": "Для запису на візит, оберіть, будь ласка, центр та зручний месенджер для зв’язку з нашим оператором. Він допоможе вам обрати дату та проконсультує по всім питанням",
+      "chooseCenterLabel": "Оберіть будь ласка центр, у який маєте бажання записатись",
+      "chooseCenter": "Обрати центр",
+      "chooseMessengerLabel": "Оберіть зручний месенджер для запису",
+      "viberConsultant": "Наш консультант в <bold>Viber</bold>",
+      "telegramConsultant": "Наш консультант в <bold>Telegram</bold>",
+      "signUp": "Записатись"
     },
 
     "recordScheduled": {
@@ -88,7 +95,7 @@
     },
 
     "recordPaid": {
-      "title": "Оплачені процедури",
+      "title": "Оплачені візити",
       "description": "Вже придбані вами процедури, але ще не витрачені",
       "noRecordsLabel": "У вас ще не має оплачених візитів"
     },
@@ -116,10 +123,12 @@
     "aboutCompany": "Про нас",
     "historyIncomeMessage": "Історія сповіщень",
     "socialMedias": "Ми у соціальніх мережах",
-    "logout": "Вийти з аккаунта"
+    "logout": "Вийти з аккаунта",
+    "deleteAccount": "Видалити акаунт"
   },
   "approve": "Підтвердити",
   "cancel": "Скасувати",
   "back": "Назад",
-  "selectDate": "Вибрати дату"
+  "selectDate": "Вибрати дату",
+  "searchAddress": "Введіть адресу"
 }

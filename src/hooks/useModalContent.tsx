@@ -1,12 +1,19 @@
-import React, {ReactNode, useState, useCallback} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
+import React, {
+  ReactNode,
+  useState,
+  useCallback,
+  ReactElement,
+  useRef,
+} from 'react';
+import {View, StyleSheet, TouchableOpacity, Modal} from 'react-native';
 import {CloseIcon} from '../icons';
-import {colors, sizes, textStyles} from '../theme';
+import {colors, sizes} from '../theme';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IModalContentProps {
-  headerText: string;
-  content: ReactNode;
+  header: ReactNode;
+  content: ReactElement<{close: () => void}>;
+  headerBorder?: boolean;
 }
 
 interface UseModalContentResult {
@@ -16,11 +23,14 @@ interface UseModalContentResult {
 }
 
 const useModalContent = ({
-  headerText,
+  header,
   content,
+  headerBorder = true,
 }: IModalContentProps): UseModalContentResult => {
   const [isVisible, setIsVisible] = useState(false);
   const insets = useSafeAreaInsets();
+  const closeRef = useRef<() => void>(() => {});
+
   const open = useCallback(() => {
     setIsVisible(true);
   }, []);
@@ -29,23 +39,28 @@ const useModalContent = ({
     setIsVisible(false);
   }, []);
 
+  closeRef.current = close;
+
+  const ContentWithClose = React.cloneElement(content, {close});
+
   const ModalComponent = (
     <Modal visible={isVisible} transparent={true} animationType="slide">
       <View style={styles.container}>
         <View style={[styles.content, {top: Math.max(insets.top, 16)}]}>
-          <View style={styles.contentHeader}>
-            <Text style={styles.headerText}>{headerText}</Text>
+          <View
+            style={[styles.contentHeader, headerBorder && styles.headerBorder]}>
+            <View style={styles.header}>{header}</View>
             <TouchableOpacity style={styles.backButton} onPress={close}>
               <CloseIcon />
             </TouchableOpacity>
           </View>
-          <View style={styles.contentBody}>{content}</View>
+          <View style={styles.contentBody}>{ContentWithClose}</View>
         </View>
       </View>
     </Modal>
   );
 
-  return {close, open, ModalComponent};
+  return {close: closeRef.current, open, ModalComponent};
 };
 
 const styles = StyleSheet.create({
@@ -67,6 +82,8 @@ const styles = StyleSheet.create({
     marginBottom: sizes.l,
     alignItems: 'center',
     gap: sizes.l,
+  },
+  headerBorder: {
     borderBottomWidth: 1,
   },
   backButton: {
@@ -75,11 +92,7 @@ const styles = StyleSheet.create({
   contentBody: {
     alignItems: 'flex-start',
   },
-  headerText: {
-    ...textStyles.title2,
-    textAlign: 'center',
-    flex: 1,
-  },
+  header: {flex: 1},
 });
 
 export default useModalContent;

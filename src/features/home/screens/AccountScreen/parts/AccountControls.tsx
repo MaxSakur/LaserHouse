@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {Text, View, FlatList} from 'react-native';
 import {styles} from '../styles';
 import {LanguageIcon} from '../../../../../icons/LanguageIcon';
-import {InfoIcon, LetterIcon, BellIcon} from '../../../../../icons';
+import {BellIcon, InfoIcon} from '../../../../../icons';
 
 const data = [
   {
@@ -13,17 +13,12 @@ const data = [
   },
   {
     label: 'accountScreen.pushMessages',
-    icon: <LetterIcon />,
+    icon: <BellIcon />,
     onPress: () => null,
   },
   {
     label: 'accountScreen.aboutCompany',
     icon: <InfoIcon color="#000" />,
-    onPress: () => null,
-  },
-  {
-    label: 'accountScreen.historyIncomeMessage',
-    icon: <BellIcon />,
     onPress: () => null,
   },
 ];

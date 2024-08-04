@@ -9,6 +9,7 @@ interface Styles {
   input: TextStyle;
   focusedInput: ViewStyle;
   inputsSectionTitle: TextStyle;
+  modalContentHeader: TextStyle;
   modalContentText: TextStyle;
   button: ViewStyle;
   buttonContainer: ViewStyle;
@@ -63,6 +64,10 @@ export const styles = StyleSheet.create<Styles>({
     backgroundColor: colors.buttonAccent,
     borderRadius: sizes.radius,
     alignItems: 'center',
+  },
+  modalContentHeader: {
+    ...textStyles.title2,
+    textAlign: 'center',
   },
   modalContentText: {
     ...textStyles.body1,
