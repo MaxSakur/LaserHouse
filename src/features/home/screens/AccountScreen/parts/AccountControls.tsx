@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Text, View, FlatList, TouchableOpacity} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity, Linking} from 'react-native';
 import {styles} from '../styles';
 import {LanguageIcon} from '../../../../../icons/LanguageIcon';
 import {BellIcon, InfoIcon} from '../../../../../icons';
@@ -19,6 +19,10 @@ export const AccountControls = () => {
     content: <LanguageSwitcher />,
   });
 
+  const openExternalLink = (url: string) => {
+    Linking.openURL(url).catch(err => console.error('An error occurred', err));
+  };
+
   const data = [
     {
       label: 'accountScreen.chooseLanguage',
@@ -33,7 +37,8 @@ export const AccountControls = () => {
     {
       label: 'accountScreen.aboutCompany',
       icon: <InfoIcon color="#000" />,
-      onPress: () => null,
+      onPress: () =>
+        openExternalLink('https://www.laserhouse.com.ua/ua/philosophy'),
     },
   ];
 
