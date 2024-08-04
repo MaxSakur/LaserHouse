@@ -62,7 +62,6 @@
   "historyIncomeScreen": {
     "title": "Бонусні кошти"
   },
-
   "recordsScreen": {
     "title": "Візити",
     "noRecords": "У Вас немає записів",
@@ -106,6 +105,7 @@
       "noRecordsLabel": "У вас ще не має косметики"
     }
   },
+
   "couponsScreen": {
     "title": "Купони",
     "noCoupons": "У Вас немає купонів",

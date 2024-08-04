@@ -1,13 +1,134 @@
 {
+  "ua": "Ukraina",
+  "pl": "Polska",
   "loginScreen": {
-    "welcome": "Вітаємо!",
-    "enterPhone": "Щоб увійти до додатку, вкажіть номер Вашого телефона. На нього буде відправлено код підтвердження.!",
-    "privacyPolicy": "Продовжуючи, я надаю згоду на",
-    "privacyPolicyLink": "обробку персональних даних",
-    "enter": "Увійти"
+    "title": "Logowanie do aplikacji",
+    "welcome": "Witamy!",
+    "enterPhone": "Aby zalogować się do aplikacji, podaj swój numer telefonu. Na niego zostanie wysłany kod potwierdzający.",
+    "privacyPolicy": "Kontynuując, wyrażam zgodę na",
+    "privacyPolicyLink": "przetwarzanie danych osobowych",
+    "enter": "Zaloguj się"
   },
-  "VerificationScreen": {
-    "message": "Введіть код підтвердження!",
-    "details": "SMS на номер <bold>{{number}}</bold> повинно прийти протягом одної хвилини!"
-  }
+  "verificationScreen": {
+    "title": "Potwierdzenie numeru telefonu",
+    "create": "Utwórz kartę klienta",
+    "resend": "Wyślij kod ponownie",
+    "message": "Wprowadź kod potwierdzający!",
+    "error": "Nieprawidłowy kod potwierdzający",
+    "success": "Kod potwierdzający jest prawidłowy",
+    "notRegistered": "<bold>Wystąpił błąd</bold>\n karta klienta dla tego numeru nie została znaleziona",
+    "details": "SMS na numer <bold>{{number}}</bold> powinien przyjść w ciągu jednej minuty!"
+  },
+  "registerScreen": {
+    "title": "Rejestracja",
+    "personalData": {
+      "label": "Dane osobowe",
+      "name": "Imię",
+      "surname": "Nazwisko",
+      "parentName": "Imię ojca",
+      "dob": "Data urodzenia"
+    },
+    "contactData": {
+      "label": "Dane kontaktowe",
+      "phone": "Telefon",
+      "email": "E-mail"
+    },
+    "privacyAgreement": "Wyrażam zgodę na przetwarzanie danych osobowych.",
+    "privacyAgreementNext": "Więcej informacji*",
+    "privacyAgreementHeader": "Zgoda na przetwarzanie danych osobowych",
+    "privacyAgreementText": "Zgoda na przetwarzanie danych osobowych Zaznaczając to pole, wyrażam zgodę zgodnie z Ustawą Ukrainy „O ochronie danych osobowych” na przetwarzanie moich danych osobowych w następującym zakresie: imię, nazwisko, numer telefonu, data urodzenia, adres e-mail; wykorzystywanie danych osobowych, które obejmuje działania właściciela bazy danych związane z przetwarzaniem tych danych, w tym wykorzystywanie danych osobowych zgodnie z ich profesjonalnymi lub służbowymi obowiązkami, działania związane z ochroną tych danych oraz działania związane z udzielaniem częściowych lub pełnych praw do przetwarzania danych osobowych innym podmiotom zaangażowanym w relacje związane z danymi osobowymi (artykuł 10 wspomnianej ustawy); rozpowszechnianie danych osobowych, które obejmuje działania właściciela bazy danych osobowych dotyczące przekazywania informacji o osobie fizycznej z bazy danych osobowych (artykuł 14 wspomnianej ustawy); dostęp do danych osobowych osób trzecich, co określa działania właściciela bazy danych osobowych w przypadku otrzymania zapytania od osoby trzeciej dotyczącego dostępu do danych osobowych, w tym procedurę dostępu podmiotu danych osobowych do informacji o sobie (artykuł 16 wspomnianej ustawy). Zobowiązuję się w przypadku zmiany moich danych osobowych dostarczać w najkrótszym czasie zaktualizowane, dokładne informacje w celu aktualizacji moich danych osobowych. Informujemy, że dostarczone przez Ciebie informacje zostaną włączone do bazy danych klientów „Laserhouse”. Jako podmiot danych osobowych masz prawa przewidziane w art. 8 Ustawy Ukrainy „O ochronie danych osobowych”.",
+    "register": "Zarejestruj się"
+  },
+  "balanceScreen": {
+    "title": "Saldo",
+    "welcome": "Witamy,\n<bold>{{name}}</bold> !",
+    "bonusInfoLabel": "Przyznane środki bonusowe",
+    "bonusValue": "{{value}} <small>{{currency}}</small>",
+    "bonusQRCode": "Aby gromadzić lub wykorzystać bonusy, pokaż ten <bold>QR kod administratorowi:</bold>",
+    "bonusHistoryLabel": "Historia bonusów"
+  },
+  "bonusInfoModal": {
+    "title": "każda Twoja płatność finansuje kolejną wizytę!",
+
+    "pointCalculationHeader": "Jak naliczane są punkty?",
+    "pointCalculationBody": "Za każdą płatność w sieci „Laserhouse” <b>otrzymujesz 2%</b> na swoje konto bonusowe. Bonusowe hrywny naliczane są zgodnie z zasadami zaokrąglania matematycznego do całkowitej wartości. Bonusy nie są naliczane, jeśli całkowicie lub częściowo opłacasz rachunek środkami bonusowymi.",
+    "wayToUseHeader": "Na co można wykorzystać środki bonusowe?",
+    "wayToUseBody": "Płatność bonusowymi hrywnami obejmuje wszystkie procedury w Centrach „Laserhouse” oraz zakup kosmetyków. Środkami bonusowymi możesz pokryć całą kwotę płatności lub część swojego rachunku. Przy płatności bonusami obowiązują aktualne promocje i rabaty.",
+    "wayToUseImportant": "<b>WAŻNE!</b> Środki bonusowe nie mogą być przekształcone w hrywny ani w gotówkowy ekwiwalent „na rękę”. Obowiązują one tylko na płatność za usługi i kosmetyki w sieci Centrów „Laserhouse”.",
+    "bonusConditionsHeader": "Kiedy bonus zostanie naliczony?",
+    "bonusConditionsBody": "Bonus zostanie naliczony w ciągu 24 godzin po wizycie zaproszonego klienta"
+  },
+
+  "historyIncomeScreen": {
+    "title": "Środki bonusowe"
+  },
+
+  "recordsScreen": {
+    "title": "Wizyty",
+    "noRecords": "Nie masz żadnych zapisów",
+    "noRecordsDescription": "Skontaktuj się z naszym operatorem. Pomoże Ci wybrać datę i udzieli wszelkich informacji.",
+    "contactWithOperator": "Skontaktuj się z operatorem",
+
+    "recordSignUp": {
+      "title": "Zapis na wizytę",
+      "description": "Zapis przez czat na aktualne dla Twojego miasta procedury",
+      "noRecordsLabel": "",
+      "note": "Aby zapisać się na wizytę, wybierz centrum i dogodny komunikator do kontaktu z naszym operatorem. Pomoże Ci wybrać datę i udzieli wszelkich informacji.",
+      "chooseCenterLabel": "Wybierz centrum, do którego chcesz się zapisać",
+      "chooseCenter": "Wybierz centrum",
+      "chooseMessengerLabel": "Wybierz dogodny komunikator do zapisu",
+      "viberConsultant": "Nasz konsultant na <bold>Viber</bold>",
+      "telegramConsultant": "Nasz konsultant na <bold>Telegram</bold>",
+      "signUp": "Zapisz się"
+    },
+
+    "recordScheduled": {
+      "title": "Zaplanowane procedury",
+      "description": "Przegląd wizyt, na które się zapisałeś, ale jeszcze się nie odbyły",
+      "noRecordsLabel": "Nie masz jeszcze zaplanowanych procedur"
+    },
+
+    "recordPrevious": {
+      "title": "Twoje wcześniejsze wizyty",
+      "description": "Przegląd wizyt, które już się odbyły",
+      "noRecordsLabel": "Nie masz jeszcze wcześniejszych wizyt"
+    },
+
+    "recordPaid": {
+      "title": "Opłacone wizyty",
+      "description": "Procedury, które już kupiłeś, ale jeszcze nie skorzystałeś",
+      "noRecordsLabel": "Nie masz jeszcze opłaconych wizyt"
+    },
+
+    "recordHome": {
+      "title": "Pielęgnacja domowa",
+      "description": "Lista zakupionych przez Ciebie produktów do pielęgnacji domowej",
+      "noRecordsLabel": "Nie masz jeszcze kosmetyków"
+    }
+  },
+  "couponsScreen": {
+    "title": "Kupony",
+    "noCoupons": "Nie masz kuponów",
+    "couponTabs": {
+      "laserEpilation": "Depilacja laserowa",
+      "cosmetology": "Kosmetologia",
+      "myCoupons": "Moje kupony"
+    },
+    "couponDueDate": "Oferta ważna do {{date}} r."
+  },
+  "accountScreen": {
+    "title": "Konto",
+    "chooseLanguage": "Wybierz język",
+    "pushMessages": "Powiadomienia push",
+    "aboutCompany": "O nas",
+    "historyIncomeMessage": "Historia powiadomień",
+    "socialMedias": "Znajdziesz nas w mediach społecznościowych",
+    "logout": "Wyloguj się",
+    "deleteAccount": "Usuń konto"
+  },
+  "approve": "Potwierdź",
+  "cancel": "Anuluj",
+  "back": "Wstecz",
+  "selectDate": "Wybierz datę",
+  "searchAddress": "Wprowadź adres"
 }

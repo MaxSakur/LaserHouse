@@ -1,10 +1,13 @@
 import React, {FC} from 'react';
-import {Trans} from 'react-i18next';
+import {Trans, useTranslation} from 'react-i18next';
 import {Text, View} from 'react-native';
-import {styles} from './styles';
 import FastImage from 'react-native-fast-image';
+import {styles} from './styles';
 
 export const BonusQRCode: FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {i18n} = useTranslation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.description}>

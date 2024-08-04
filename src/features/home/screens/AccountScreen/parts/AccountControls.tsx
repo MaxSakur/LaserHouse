@@ -5,6 +5,7 @@ import {styles} from '../styles';
 import {LanguageIcon} from '../../../../../icons/LanguageIcon';
 import {BellIcon, InfoIcon} from '../../../../../icons';
 import useModalContent from '../../../../../hooks/useModalContent';
+import {LanguageSwitcher} from './LanguageSwitcher';
 
 const Divider = () => <View style={styles.divider} />;
 
@@ -15,7 +16,7 @@ export const AccountControls = () => {
     header: null,
     headerBorder: false,
     isFullHeight: false,
-    content: <View style={{height: 200}} />,
+    content: <LanguageSwitcher />,
   });
 
   const data = [

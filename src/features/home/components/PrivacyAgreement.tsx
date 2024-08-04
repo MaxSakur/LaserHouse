@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {colors, presets, sizes, textStyles} from '../../../theme';
-import {UnChecked, Checked} from '../../../icons';
+import {CheckedIcon, UnCheckedIcon} from '../../../icons';
 
 interface PrivacyAgreementProps {
   isApproved: boolean;
@@ -22,7 +22,7 @@ export const PrivacyAgreement: React.FC<PrivacyAgreementProps> = ({
       <TouchableOpacity
         onPress={onCheckBoxClick}
         style={styles.checkboxContainer}>
-        {isApproved ? <Checked /> : <UnChecked />}
+        {isApproved ? <CheckedIcon /> : <UnCheckedIcon />}
       </TouchableOpacity>
       <View>
         <Text style={styles.text}>{t('registerScreen.privacyAgreement')}</Text>
