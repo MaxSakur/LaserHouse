@@ -51,9 +51,6 @@ const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer ref={RouteService.navigationRef}>
       <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
         initialRouteName={
           isLoggedIn
             ? LoggedInNavigationRoutes.loggedStack
@@ -83,6 +80,7 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen
           name={LoggedInNavigationRoutes.loggedStack}
           component={LoggedInStackNavigator}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

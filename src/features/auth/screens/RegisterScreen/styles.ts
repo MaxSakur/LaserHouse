@@ -2,6 +2,7 @@ import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
 import {colors, sizes, textStyles} from '../../../../theme';
 
 interface Styles {
+  safeArea: ViewStyle;
   container: ViewStyle;
   registerScreen: ViewStyle;
   personalData: ViewStyle;
@@ -17,6 +18,9 @@ interface Styles {
 }
 
 export const styles = StyleSheet.create<Styles>({
+  safeArea: {
+    flex: 1,
+  },
   container: {
     flex: 1,
   },

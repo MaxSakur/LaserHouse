@@ -5,7 +5,13 @@ import React, {
   ReactElement,
   useRef,
 } from 'react';
-import {View, StyleSheet, TouchableOpacity, Modal} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+  Dimensions,
+} from 'react-native';
 import {CloseIcon} from '../icons';
 import {colors, sizes} from '../theme';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -14,6 +20,7 @@ interface IModalContentProps {
   header: ReactNode;
   content: ReactElement<{close: () => void}>;
   headerBorder?: boolean;
+  isFullHeight?: boolean;
 }
 
 interface UseModalContentResult {
@@ -26,6 +33,7 @@ const useModalContent = ({
   header,
   content,
   headerBorder = true,
+  isFullHeight = true,
 }: IModalContentProps): UseModalContentResult => {
   const [isVisible, setIsVisible] = useState(false);
   const insets = useSafeAreaInsets();
@@ -43,10 +51,33 @@ const useModalContent = ({
 
   const ContentWithClose = React.cloneElement(content, {close});
 
-  const ModalComponent = (
+  const ModalComponent = isFullHeight ? (
     <Modal visible={isVisible} transparent={true} animationType="slide">
       <View style={styles.container}>
         <View style={[styles.content, {top: Math.max(insets.top, 16)}]}>
+          <View
+            style={[styles.contentHeader, headerBorder && styles.headerBorder]}>
+            <View style={styles.header}>{header}</View>
+            <TouchableOpacity style={styles.backButton} onPress={close}>
+              <CloseIcon />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.contentBody}>{ContentWithClose}</View>
+        </View>
+      </View>
+    </Modal>
+  ) : (
+    <Modal visible={isVisible} transparent={true} animationType="slide">
+      <View style={styles.container}>
+        <View
+          style={[
+            styles.notFullcontent,
+            !isFullHeight && styles.notFullHeight,
+            {
+              top: Math.max(insets.top + 24, 40),
+              maxHeight: Dimensions.get('window').height - insets.top,
+            },
+          ]}>
           <View
             style={[styles.contentHeader, headerBorder && styles.headerBorder]}>
             <View style={styles.header}>{header}</View>
@@ -88,6 +119,15 @@ const styles = StyleSheet.create({
   },
   backButton: {
     flexDirection: 'row',
+  },
+  notFullcontent: {
+    backgroundColor: colors.white,
+    padding: sizes.xl,
+    borderRadius: sizes.radius,
+    width: '100%',
+  },
+  notFullHeight: {
+    position: 'relative',
   },
   contentBody: {
     alignItems: 'flex-start',

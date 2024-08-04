@@ -30,7 +30,6 @@ type VerificationScreenRouteProp = RouteProp<
 export const VerificationScreen: React.FC = () => {
   const [code, setCode] = useState('');
   const [isResendAvailable, setIsResendAvailable] = useState(true);
-  const [isCreateAvailable, setIsCreateAvailable] = useState(false);
   const [isCodeValid, setIsCodeValid] = useState(true);
   const [resendCounter, setResendCounter] = useState(0);
   const {t} = useTranslation();
@@ -53,7 +52,6 @@ export const VerificationScreen: React.FC = () => {
             }
           } else {
             setIsCodeValid(false);
-            setIsCreateAvailable(true);
           }
         }
         Keyboard.dismiss();
@@ -109,7 +107,7 @@ export const VerificationScreen: React.FC = () => {
             <VerificationCodeInput value={code} onChange={setCode} />
           </View>
 
-          {!verificationData?.isRegistered && (
+          {verificationData?.isRegistered && (
             <View style={styles.notRegistered}>
               <Text style={styles.notRegisteredText}>
                 <Trans
@@ -121,7 +119,7 @@ export const VerificationScreen: React.FC = () => {
               </Text>
               <DefaultButton
                 buttonText={t('verificationScreen.create')}
-                disabled={!isCreateAvailable}
+                disabled={false}
                 onPress={handleRegister}
               />
             </View>
