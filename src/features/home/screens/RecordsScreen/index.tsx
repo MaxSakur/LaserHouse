@@ -102,7 +102,8 @@ export const RecordScreen: FC<RecordScreenProps> = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: sizes.l,
+    paddingVertical: sizes.l,
+    paddingHorizontal: sizes.m,
   },
   optionContainer: {
     marginBottom: sizes.l,

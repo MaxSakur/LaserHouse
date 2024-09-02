@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,9 +7,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {colors, sizes, textStyles} from '../theme';
-import {LeftArrowIcon, LetterIcon} from '../icons';
-import {useNavigation} from '@react-navigation/native';
-// import api from '../api'; // Uncomment this line if you have an API module
+import {LeftArrowIcon} from '../icons';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {
+  LoggedInNavigationRoutes,
+  RootStackParamList,
+} from '../types/navigation';
+import {NotificationsButton} from '../features/home/components/buttons/NotificationButton';
+import {notificationsData} from '../features/home/screens/NotificationsScreen/apiStaticData';
+import FastImage from 'react-native-fast-image';
 
 interface ScreenHeaderProps {
   title?: string;
@@ -17,61 +23,38 @@ interface ScreenHeaderProps {
   withMessagesIndicator?: boolean;
 }
 
-const REFRESH_INTERVAL = 60000;
-
+type NavigationProps = NavigationProp<RootStackParamList>;
 export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
   title,
   withBackButton = false,
   withMessagesIndicator = true,
 }) => {
-  const navigation = useNavigation();
-  const [isGotNewMessages, setIsGotNewMessages] = useState(false);
+  const navigation = useNavigation<NavigationProps>();
 
   const navigateBack = () => {
     navigation.goBack();
   };
 
-  const handleNavigateTo = () => {
-    setIsGotNewMessages(false);
-    // Replace with your actual navigation logic
-    // navigation.navigate('Messages');
+  const navigateToNotification = () => {
+    navigation.navigate(LoggedInNavigationRoutes.notifications, {
+      data: notificationsData,
+    });
   };
-
-  useEffect(() => {
-    let prevMessagesCount = 0;
-
-    const fetchMessages = async () => {
-      try {
-        // Replace with your actual API call
-        // const messages = await api.getMessages();
-        const messages = 4;
-        const newMessagesLength = messages;
-
-        if (newMessagesLength > 0 && newMessagesLength !== prevMessagesCount) {
-          setIsGotNewMessages(true);
-        }
-
-        prevMessagesCount = newMessagesLength;
-      } catch (error) {
-        console.error('Failed to fetch messages:', error);
-      }
-    };
-
-    fetchMessages();
-
-    const intervalId = setInterval(fetchMessages, REFRESH_INTERVAL);
-
-    return () => clearInterval(intervalId);
-  }, []);
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.headerContainer}>
         <View style={styles.leftIconContainer}>
-          {withBackButton && (
+          {withBackButton ? (
             <TouchableOpacity onPress={navigateBack}>
               <LeftArrowIcon />
             </TouchableOpacity>
+          ) : (
+            <FastImage
+              style={styles.logo}
+              source={require('../../assets/images/logo.png')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
           )}
         </View>
 
@@ -80,19 +63,10 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
         </View>
 
         {withMessagesIndicator && (
-          <View style={styles.rightIconContainer}>
-            <TouchableOpacity
-              style={[
-                styles.iconContainer,
-                isGotNewMessages && {
-                  backgroundColor: colors.notificationBackground,
-                },
-              ]}
-              onPress={handleNavigateTo}>
-              <LetterIcon />
-              {isGotNewMessages && <View style={styles.dot} />}
-            </TouchableOpacity>
-          </View>
+          <NotificationsButton
+            onPress={navigateToNotification}
+            withActiveDot={true}
+          />
         )}
       </View>
     </SafeAreaView>
@@ -108,7 +82,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     height: sizes.headerHeight + sizes.s,
-    paddingHorizontal: sizes.l,
+    paddingHorizontal: sizes.m,
+    marginVertical: sizes.s,
   },
   middleSection: {
     flex: 1,
@@ -121,33 +96,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.primary,
   },
+  logo: {
+    height: sizes.headerHeight,
+    width: sizes.headerHeight,
+  },
   leftIconContainer: {
     width: sizes.headerHeight,
     height: sizes.headerHeight,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  rightIconContainer: {
-    width: sizes.headerHeight,
-    height: sizes.headerHeight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-  },
-  iconContainer: {
-    width: sizes.headerHeight,
-    height: sizes.headerHeight,
-    borderRadius: sizes.radius,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  dot: {
-    position: 'absolute',
-    top: sizes.s,
-    right: sizes.s,
-    width: sizes.m,
-    height: sizes.m,
-    borderRadius: 100,
-    backgroundColor: colors.buttonAccent,
   },
 });

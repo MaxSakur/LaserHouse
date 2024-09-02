@@ -4,7 +4,10 @@ import {useTranslation} from 'react-i18next';
 import {Text, View} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {RootStackParamList} from '../../../../types/navigation';
+import {
+  AuthNavigationRoutes,
+  RootStackParamList,
+} from '../../../../types/navigation';
 import {CalendarDropdown, DefaultInput} from '../../components/inputs';
 import {styles} from './styles';
 import {PrivacyAgreement} from '../../components/PrivacyAgreement';
@@ -85,7 +88,7 @@ export const RegisterScreen: React.FC = () => {
 
     const {statusCode} = await authService.register(pretifiedUserData);
     if (statusCode === 200) {
-      navigation.navigate('Login');
+      navigation.navigate(AuthNavigationRoutes.login);
     }
   };
 

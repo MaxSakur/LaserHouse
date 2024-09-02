@@ -28,16 +28,16 @@ interface Tab {
 
 const tabs: Tab[] = [
   {
+    name: CouponNavigationRoutes.myCoupons,
+    label: 'couponsScreen.couponTabs.myCoupons',
+  },
+  {
     name: CouponNavigationRoutes.laserEpilation,
     label: 'couponsScreen.couponTabs.laserEpilation',
   },
   {
     name: CouponNavigationRoutes.cosmetology,
     label: 'couponsScreen.couponTabs.cosmetology',
-  },
-  {
-    name: CouponNavigationRoutes.myCoupons,
-    label: 'couponsScreen.couponTabs.myCoupons',
   },
 ];
 

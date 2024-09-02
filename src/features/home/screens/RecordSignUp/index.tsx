@@ -20,7 +20,10 @@ import useModalContent from '../../../../hooks/useModalContent';
 import {RecordsSignUpModal} from './parts/RecordsSignUpModal';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RecordsStackParamList} from '../../../../types/navigation';
+import {
+  RecordsNavigationRoutes,
+  RecordsStackParamList,
+} from '../../../../types/navigation';
 
 const BreakLineText: FC<{mainText: string; boldText: string}> = ({
   mainText,
@@ -76,7 +79,7 @@ export const RecordSignUp: FC = () => {
       selectedAddress,
     );
 
-    navigation.navigate('RecordsMain');
+    navigation.navigate(RecordsNavigationRoutes.RecordsMain);
   };
   const handleOpenModal = () => {
     open();
@@ -198,8 +201,8 @@ export const RecordSignUp: FC = () => {
 const styles = StyleSheet.create({
   containerPositioning: {
     flexGrow: 1,
-    paddingHorizontal: sizes.l,
     paddingVertical: sizes.l,
+    paddingHorizontal: sizes.m,
     justifyContent: 'space-between',
   },
   container: {

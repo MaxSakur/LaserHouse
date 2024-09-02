@@ -9,7 +9,10 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import {RootStackParamList} from '../../../../types/navigation';
+import {
+  AuthNavigationRoutes,
+  RootStackParamList,
+} from '../../../../types/navigation';
 import {styles} from './styles';
 import {MaskedPhoneInput} from '../../components/inputs';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -30,7 +33,7 @@ export const LoginScreen: React.FC = () => {
   const handleLogin = async () => {
     const {statusCode, data} = await authService.sendVerificationCode(phone);
     if (statusCode === 200 && data !== null) {
-      navigation.navigate('Verification', {phone, data});
+      navigation.navigate(AuthNavigationRoutes.verification, {phone, data});
       setPhone('');
     }
   };

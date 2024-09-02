@@ -140,12 +140,11 @@ export const RecordScheduled: FC = () => {
           )
           .map((date, index) => (
             <View key={date.id + index} style={styles.scheduledRecord}>
-              <PrevRedIcon />
-              <View>
-                <Text style={styles.location}>{date.location}:</Text>
-                <Text style={styles.link}>{date.addressLink}</Text>
-                <Text style={styles.name}>{date.name}</Text>
-                <Text style={styles.doctor}>{date.doctor}</Text>
+              <View style={styles.dayTime}>
+                <View style={styles.row}>
+                  <PrevRedIcon size={14} />
+                  <Text>{dayjs(date.dateTime).format('DD.MM')}</Text>
+                </View>
                 <Text style={styles.dateTime}>
                   {dayjs(date.dateTime).locale('uk').format('HH:mm')} -{' '}
                   {dayjs(date.dateTime)
@@ -153,6 +152,13 @@ export const RecordScheduled: FC = () => {
                     .locale('uk')
                     .format('HH:mm')}
                 </Text>
+              </View>
+
+              <View>
+                <Text style={styles.location}>{date.location}:</Text>
+                <Text style={styles.link}>{date.addressLink}</Text>
+                <Text style={styles.name}>{date.name}</Text>
+                <Text style={styles.doctor}>{date.doctor}</Text>
               </View>
             </View>
           ))}
@@ -182,8 +188,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.secondary,
   },
+  dayTime: {
+    gap: sizes.s,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: sizes.s,
+  },
   calendar: {
-    margin: sizes.l,
+    margin: sizes.m,
     padding: sizes.l,
     paddingTop: 0,
     marginBottom: 0,
@@ -215,7 +229,7 @@ const styles = StyleSheet.create({
     lineHeight: 52,
   },
   records: {
-    padding: sizes.l,
+    padding: sizes.m,
     gap: sizes.l,
   },
   scheduledRecord: {
@@ -224,7 +238,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: colors.white,
     padding: sizes.l,
-    gap: sizes.m,
+    gap: sizes.l,
     borderRadius: sizes.radius,
   },
   location: {

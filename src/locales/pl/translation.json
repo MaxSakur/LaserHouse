@@ -54,9 +54,7 @@
     "pointCalculationBody": "Za każdą płatność w sieci „Laserhouse” <b>otrzymujesz 2%</b> na swoje konto bonusowe. Bonusowe hrywny naliczane są zgodnie z zasadami zaokrąglania matematycznego do całkowitej wartości. Bonusy nie są naliczane, jeśli całkowicie lub częściowo opłacasz rachunek środkami bonusowymi.",
     "wayToUseHeader": "Na co można wykorzystać środki bonusowe?",
     "wayToUseBody": "Płatność bonusowymi hrywnami obejmuje wszystkie procedury w Centrach „Laserhouse” oraz zakup kosmetyków. Środkami bonusowymi możesz pokryć całą kwotę płatności lub część swojego rachunku. Przy płatności bonusami obowiązują aktualne promocje i rabaty.",
-    "wayToUseImportant": "<b>WAŻNE!</b> Środki bonusowe nie mogą być przekształcone w hrywny ani w gotówkowy ekwiwalent „na rękę”. Obowiązują one tylko na płatność za usługi i kosmetyki w sieci Centrów „Laserhouse”.",
-    "bonusConditionsHeader": "Kiedy bonus zostanie naliczony?",
-    "bonusConditionsBody": "Bonus zostanie naliczony w ciągu 24 godzin po wizycie zaproszonego klienta"
+    "wayToUseImportant": "<b>WAŻNE!</b> Środki bonusowe nie mogą być przekształcone w hrywny ani w gotówkowy ekwiwalent „na rękę”. Obowiązują one tylko na płatność za usługi i kosmetyki w sieci Centrów „Laserhouse”."
   },
 
   "historyIncomeScreen": {
@@ -125,6 +123,9 @@
     "socialMedias": "Znajdziesz nas w mediach społecznościowych",
     "logout": "Wyloguj się",
     "deleteAccount": "Usuń konto"
+  },
+  "notificationScreen": {
+    "title": "Push powiadomienia"
   },
   "approve": "Potwierdź",
   "cancel": "Anuluj",

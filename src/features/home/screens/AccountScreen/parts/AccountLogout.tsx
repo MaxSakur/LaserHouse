@@ -5,7 +5,7 @@ import {styles} from '../styles';
 import {authService} from '../../../../auth/services/authService';
 import {RouteService} from '../../../../auth/services/routeService';
 import {AuthNavigationRoutes} from '../../../../../types/navigation';
-import {sizes} from '../../../../../theme';
+import {colors, sizes} from '../../../../../theme';
 
 export const AccountLogOut = () => {
   const {t} = useTranslation();
@@ -20,10 +20,10 @@ export const AccountLogOut = () => {
         <Text style={styles.logOutText}>{t('accountScreen.logout')}</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.logOut}
+        style={[styles.logOut, {backgroundColor: 'transparent'}]}
         onPress={() => null}
         disabled={true}>
-        <Text style={styles.logOutText}>
+        <Text style={[styles.logOutText, {color: colors.tertiary}]}>
           {t('accountScreen.deleteAccount')}
         </Text>
       </TouchableOpacity>

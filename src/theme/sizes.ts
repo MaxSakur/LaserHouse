@@ -1,7 +1,9 @@
 import {scale} from '../utils';
 
 export const sizes = {
+  xs: scale(2),
   s: scale(4),
+  sm: scale(6),
   m: scale(8),
   md: scale(12),
   l: scale(16),

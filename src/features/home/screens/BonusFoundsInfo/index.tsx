@@ -18,11 +18,6 @@ export const BonusFoundsInfo = () => {
       body: 'bonusInfoModal.wayToUseBody',
       important: 'bonusInfoModal.wayToUseImportant',
     },
-    {
-      id: 3,
-      title: 'bonusInfoModal.bonusConditionsHeader',
-      body: 'bonusInfoModal.bonusConditionsBody',
-    },
   ];
 
   return (

@@ -49,12 +49,23 @@ export type RecordsStackParamList = {
   [RecordsNavigationRoutes.RecordHome]: undefined;
 };
 
+export type INotification = {
+  id: string;
+  title: string;
+  date: string;
+  isReaded: boolean;
+  onClick: () => void;
+};
+
 export type LoggedInStackParamList = {
   Coupons: undefined;
   Records: undefined;
   Account: undefined;
   LoggedStack: undefined;
   BalanceStack: undefined;
+  Notifications: {
+    data: INotification[];
+  };
 };
 
 export const LoggedInNavigationRoutes = {
@@ -62,6 +73,7 @@ export const LoggedInNavigationRoutes = {
   records: 'Records',
   coupons: 'Coupons',
   account: 'Account',
+  notifications: 'Notifications',
   loggedStack: 'LoggedStack',
 } as const;
 
