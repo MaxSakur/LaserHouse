@@ -14,6 +14,7 @@ import {RegisterScreen} from '../features/auth/screens/RegisterScreen';
 import {LoggedInStackNavigator} from './LoggedInStackNavigator';
 import {AuthProvider, useAuth} from '../hooks/useAuth';
 import {RouteService} from '../features/auth/services/routeService';
+import {NotificationsScreen} from '../features/home/screens/NotificationsScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -40,6 +41,7 @@ const AppNavigator: React.FC = () => {
     checkAuthStatus();
   }, [checkAuthStatus]);
 
+  // TODO: Check loading
   if (loading) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -81,6 +83,14 @@ const AppNavigator: React.FC = () => {
           name={LoggedInNavigationRoutes.loggedStack}
           component={LoggedInStackNavigator}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={LoggedInNavigationRoutes.notifications}
+          component={NotificationsScreen}
+          options={{
+            ...RegistrationScreenOptions,
+            title: t('notificationScreen.title'),
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

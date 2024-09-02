@@ -13,7 +13,9 @@ export const styles = StyleSheet.create({
   boldText: {
     ...textStyles.verificationCode,
   },
-
+  image: {
+    height: 100,
+  },
   bonusInfo: {
     marginVertical: sizes.l,
     backgroundColor: colors.white,

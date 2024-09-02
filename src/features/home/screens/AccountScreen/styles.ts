@@ -9,10 +9,12 @@ interface Styles {
   accountControllsList: ViewStyle;
   accountControllsElement: ViewStyle;
   divider: ViewStyle;
+  label: ViewStyle;
   image: ImageStyle;
   socials: ViewStyle;
   socialsList: ViewStyle;
   socialsTitle: TextStyle;
+  rightIcon: ViewStyle;
   logOut: ViewStyle;
   logOutText: TextStyle;
 }
@@ -38,6 +40,10 @@ export const styles = StyleSheet.create<Styles>({
   },
   iconContainer: {
     padding: sizes.m,
+    width: sizes.xxl,
+    height: sizes.xxl,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: sizes.m,
     backgroundColor: colors.notificationBackground,
   },
@@ -75,5 +81,13 @@ export const styles = StyleSheet.create<Styles>({
   logOutText: {
     color: colors.white,
     textAlign: 'center',
+  },
+  label: {
+    flex: 1,
+  },
+  rightIcon: {
+    borderRadius: 100,
+    height: sizes.xl,
+    width: sizes.xl,
   },
 });

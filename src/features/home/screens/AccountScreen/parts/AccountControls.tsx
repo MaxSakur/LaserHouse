@@ -3,9 +3,11 @@ import {useTranslation} from 'react-i18next';
 import {Text, View, FlatList, TouchableOpacity, Linking} from 'react-native';
 import {styles} from '../styles';
 import {LanguageIcon} from '../../../../../icons/LanguageIcon';
-import {BellIcon, InfoIcon} from '../../../../../icons';
+import {ArrowRightIcon, BellIcon, InfoIcon} from '../../../../../icons';
 import useModalContent from '../../../../../hooks/useModalContent';
 import {LanguageSwitcher} from './LanguageSwitcher';
+import NotificationToggle from '../../../components/toggles/NotificationToggle';
+import {colors} from '../../../../../theme';
 
 const Divider = () => <View style={styles.divider} />;
 
@@ -32,11 +34,13 @@ export const AccountControls = () => {
     {
       label: 'accountScreen.pushMessages',
       icon: <BellIcon />,
+      rightContent: <NotificationToggle />,
       onPress: () => null,
     },
     {
       label: 'accountScreen.aboutCompany',
       icon: <InfoIcon color="#000" />,
+
       onPress: () =>
         openExternalLink('https://www.laserhouse.com.ua/ua/philosophy'),
     },
@@ -47,7 +51,14 @@ export const AccountControls = () => {
       style={styles.accountControllsElement}
       onPress={item.onPress}>
       <View style={styles.iconContainer}>{item.icon}</View>
-      <Text>{t(item.label)}</Text>
+      <Text style={styles.label}>{t(item.label)}</Text>
+      {!item.rightContent ? (
+        <View style={[styles.iconContainer, styles.rightIcon]}>
+          <ArrowRightIcon size={5} color={colors.tertiary} />
+        </View>
+      ) : (
+        item.rightContent
+      )}
     </TouchableOpacity>
   );
 
