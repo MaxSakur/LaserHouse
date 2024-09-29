@@ -24,8 +24,6 @@ const getHeaderTitle = (
         return t('couponsScreen.couponTabs.laserEpilation');
       case CouponNavigationRoutes.cosmetology:
         return t('couponsScreen.couponTabs.cosmetology');
-      case CouponNavigationRoutes.myCoupons:
-        return t('couponsScreen.couponTabs.myCoupons');
       default:
         return t('couponsScreen.couponDetail');
     }
@@ -73,12 +71,6 @@ const CouponStackNavigator: React.FC = () => {
         name={CouponNavigationRoutes.cosmetology}
         component={CouponScreen}
         initialParams={{activeTab: CouponNavigationRoutes.cosmetology}}
-        options={({route}) => createScreenOptions(route.name, t)}
-      />
-      <Stack.Screen
-        name={CouponNavigationRoutes.myCoupons}
-        component={CouponScreen}
-        initialParams={{activeTab: CouponNavigationRoutes.myCoupons}}
         options={({route}) => createScreenOptions(route.name, t)}
       />
       <Stack.Screen

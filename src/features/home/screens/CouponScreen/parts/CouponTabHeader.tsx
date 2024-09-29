@@ -21,16 +21,11 @@ type NavigationProp = StackNavigationProp<CouponStackParamList>;
 interface Tab {
   name:
     | CouponNavigationRoutes.laserEpilation
-    | CouponNavigationRoutes.cosmetology
-    | CouponNavigationRoutes.myCoupons;
+    | CouponNavigationRoutes.cosmetology;
   label: string;
 }
 
 const tabs: Tab[] = [
-  {
-    name: CouponNavigationRoutes.myCoupons,
-    label: 'couponsScreen.couponTabs.myCoupons',
-  },
   {
     name: CouponNavigationRoutes.laserEpilation,
     label: 'couponsScreen.couponTabs.laserEpilation',
@@ -57,8 +52,7 @@ const CouponHeaderTabs: React.FC = () => {
   const handleTabPress = (
     name:
       | CouponNavigationRoutes.laserEpilation
-      | CouponNavigationRoutes.cosmetology
-      | CouponNavigationRoutes.myCoupons,
+      | CouponNavigationRoutes.cosmetology,
   ) => {
     navigation.navigate(name, {activeTab: name});
   };

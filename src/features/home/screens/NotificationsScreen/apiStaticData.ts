@@ -1,5 +1,16 @@
 import {INotification} from '../../../../types/navigation';
 
+// Оповещения будут делаться каждую минуту , но мы может это обсудить.
+// Можно попробовать через WebSocket
+
+export type INotification = {
+  id: string;
+  title: string;
+  date: string;
+  isReaded: boolean;
+  onClick: () => void;
+};
+
 export const notificationsData: INotification[] = [
   {
     id: '1',
