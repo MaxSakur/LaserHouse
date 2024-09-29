@@ -3,13 +3,13 @@ import {Coupon} from './coupons';
 // TODO: SPLIT FOR EACH STACK
 
 export interface IVarificateResponse {
-  isRegistered: boolean;
-  code: string;
+  isRegistered?: boolean;
+  code?: string;
 }
 
 export type AuthStackParamList = {
   Login: undefined;
-  Verification: {phone: string; data: IVarificateResponse | null};
+  Verification: {phone: string; data: IVarificateResponse};
   Register: {phone: string};
 };
 
@@ -82,14 +82,12 @@ export type RootStackParamList = AuthStackParamList & LoggedInStackParamList;
 export enum CouponNavigationRoutes {
   laserEpilation = 'LaserEpilation',
   cosmetology = 'Cosmetology',
-  myCoupons = 'MyCoupons',
   couponDetail = 'CouponDetail',
 }
 
 export type CouponStackParamList = {
   [CouponNavigationRoutes.laserEpilation]: {activeTab: CouponNavigationRoutes};
   [CouponNavigationRoutes.cosmetology]: {activeTab: CouponNavigationRoutes};
-  [CouponNavigationRoutes.myCoupons]: {activeTab: CouponNavigationRoutes};
   [CouponNavigationRoutes.couponDetail]: {
     coupon: Coupon;
     activeTab: CouponNavigationRoutes;

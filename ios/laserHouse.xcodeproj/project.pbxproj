@@ -24,7 +24,6 @@
 		752203BF831E4BF0B3637C36 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3BB0D924893409EA11E036D /* Roboto-Bold.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-laserHouse-laserHouseTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-laserHouse-laserHouseTests.a */; };
 		7AF1631201E4411CBE629EAA /* SFPRODISPLAYLIGHTITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 4C2A571F8FE341F79B6DDCB9 /* SFPRODISPLAYLIGHTITALIC.OTF */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		83391C4DAC244C4A90405386 /* SFPRODISPLAYBOLD.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 2484D7B04F96408D8ED9662B /* SFPRODISPLAYBOLD.OTF */; };
 		8EB18D02CB634BF38131E561 /* SFPRODISPLAYTHINITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 74AF14FE8F4746D093B044DE /* SFPRODISPLAYTHINITALIC.OTF */; };
 		9BC5C45DFE358A5EEA234373 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = DBD01D86FBD23A3E0A521CF5 /* PrivacyInfo.xcprivacy */; };
@@ -32,9 +31,11 @@
 		A4A1E1F94471541F85B74C52 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EBEA3495C2F90161D533194 /* libPods-OneSignalNotificationServiceExtension.a */; };
 		A95F68ED9DC5456BA39E7DDD /* SFPRODISPLAYMEDIUM.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 6042306B577C4761A8DE9BC6 /* SFPRODISPLAYMEDIUM.OTF */; };
 		B225E3321DAB46188408F8FC /* SFPRODISPLAYBLACKITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 22F37E590D324F149C72ACBC /* SFPRODISPLAYBLACKITALIC.OTF */; };
+		B307A9082CA7F3D900967252 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B307A9072CA7F3D900967252 /* Launch Screen.storyboard */; };
 		B307BCA72C2EF184003EE3C7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B307BCA62C2EF184003EE3C7 /* Media.xcassets */; };
 		B37461C32C70F94E00D5A2AE /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37461C22C70F94E00D5A2AE /* NotificationService.swift */; };
 		B37461C72C70F94E00D5A2AE /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B37461C02C70F94E00D5A2AE /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B3764A5A2C918AC200C22DE4 /* InitialStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3764A592C918AC200C22DE4 /* InitialStoryboard.storyboard */; };
 		B49173096FEF49C7A6D2FDEC /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 727B5CD3F5224C2AA1B28F13 /* Roboto-Regular.ttf */; };
 		BE760CF9077E41A488E55DED /* SFPRODISPLAYHEAVYITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 8124979AEC0C42A08EE1F785 /* SFPRODISPLAYHEAVYITALIC.OTF */; };
 		BEE4BD3A7BE4485AB3CDE7BA /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB8E19BBCDE6428DA14BC9C6 /* Roboto-Italic.ttf */; };
@@ -85,7 +86,6 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = laserHouse/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = laserHouse/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = laserHouse/main.m; sourceTree = "<group>"; };
-		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = laserHouse/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		146C0954C1EB246E3488B752 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		193E74DC5EC6434482BA4A0F /* SFPRODISPLAYULTRALIGHTITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYULTRALIGHTITALIC.OTF; path = "../assets/fonts/sf-pro-display/SFPRODISPLAYULTRALIGHTITALIC.OTF"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-laserHouse-laserHouseTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-laserHouse-laserHouseTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,18 +104,20 @@
 		727B5CD3F5224C2AA1B28F13 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../assets/fonts/roboto/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		74AF14FE8F4746D093B044DE /* SFPRODISPLAYTHINITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYTHINITALIC.OTF; path = "../assets/fonts/sf-pro-display/SFPRODISPLAYTHINITALIC.OTF"; sourceTree = "<group>"; };
 		8124979AEC0C42A08EE1F785 /* SFPRODISPLAYHEAVYITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYHEAVYITALIC.OTF; path = "../assets/fonts/sf-pro-display/SFPRODISPLAYHEAVYITALIC.OTF"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = laserHouse/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87336676290140F990C6D90A /* Roboto-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Black.ttf"; path = "../assets/fonts/roboto/Roboto-Black.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-laserHouse-laserHouseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laserHouse-laserHouseTests.release.xcconfig"; path = "Target Support Files/Pods-laserHouse-laserHouseTests/Pods-laserHouse-laserHouseTests.release.xcconfig"; sourceTree = "<group>"; };
 		9772B9C4B5F44F63AF0ECB0F /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-LightItalic.ttf"; path = "../assets/fonts/roboto/Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
 		9A24A3806DF345C8A1DBF1AB /* Roboto-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Thin.ttf"; path = "../assets/fonts/roboto/Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		A4A7C811891A4ECB8488393D /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-ThinItalic.ttf"; path = "../assets/fonts/roboto/Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		B307A9072CA7F3D900967252 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		B307BCA62C2EF184003EE3C7 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		B37461BB2C70F88700D5A2AE /* laserHouse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = laserHouse.entitlements; path = laserHouse/laserHouse.entitlements; sourceTree = "<group>"; };
 		B37461C02C70F94E00D5A2AE /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B37461C22C70F94E00D5A2AE /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		B37461C42C70F94E00D5A2AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B37461CC2C70F9C300D5A2AE /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		B3764A542C90F70500C22DE4 /* laserHouse-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "laserHouse-Bridging-Header.h"; sourceTree = "<group>"; };
+		B3764A592C918AC200C22DE4 /* InitialStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InitialStoryboard.storyboard; sourceTree = "<group>"; };
 		DBD01D86FBD23A3E0A521CF5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = laserHouse/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		E4BE999703BC497B9935FB68 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../assets/fonts/roboto/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		EB8E19BBCDE6428DA14BC9C6 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Italic.ttf"; path = "../assets/fonts/roboto/Roboto-Italic.ttf"; sourceTree = "<group>"; };
@@ -178,11 +180,11 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 				DBD01D86FBD23A3E0A521CF5 /* PrivacyInfo.xcprivacy */,
 				B307BCA62C2EF184003EE3C7 /* Media.xcassets */,
+				B3764A542C90F70500C22DE4 /* laserHouse-Bridging-Header.h */,
+				B307A9072CA7F3D900967252 /* Launch Screen.storyboard */,
 			);
 			name = laserHouse;
 			sourceTree = "<group>";
@@ -236,6 +238,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				B3764A592C918AC200C22DE4 /* InitialStoryboard.storyboard */,
 				13B07FAE1A68108700A75B9A /* laserHouse */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* laserHouseTests */,
@@ -362,7 +365,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1530;
 					};
 					B37461BF2C70F94E00D5A2AE = {
 						CreatedOnToolsVersion = 15.3;
@@ -401,11 +404,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				9BC5C45DFE358A5EEA234373 /* PrivacyInfo.xcprivacy in Resources */,
+				B307A9082CA7F3D900967252 /* Launch Screen.storyboard in Resources */,
 				B225E3321DAB46188408F8FC /* SFPRODISPLAYBLACKITALIC.OTF in Resources */,
 				83391C4DAC244C4A90405386 /* SFPRODISPLAYBOLD.OTF in Resources */,
+				B3764A5A2C918AC200C22DE4 /* InitialStoryboard.storyboard in Resources */,
 				B307BCA72C2EF184003EE3C7 /* Media.xcassets in Resources */,
 				BE760CF9077E41A488E55DED /* SFPRODISPLAYHEAVYITALIC.OTF in Resources */,
 				7AF1631201E4411CBE629EAA /* SFPRODISPLAYLIGHTITALIC.OTF in Resources */,
@@ -638,6 +642,7 @@
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-laserHouse-laserHouseTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 25S733GRS9;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -666,6 +671,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 25S733GRS9;
 				INFOPLIST_FILE = laserHouseTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -690,6 +696,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = laserHouse/laserHouse.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -711,6 +718,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.laserhouse.app;
 				PRODUCT_NAME = laserHouse;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "laserHouse-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -723,6 +731,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = laserHouse/laserHouse.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -743,6 +752,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.laserhouse.app;
 				PRODUCT_NAME = laserHouse;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "laserHouse-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -942,6 +952,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.laserhouse.app.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -986,6 +997,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.laserhouse.app.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;

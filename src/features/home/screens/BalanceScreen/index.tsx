@@ -9,15 +9,13 @@ import {BonusFounds, BonusQRCode} from './parts';
 import {styles} from './styles';
 
 export const BalanceScreen: React.FC = () => {
-  const fullName = 'Давиденко Іван Іванович';
-
   return (
     <SafeAreaView style={styles.balanceScreen}>
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <BonusFounds fullName={fullName} />
+          <BonusFounds />
           <BonusQRCode />
         </ScrollView>
       </KeyboardAvoidingView>

@@ -39,8 +39,10 @@ export const VerificationScreen: React.FC = () => {
 
   useEffect(() => {
     const verifyCode = async () => {
+      console.log('verificationData', verificationData);
       if (code.length === 4) {
         if (verificationData?.code === code) {
+          // TODO: FIX
           if (verificationData?.isRegistered) {
             const {statusCode, data} = await authService.login(phone);
             if (statusCode === 200 && data?.token && data.token !== null) {

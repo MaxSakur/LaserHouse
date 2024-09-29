@@ -1,5 +1,11 @@
 import React from 'react';
-import {Dimensions, FlatList, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {NotificationsButton} from '../../components/buttons/NotificationButton';
 import {colors, sizes, textStyles} from '../../../../theme';
 import {INotification, RootStackParamList} from '../../../../types/navigation';
@@ -14,14 +20,22 @@ interface INotificationsScreenProps {
 export const NotificationsScreen: React.FC<INotificationsScreenProps> = ({
   route,
 }) => {
-  const data = route.params.data;
+  const data = route.params.data as INotification[];
+
+  const handleNotificationPress = (notification: INotification) => {
+    // Реализуйте необходимую логику при нажатии на уведомление
+    // Например, навигация на подробности уведомления
+    // navigation.navigate('NotificationDetail', { notificationId: notification.id });
+  };
 
   const renderItem = ({item}: {item: INotification}) => (
-    <View key={item.id} style={styles.notification}>
-      <NotificationsButton withActiveDot={item.isReaded} />
+    <TouchableOpacity
+      onPress={() => handleNotificationPress(item)}
+      style={styles.notification}>
+      <NotificationsButton withActiveDot={!item.isReaded} />
       <Text style={styles.notificationText}>{item.title}</Text>
       <Text style={styles.notificationTime}>{formatDate(item.date)}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -44,7 +58,7 @@ const styles = StyleSheet.create({
   },
   notification: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: sizes.s,
     gap: sizes.l,
     paddingVertical: sizes.md,

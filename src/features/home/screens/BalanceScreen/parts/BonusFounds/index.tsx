@@ -7,17 +7,14 @@ import {colors} from '../../../../../../theme';
 import {RouteService} from '../../../../../auth/services/routeService';
 import {BalanceNavigationRoutes} from '../../../../../../types/navigation';
 
-interface IBonusFounds {
-  fullName: string;
-}
-
-// TODO: API
 const testData = {
   value: 300,
   currency: '₴',
 };
 
-export const BonusFounds: FC<IBonusFounds> = ({fullName}) => {
+const fullName = 'Давиденко Іван Іванович';
+
+export const BonusFounds: FC = () => {
   const {t} = useTranslation();
 
   const handleOpenHistory = () => {
