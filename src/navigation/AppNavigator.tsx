@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {View, ActivityIndicator} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
@@ -35,20 +34,11 @@ const RegistrationScreenOptions = {
 
 const AppNavigator: React.FC = () => {
   const {t} = useTranslation();
-  const {isLoggedIn, loading, checkAuthStatus} = useAuth();
+  const {isLoggedIn, checkAuthStatus} = useAuth();
 
   useEffect(() => {
     checkAuthStatus();
   }, [checkAuthStatus]);
-
-  // TODO: Check loading
-  if (loading) {
-    return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
 
   return (
     <NavigationContainer ref={RouteService.navigationRef}>

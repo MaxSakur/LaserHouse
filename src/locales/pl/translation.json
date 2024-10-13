@@ -4,7 +4,7 @@
   "loginScreen": {
     "title": "Logowanie do aplikacji",
     "welcome": "Witamy!",
-    "enterPhone": "Aby zalogować się do aplikacji, podaj swój numer telefonu. Na niego zostanie wysłany kod potwierdzający.",
+    "enterPhone": "Aby zalogować się do aplikacji, podaj swój numer telefonu. Na niego zostanie wysłany kod potwierdzający!",
     "privacyPolicy": "Kontynuując, wyrażam zgodę na",
     "privacyPolicyLink": "przetwarzanie danych osobowych",
     "enter": "Zaloguj się"
@@ -33,6 +33,12 @@
       "phone": "Telefon",
       "email": "E-mail"
     },
+    "errors": {
+      "onlyText": "Tylko tekst",
+      "invalidEmail": "Nieprawidłowy format e-maila",
+      "invalidInput": "Nieprawidłowy format",
+      "isRequired": "Pole wymagane"
+    },
     "privacyAgreement": "Wyrażam zgodę na przetwarzanie danych osobowych.",
     "privacyAgreementNext": "Więcej informacji*",
     "privacyAgreementHeader": "Zgoda na przetwarzanie danych osobowych",
@@ -44,7 +50,7 @@
     "welcome": "Witamy,\n<bold>{{name}}</bold> !",
     "bonusInfoLabel": "Przyznane środki bonusowe",
     "bonusValue": "{{value}} <small>{{currency}}</small>",
-    "bonusQRCode": "Aby gromadzić lub wykorzystać bonusy, pokaż ten <bold>QR kod administratorowi:</bold>",
+    "bonusQRCode": "Aby gromadzić lub wykorzystać bonusy, pokaż ten <bold>kod kreskowy administratorowi:</bold>",
     "bonusHistoryLabel": "Historia bonusów"
   },
   "bonusInfoModal": {
@@ -105,12 +111,12 @@
     }
   },
   "couponsScreen": {
-    "title": "Kupony",
+    "title": "Promocje",
     "noCoupons": "Nie masz kuponów",
     "couponTabs": {
       "laserEpilation": "Depilacja laserowa",
       "cosmetology": "Kosmetologia",
-      "myCoupons": "Moje kupony"
+      "myCoupons": "Moje promocje"
     },
     "couponDueDate": "Oferta ważna do {{date}} r."
   },

@@ -1,14 +1,12 @@
 import api from '../../../api';
 import {
   IDefaultResponse,
-  // IVarificateRequest,
   IVarificateResponse,
-  // ILoginRequest,
   ILoginResponse,
-  // IRegisterRequest,
-  IRegisterResponse,
+  IRegistrationResponse,
   IRegisterRequest,
-  ILoginRequest,
+  ILoginResult,
+  IRegisterResult,
 } from '../../../types/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -16,30 +14,21 @@ const sendVerificationCode = async (
   phone: string,
 ): Promise<IDefaultResponse<IVarificateResponse>> => {
   try {
-    const {
-      data: {data: responseData},
-      status,
-    } = await api.post<IDefaultResponse<IVarificateResponse>>('/varificate', {
-      phone,
-    });
+    const {data, status} = await api.post<
+      IDefaultResponse<IVarificateResponse>
+    >('/varificate', {phone});
 
-    if (status === 200) {
-      return {
-        success: true,
-        statusCode: 200,
-        message: `Verification code was sent to ${phone}`,
-        data: {...responseData},
-      };
-    } else {
-      return {
-        success: false,
-        statusCode: status,
-        message: 'Failed to send verification code',
-        data: null,
-      };
-    }
+    return {
+      success: status === 200,
+      statusCode: status,
+      message:
+        status === 200
+          ? `Verification code was sent to ${phone}`
+          : 'Failed to send verification code',
+      data: data?.data || null,
+    };
   } catch (error) {
-    console.log('error', error);
+    console.error('sendVerificationCode error:', error);
     return {
       success: false,
       statusCode: 500,
@@ -51,32 +40,32 @@ const sendVerificationCode = async (
 
 const login = async (
   phone: string,
-): Promise<IDefaultResponse<ILoginResponse>> => {
-  const requestBody: ILoginRequest = {phone};
-
+): Promise<IDefaultResponse<ILoginResult>> => {
   try {
-    const {
-      data: {data: responseData},
-      status,
-    } = await api.post<IDefaultResponse<ILoginResponse>>('/login', requestBody);
+    const {data, status} = await api.post<IDefaultResponse<ILoginResponse>>(
+      '/login',
+      {phone},
+    );
 
-    if (status === 200) {
-      return {
-        success: true,
-        statusCode: status,
-        message: `User with ${phone} successfully logged in`,
-        data: {...responseData},
-      };
-    } else {
+    if (!data.success) {
       return {
         success: false,
         statusCode: status,
-        message: `Failed to login user with ${phone}`,
+        message: data.message || 'Login failed',
         data: null,
       };
     }
+
+    const token = data.data?.token;
+
+    return {
+      success: true,
+      statusCode: status,
+      message: 'Login successful',
+      data: {token: token || null},
+    };
   } catch (error) {
-    console.log('error', error);
+    console.error('login error:', error);
     return {
       success: false,
       statusCode: 500,
@@ -87,63 +76,106 @@ const login = async (
 };
 
 const register = async (
-  data: IRegisterRequest,
-): Promise<IDefaultResponse<IRegisterResponse>> => {
-  // const requestBody: IRegisterRequest = {data};
-  console.log('data', data);
-  // const response = await api.post<IDefaultResponse<IVarificateResponse>>(
-  //   '/register',
-  //   requestBody,
-  // );
+  reqData: IRegisterRequest,
+): Promise<IDefaultResponse<IRegisterResult>> => {
+  try {
+    const {data, status} = await api.post<
+      IDefaultResponse<IRegistrationResponse>
+    >('/register', reqData);
 
+    if (!data.success) {
+      return {
+        success: false,
+        statusCode: status,
+        message: data.message || 'Registration failed',
+        data: null,
+      };
+    }
+
+    const token = data.data?.token || null;
+
+    return {
+      success: true,
+      statusCode: status,
+      message: 'Registration successful',
+      data: {token},
+    };
+  } catch (error) {
+    console.error('register error:', error);
+    return {
+      success: false,
+      statusCode: 500,
+      message: 'An error occurred during registration',
+      data: null,
+    };
+  }
+};
+
+const storeToken = async (token: string): Promise<IDefaultResponse<null>> => {
+  try {
+    await AsyncStorage.setItem('@user_token', token);
+    return {
+      success: true,
+      statusCode: 200,
+      message: 'Token stored successfully',
+      data: null,
+    };
+  } catch (e) {
+    return {
+      success: false,
+      statusCode: 500,
+      message: 'Failed to store token',
+      data: null,
+    };
+  }
+};
+
+const getToken = async (): Promise<IDefaultResponse<string | null>> => {
+  try {
+    const token = await AsyncStorage.getItem('@user_token');
+    return {
+      success: true,
+      statusCode: 200,
+      message: 'Token retrieved successfully',
+      data: token !== null ? token : null,
+    };
+  } catch (e) {
+    return {
+      success: false,
+      statusCode: 500,
+      message: 'Failed to retrieve token',
+      data: null,
+    };
+  }
+};
+
+const removeToken = async (): Promise<IDefaultResponse<null>> => {
+  try {
+    await AsyncStorage.removeItem('@user_token');
+    return {
+      success: true,
+      statusCode: 200,
+      message: 'Token removed successfully',
+      data: null,
+    };
+  } catch (e) {
+    return {
+      success: false,
+      statusCode: 500,
+      message: 'Failed to remove token',
+      data: null,
+    };
+  }
+};
+
+const isTokenValid = async (): Promise<IDefaultResponse<boolean>> => {
+  const {data: token} = await getToken();
   return {
     success: true,
     statusCode: 200,
-    message: `User with ${data.phone} successfully registered`,
-    data: {
-      token: '1234567890',
-    },
+    message: token ? 'Token is valid' : 'Token is invalid',
+    data: token ? true : false,
   };
-};
-
-const storeToken = async (token: string) => {
-  console.log('storeToken', token);
-  try {
-    await AsyncStorage.setItem('@user_token', token);
-  } catch (e) {
-    // saving error
-  }
-};
-
-const getToken = async () => {
-  try {
-    const token = await AsyncStorage.getItem('@user_token');
-    return token !== null ? token : null;
-  } catch (e) {
-    // error reading value
-    return null;
-  }
-};
-
-const removeToken = async () => {
-  try {
-    await AsyncStorage.removeItem('@user_token');
-  } catch (e) {
-    // remove error
-  }
-};
-
-const isTokenValid = async (): Promise<boolean> => {
-  // const response = await api.get<IDefaultResponse<IVarificateResponse>>(
-  //   '/validate',
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   },
-  // );
-  const token = await getToken();
-  return token ? true : false;
 };
 
 export const authService = {

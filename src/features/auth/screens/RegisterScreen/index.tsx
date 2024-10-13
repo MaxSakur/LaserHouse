@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-import {Text, View} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
@@ -11,12 +11,13 @@ import {
 import {CalendarDropdown, DefaultInput} from '../../components/inputs';
 import {styles} from './styles';
 import {PrivacyAgreement} from '../../components/PrivacyAgreement';
-import {InputData, inputsData} from './screenData';
 import {DefaultButton} from '../../components/buttons/DefaultButton';
 import {validateEmail} from '../../../../utils';
-import useModalContent from '../../../../hooks/useModalContent';
 import {authService} from '../../services/authService';
 import {IRegisterRequest} from '../../../../types/auth';
+import {Controller, useForm} from 'react-hook-form';
+import {registerScreenInputs} from './screenData';
+import useModalContent from '../../../../hooks/useModalContent';
 
 type RegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -28,11 +29,28 @@ export const RegisterScreen: React.FC = () => {
   const navigation = useNavigation<RegisterScreenNavigationProp>();
   const {t} = useTranslation();
   const route = useRoute<RegisterScreenRouteProp>();
-  const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
-  const [userData, setUserData] = useState<InputData[]>(inputsData);
+  const {phone} = route.params || {phone: '000 000 00 00'};
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: {errors},
+  } = useForm<IRegisterRequest>({
+    defaultValues: registerScreenInputs.reduce((acc, input) => {
+      if (input.key === 'phone') {
+        acc[input.key] = phone;
+      } else {
+        acc[input.key] = input.value;
+      }
+      return acc;
+    }, {} as Record<string, any>),
+  });
+
   const [isPrivacyAgr, setIsPrivacyAgr] = useState(false);
-  const [focusedInput, setFocusedInput] = useState<string | null>(null);
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
+
   const {open, ModalComponent} = useModalContent({
     header: (
       <Text style={styles.modalContentHeader}>
@@ -46,58 +64,12 @@ export const RegisterScreen: React.FC = () => {
     ),
   });
 
-  const {phone} = route.params;
-
-  useEffect(() => {
-    setUserData(prevUserData =>
-      prevUserData.map(input =>
-        input.key === 'phone' ? {...input, value: phone} : input,
-      ),
-    );
-  }, [phone]);
-
-  useEffect(() => {
-    setIsFormValid(validateForm());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData]);
-
-  const handleInputChange = (key: string, text: string | Date) => {
-    setUserData(prevUserData =>
-      prevUserData.map(input =>
-        input.key === key ? {...input, value: text} : input,
-      ),
-    );
-  };
-
-  const validateForm = () => {
-    return userData.every(input => {
-      if (input.isRequired) {
-        return input.value !== '';
-      }
-      return true;
-    });
-  };
-
-  const handleRegister = async () => {
-    const pretifiedUserData: IRegisterRequest = userData.reduce(
-      (acc, input) => {
-        return {...acc, [input.key]: input.value};
-      },
-      {} as IRegisterRequest,
-    );
-
-    const {statusCode} = await authService.register(pretifiedUserData);
-    if (statusCode === 200) {
+  const handleRegister = async (reqData: IRegisterRequest) => {
+    const {data} = await authService.register(reqData);
+    if (data?.token) {
+      await authService.storeToken(data.token);
       navigation.navigate(AuthNavigationRoutes.login);
     }
-  };
-
-  const handleEmailValid = () => {
-    const emailInput = userData.find(input => input.key === 'email');
-    if (emailInput) {
-      return !validateEmail(emailInput.value as string);
-    }
-    return false;
   };
 
   return (
@@ -110,25 +82,64 @@ export const RegisterScreen: React.FC = () => {
         <Text style={styles.inputsSectionTitle}>
           {t('registerScreen.personalData.label')}
         </Text>
-
         <View style={styles.personalData}>
-          {userData.slice(0, 3).map((input, index) => (
-            <DefaultInput
-              inputKey={input.key}
-              key={input.key + index}
-              value={input.value as string}
-              placeholder={t(input.label)}
-              onChangeText={text => handleInputChange(input.key, text)}
-              onFocus={() => setFocusedInput(input.key)}
-              onBlur={() => setFocusedInput(null)}
-              isFocused={focusedInput === input.key}
+          {registerScreenInputs.slice(0, 3).map(input => (
+            <Controller
+              key={input.key}
+              control={control}
+              name={input.key as keyof IRegisterRequest}
+              rules={{
+                required: {
+                  value: input.isRequired,
+                  message: t('registerScreen.errors.isRequired'),
+                },
+                pattern: {
+                  value: /^[A-Za-zА-Яа-яЁё]+$/i,
+                  message: t('registerScreen.errors.onlyText'),
+                },
+                minLength: input.key !== 'parentName' ? 2 : undefined,
+                maxLength: 40,
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <View>
+                  <DefaultInput
+                    inputKey={input.key}
+                    value={value as string}
+                    placeholder={
+                      input.isRequired ? `${t(input.label)} *` : t(input.label)
+                    }
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    onFocus={() =>
+                      setValue(
+                        input.key as keyof IRegisterRequest,
+                        watch(input.key as keyof IRegisterRequest),
+                      )
+                    }
+                    isFocused={false}
+                    isRequired={input.isRequired}
+                  />
+                  {errors[input.key as keyof IRegisterRequest] && (
+                    <Text style={localStyles.errorText}>
+                      {errors[input.key as keyof IRegisterRequest]?.message ||
+                        t('registerScreen.errors.invalidInput')}
+                    </Text>
+                  )}
+                </View>
+              )}
             />
           ))}
-          <CalendarDropdown
-            value={userData[3].value as Date}
-            isModalOpen={isDateDropdownOpen}
-            setIsModalOpen={setIsDateDropdownOpen}
-            onChange={value => handleInputChange(userData[3].key, value)}
+          <Controller
+            control={control}
+            name="dob"
+            render={({field: {onChange, value}}) => (
+              <CalendarDropdown
+                value={value || new Date()}
+                isModalOpen={isDateDropdownOpen}
+                setIsModalOpen={setIsDateDropdownOpen}
+                onChange={onChange}
+              />
+            )}
           />
         </View>
       </View>
@@ -137,38 +148,83 @@ export const RegisterScreen: React.FC = () => {
         <Text style={styles.inputsSectionTitle}>
           {t('registerScreen.contactData.label')}
         </Text>
-
         <View style={styles.personalData}>
-          {userData.slice(4, 6).map((input, index) => (
-            <DefaultInput
-              key={input.key + index}
-              inputKey={input.key}
-              disabled={input.isDisabled}
-              value={input.value as string}
-              placeholder={t(input.label)}
-              onChangeText={text => handleInputChange(input.key, text)}
-              onFocus={() => setFocusedInput(input.key)}
-              onBlur={() => setFocusedInput(null)}
-              isFocused={focusedInput === input.key}
+          {registerScreenInputs.slice(4, 6).map(input => (
+            <Controller
+              key={input.key}
+              control={control}
+              name={input.key as keyof IRegisterRequest}
+              rules={{
+                required: {
+                  value: input.isRequired,
+                  message: t('registerScreen.errors.isRequired'),
+                },
+                validate:
+                  input.key === 'email'
+                    ? (value: string | Date | undefined) => {
+                        if (typeof value !== 'string' || !value) {
+                          return t('registerScreen.errors.isRequired');
+                        }
+                        if (!validateEmail(value)) {
+                          return t('registerScreen.errors.invalidEmail');
+                        }
+                        return true;
+                      }
+                    : undefined,
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <View>
+                  <DefaultInput
+                    inputKey={input.key}
+                    value={value as string}
+                    placeholder={t(input.label)}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    onFocus={() =>
+                      setValue(
+                        input.key as keyof IRegisterRequest,
+                        watch(input.key as keyof IRegisterRequest),
+                      )
+                    }
+                    isFocused={false}
+                    disabled={input.isDisabled}
+                    isRequired={input.isRequired}
+                  />
+                  {input.key === 'email' && errors.email && (
+                    <Text style={localStyles.errorText}>
+                      {errors.email?.message}
+                    </Text>
+                  )}
+                </View>
+              )}
             />
           ))}
         </View>
-
-        <PrivacyAgreement
-          isApproved={isPrivacyAgr}
-          onCheckBoxClick={() => setIsPrivacyAgr(!isPrivacyAgr)}
-          onLinkClick={open}
-        />
-        {ModalComponent}
       </View>
 
-      <View style={styles.buttonContainer}>
-        <DefaultButton
-          buttonText={t('registerScreen.register')}
-          disabled={!isFormValid || !isPrivacyAgr || handleEmailValid()}
-          onPress={handleRegister}
-        />
-      </View>
+      <PrivacyAgreement
+        isApproved={isPrivacyAgr}
+        onLinkClick={open}
+        onCheckBoxClick={() => setIsPrivacyAgr(!isPrivacyAgr)}
+      />
+      {ModalComponent}
+
+      <DefaultButton
+        buttonText={t('registerScreen.register')}
+        disabled={!isPrivacyAgr || Object.keys(errors).length > 0}
+        onPress={handleSubmit(handleRegister)}
+      />
     </KeyboardAwareScrollView>
   );
 };
+
+const localStyles = StyleSheet.create({
+  requiredStar: {
+    color: 'red',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginTop: 4,
+  },
+});

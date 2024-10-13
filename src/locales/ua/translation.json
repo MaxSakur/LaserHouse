@@ -4,7 +4,7 @@
   "loginScreen": {
     "title": "Вхід до додатку",
     "welcome": "Вітаємо!",
-    "enterPhone": "Щоб увійти до додатку, вкажіть номер Вашого телефона. На нього буде відправлено код підтвердження.!",
+    "enterPhone": "Щоб увійти до додатку, вкажіть номер Вашого телефона. На нього буде відправлено код підтвердження!",
     "privacyPolicy": "Продовжуючи, я надаю згоду на",
     "privacyPolicyLink": "обробку персональних даних",
     "enter": "Увійти"
@@ -33,6 +33,12 @@
       "phone": "Телефон",
       "email": "E-mail"
     },
+    "errors": {
+      "onlyText": "Тільки текст",
+      "invalidEmail": "Невірний формат имейлу",
+      "invalidInput": "Невірний формат",
+      "isRequired": "Обов’язкове поле"
+    },
     "privacyAgreement": "Згоден на обробку персональних даних.",
     "privacyAgreementNext": "Детальніше*",
     "privacyAgreementHeader": "Згода на обробку персональних даних",
@@ -44,7 +50,7 @@
     "welcome": "Вітаємо,\n<bold>{{name}}</bold> !",
     "bonusInfoLabel": "Нараховані бонусні кошти",
     "bonusValue": "{{value}} <small>{{currency}}</small>",
-    "bonusQRCode": "Щоб накопичити або використати бонуси покажіть цей <bold>QR код адміністратору:</bold> ",
+    "bonusQRCode": "Щоб накопичити або використати бонуси покажіть цей <bold>штрих код адміністратору:</bold> ",
     "bonusHistoryLabel": "Історія накопичення"
   },
   "bonusInfoModal": {
@@ -105,12 +111,12 @@
   },
 
   "couponsScreen": {
-    "title": "Купони",
+    "title": "Акцii",
     "noCoupons": "У Вас немає купонів",
     "couponTabs": {
       "laserEpilation": "Лазерна епіляція",
       "cosmetology": "Косметологія",
-      "myCoupons": "Мої купони"
+      "myCoupons": "Мої акцii"
     },
     "couponDueDate": "Акція діє до {{date}} р."
   },

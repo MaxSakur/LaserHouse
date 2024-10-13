@@ -40,6 +40,7 @@ export const CalendarDropdown: React.FC<CustomCalendarDropdownProps> = ({
         locale="uk"
         title={t('selectDate')}
         confirmText={t('approve')}
+        maximumDate={new Date()}
         cancelText={t('cancel')}
         onConfirm={date => {
           setIsModalOpen(false);

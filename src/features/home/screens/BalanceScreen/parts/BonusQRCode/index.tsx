@@ -19,7 +19,7 @@ export const BonusQRCode: FC = () => {
 
       <FastImage
         style={styles.image}
-        source={require('../../../../../../../assets/images/code.jpg')}
+        source={require('../../../../../../../assets/images/qr.png')}
         resizeMode={FastImage.resizeMode.contain}
       />
     </View>

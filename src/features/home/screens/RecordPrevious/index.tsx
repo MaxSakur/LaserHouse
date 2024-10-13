@@ -1,20 +1,14 @@
-import React, {FC} from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {FC, useEffect} from 'react';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {NoContentIcon, PrevRedIcon} from '../../../../icons';
-import {colors, sizes, textStyles} from '../../../../theme';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {
   RecordsNavigationRoutes,
   RecordsStackParamList,
 } from '../../../../types/navigation';
-import {data} from './RecordPreviousData';
+import {PreviousRecord, recordsService} from '../../services/recordsService';
+import {styles} from './styles';
 
 type RecordPreviousScreenNavigationProp = StackNavigationProp<
   RecordsStackParamList,
@@ -27,7 +21,15 @@ interface RecordPreviousProps {
 
 export const RecordPrevious: FC<RecordPreviousProps> = ({navigation}) => {
   const {t} = useTranslation();
-
+  const [data, setData] = React.useState<PreviousRecord[]>([]);
+  useEffect(() => {
+    recordsService.getPrevious().then(response => {
+      if (response) {
+        console.log('Previous records:', response.data);
+        setData(response.data);
+      }
+    });
+  }, []);
   const handleNavigateToOperator = () => {
     navigation.navigate(RecordsNavigationRoutes.RecordSignUp);
   };
@@ -70,72 +72,3 @@ export const RecordPrevious: FC<RecordPreviousProps> = ({navigation}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  modal: {
-    marginTop: sizes.l,
-    padding: sizes.l,
-    paddingVertical: sizes.xxl,
-    alignItems: 'center',
-    marginHorizontal: sizes.m,
-    backgroundColor: colors.white,
-    borderRadius: sizes.radius,
-    gap: sizes.m,
-  },
-  label: {
-    ...textStyles.title2,
-    textAlign: 'center',
-    marginBottom: sizes.m,
-  },
-  description: {
-    ...textStyles.body2,
-    textAlign: 'center',
-    color: colors.secondary,
-    marginBottom: sizes.xxl,
-  },
-  button: {
-    backgroundColor: colors.buttonAccent,
-    padding: sizes.l,
-    width: '100%',
-    borderRadius: sizes.m,
-  },
-  buttonText: {
-    color: colors.white,
-    textAlign: 'center',
-  },
-  prevCollection: {
-    gap: sizes.m,
-    paddingHorizontal: sizes.m,
-    marginTop: sizes.l,
-  },
-  prevRecord: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    backgroundColor: colors.white,
-    padding: sizes.l,
-    gap: sizes.m,
-    borderRadius: sizes.radius,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 1,
-  },
-  prevCollectionElement: {},
-  location: {
-    ...textStyles.body1,
-    paddingBottom: sizes.s,
-  },
-  name: {
-    ...textStyles.body2,
-    fontWeight: 'bold',
-  },
-  doctor: {
-    ...textStyles.body2,
-    color: colors.tertiary,
-  },
-  dateTime: {
-    ...textStyles.body2,
-    color: colors.tertiary,
-  },
-});

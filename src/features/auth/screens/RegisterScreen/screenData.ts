@@ -6,7 +6,7 @@ export interface InputData {
   value: string | Date | undefined;
 }
 
-export const inputsData: InputData[] = [
+export const registerScreenInputs: InputData[] = [
   {
     label: 'registerScreen.personalData.name',
     isRequired: true,
@@ -40,7 +40,7 @@ export const inputsData: InputData[] = [
   },
   {
     label: 'registerScreen.contactData.email',
-    isRequired: true,
+    isRequired: false,
     key: 'email',
     value: '',
   },

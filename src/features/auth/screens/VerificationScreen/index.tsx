@@ -1,4 +1,3 @@
-// VerificationScreen.tsx
 import React, {useEffect, useState} from 'react';
 import {
   View,
@@ -35,14 +34,20 @@ export const VerificationScreen: React.FC = () => {
   const {t} = useTranslation();
   const route = useRoute<VerificationScreenRouteProp>();
   const {phone, data: verificationData} = route.params;
+  const [codeToEqual, setCodeToEqual] = useState('');
   const {showNotification} = useNotification();
+
+  useEffect(() => {
+    if (verificationData?.code) {
+      setCodeToEqual(verificationData.code);
+    }
+  }, [verificationData]);
 
   useEffect(() => {
     const verifyCode = async () => {
       console.log('verificationData', verificationData);
       if (code.length === 4) {
-        if (verificationData?.code === code) {
-          // TODO: FIX
+        if (codeToEqual === code) {
           if (verificationData?.isRegistered) {
             const {statusCode, data} = await authService.login(phone);
             if (statusCode === 200 && data?.token && data.token !== null) {
@@ -61,7 +66,7 @@ export const VerificationScreen: React.FC = () => {
     };
 
     verifyCode();
-  }, [code, showNotification, t, verificationData, phone]);
+  }, [code, codeToEqual, showNotification, t, verificationData, phone]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -77,9 +82,11 @@ export const VerificationScreen: React.FC = () => {
 
   const handleResendCode = async () => {
     const {statusCode, data} = await authService.sendVerificationCode(phone);
-    if (statusCode === 200 && data !== null) {
+
+    if (statusCode === 200 && data && data.code) {
       setIsResendAvailable(false);
       setResendCounter(60);
+      setCodeToEqual(data.code);
     }
   };
 
@@ -111,17 +118,9 @@ export const VerificationScreen: React.FC = () => {
 
           {verificationData?.isRegistered && (
             <View style={styles.notRegistered}>
-              <Text style={styles.notRegisteredText}>
-                <Trans
-                  i18nKey="verificationScreen.notRegistered"
-                  components={{
-                    bold: <Text style={styles.notRegisteredHighlight} />,
-                  }}
-                />
-              </Text>
               <DefaultButton
                 buttonText={t('verificationScreen.create')}
-                disabled={false}
+                disabled={verificationData.isRegistered}
                 onPress={handleRegister}
               />
             </View>

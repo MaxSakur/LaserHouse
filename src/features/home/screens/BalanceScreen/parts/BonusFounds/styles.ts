@@ -40,7 +40,11 @@ export const styles = StyleSheet.create({
     ...textStyles.currency,
     color: colors.buttonAccent,
   },
-
+  center: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   bonusHistory: {
     flexDirection: 'row',
     gap: sizes.l,

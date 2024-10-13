@@ -1,13 +1,14 @@
-import React, {FC} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {NoContentIcon} from '../../../../icons';
-import {colors, sizes, textStyles} from '../../../../theme';
+import React, {FC, useEffect, useState} from 'react';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {NoContentIcon, PrevRedIcon} from '../../../../icons';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {
   RecordsNavigationRoutes,
   RecordsStackParamList,
 } from '../../../../types/navigation';
+import {PreviousRecord, recordsService} from '../../services/recordsService';
+import {styles} from './styles';
 
 type RecordPreviousScreenNavigationProp = StackNavigationProp<
   RecordsStackParamList,
@@ -24,8 +25,34 @@ export const RecordPaid: FC<RecordPreviousProps> = ({navigation}) => {
   const handleNavigateToOperator = () => {
     navigation.navigate(RecordsNavigationRoutes.RecordSignUp);
   };
+  const [data, setData] = useState<PreviousRecord[]>([]);
 
-  return (
+  useEffect(() => {
+    recordsService.getPaid().then(response => {
+      if (response) {
+        console.log('Paid records:', response.data);
+        setData(response.data);
+      }
+    });
+  }, []);
+
+  return data.length ? (
+    <ScrollView contentContainerStyle={styles.paidCollection}>
+      {data.map((item, index) => {
+        return (
+          <View key={item.id + index} style={styles.paidRecord}>
+            <PrevRedIcon />
+            <View style={styles.paidCollectionElement}>
+              <Text style={styles.location}>{item.location}:</Text>
+              <Text style={styles.name}>{item.name}</Text>
+              <Text style={styles.doctor}>{item.doctor}</Text>
+              <Text style={styles.dateTime}>{item.dateTime}</Text>
+            </View>
+          </View>
+        );
+      })}
+    </ScrollView>
+  ) : (
     <View style={styles.modal}>
       <NoContentIcon />
 
@@ -47,37 +74,3 @@ export const RecordPaid: FC<RecordPreviousProps> = ({navigation}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  modal: {
-    marginTop: sizes.l,
-    padding: sizes.l,
-    paddingVertical: sizes.xxl,
-    alignItems: 'center',
-    marginHorizontal: sizes.m,
-    backgroundColor: colors.white,
-    borderRadius: sizes.radius,
-    gap: sizes.m,
-  },
-  label: {
-    ...textStyles.title2,
-    textAlign: 'center',
-    marginBottom: sizes.m,
-  },
-  description: {
-    ...textStyles.body2,
-    textAlign: 'center',
-    color: colors.secondary,
-    marginBottom: sizes.xxl,
-  },
-  button: {
-    backgroundColor: colors.buttonAccent,
-    padding: sizes.l,
-    width: '100%',
-    borderRadius: sizes.m,
-  },
-  buttonText: {
-    color: colors.white,
-    textAlign: 'center',
-  },
-});

@@ -15,6 +15,8 @@ interface Styles {
   dateTime: TextStyle;
   transactionItemValue: TextStyle;
   borderedTransactionItem: ViewStyle;
+  centeredContainer: ViewStyle;
+  errorText: TextStyle;
 }
 
 export const styles = StyleSheet.create<Styles>({
@@ -78,5 +80,14 @@ export const styles = StyleSheet.create<Styles>({
   borderedTransactionItem: {
     borderColor: colors.quaternary,
     borderBottomWidth: 1,
+  },
+  centeredContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    color: colors.uiRedSecondary,
+    fontSize: 16,
   },
 });

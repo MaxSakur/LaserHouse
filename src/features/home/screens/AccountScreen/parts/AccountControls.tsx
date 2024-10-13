@@ -42,7 +42,7 @@ export const AccountControls = () => {
       icon: <InfoIcon color="#000" />,
 
       onPress: () =>
-        openExternalLink('https://www.laserhouse.com.ua/ua/philosophy'),
+        openExternalLink('https://www.laserhouse.com.ua/ua/laserhouse-is'),
     },
   ];
 

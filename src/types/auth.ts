@@ -24,8 +24,13 @@ export interface ILoginRequest {
 }
 
 export interface ILoginResponse {
-  token?: string;
+  token: string;
 }
+
+export interface ILoginResult {
+  token: string | null;
+}
+
 export interface IRegisterRequest {
   name: string;
   surname: string;
@@ -33,8 +38,16 @@ export interface IRegisterRequest {
   dob?: Date;
   phone: string;
   email: string;
+  address: string;
 }
 
-export interface IRegisterResponse {
+export interface IRegistrationResponse {
   token: string;
+}
+
+export interface IRegisterResult {
+  token: string | null;
+}
+export interface IRegisterResponse {
+  token: string | null;
 }

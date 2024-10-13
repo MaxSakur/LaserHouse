@@ -1,14 +1,15 @@
 import React, {FC, useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {NoContentIcon, PrevRedIcon} from '../../../../icons';
-import {colors, presets, sizes, textStyles} from '../../../../theme';
+import {colors, textStyles} from '../../../../theme';
 import {useTranslation} from 'react-i18next';
 import {Calendar, DateData, LocaleConfig} from 'react-native-calendars';
 import 'dayjs/locale/uk';
-import {dates} from './RecordScheduledData';
 import dayjs from 'dayjs';
 import {DayState} from 'react-native-calendars/src/types';
 import {calendarLocalePl, calendarLocaleUa} from './CalendarLocale';
+import {recordsService, ScheduledRecord} from '../../services/recordsService';
+import {styles} from './styles';
 
 LocaleConfig.locales.uk = calendarLocaleUa;
 LocaleConfig.locales.pl = calendarLocalePl;
@@ -17,6 +18,7 @@ LocaleConfig.defaultLocale = 'uk';
 export const RecordScheduled: FC = () => {
   const {t} = useTranslation();
   const [selected, setSelected] = useState<string | null>(null);
+  const [dates, setDates] = useState<ScheduledRecord[]>([]);
   const [markedDates, setMarkedDates] = useState<{
     [key: string]: {
       marked: boolean;
@@ -28,6 +30,15 @@ export const RecordScheduled: FC = () => {
   const [currentMonth, setCurrentMonth] = useState<string>(
     dayjs().format('YYYY-MM'),
   );
+
+  useEffect(() => {
+    recordsService.getScheduled().then(response => {
+      if (response) {
+        console.log('Scheduled records:', response.data);
+        setDates(response.data);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const fetchFakeData = async () => {
@@ -56,7 +67,7 @@ export const RecordScheduled: FC = () => {
     };
 
     fetchFakeData();
-  }, []);
+  }, [dates]);
 
   const renderDay = ({date, state}: {date: DateData; state: string}) => {
     const dayString = date.dateString;
@@ -166,102 +177,3 @@ export const RecordScheduled: FC = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  modal: {
-    marginTop: sizes.l,
-    padding: sizes.l,
-    paddingVertical: sizes.xxl,
-    alignItems: 'center',
-    marginHorizontal: sizes.m,
-    backgroundColor: colors.white,
-    borderRadius: sizes.radius,
-    gap: sizes.m,
-  },
-  label: {
-    ...textStyles.title2,
-    textAlign: 'center',
-    marginBottom: sizes.m,
-  },
-  description: {
-    ...textStyles.body2,
-    textAlign: 'center',
-    color: colors.secondary,
-  },
-  dayTime: {
-    gap: sizes.s,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: sizes.s,
-  },
-  calendar: {
-    margin: sizes.m,
-    padding: sizes.l,
-    paddingTop: 0,
-    marginBottom: 0,
-    borderRadius: sizes.radius,
-  },
-  dayContainer: {
-    width: 32,
-    height: 32,
-    borderWidth: 1,
-    borderColor: colors.primary,
-    borderRadius: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  markedDay: {
-    borderColor: colors.buttonAccent,
-    backgroundColor: colors.buttonAccent,
-  },
-  dayText: {
-    fontFamily: textStyles.body2.fontFamily,
-    fontSize: textStyles.body2.fontSize,
-    color: colors.primary,
-  },
-  headerText: {
-    ...textStyles.headline2,
-    textAlign: 'center',
-    color: colors.primary,
-    fontWeight: 'bold',
-    lineHeight: 52,
-  },
-  records: {
-    padding: sizes.m,
-    gap: sizes.l,
-  },
-  scheduledRecord: {
-    ...presets.shadow,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    backgroundColor: colors.white,
-    padding: sizes.l,
-    gap: sizes.l,
-    borderRadius: sizes.radius,
-  },
-  location: {
-    ...textStyles.body1,
-    paddingBottom: sizes.s,
-  },
-  link: {
-    ...textStyles.body1,
-    textDecorationColor: colors.uiGradientBlue,
-    textDecorationLine: 'underline',
-    color: colors.uiGradientBlue,
-    paddingBottom: sizes.s,
-  },
-  name: {
-    ...textStyles.body2,
-    fontWeight: 'bold',
-  },
-  doctor: {
-    ...textStyles.body2,
-    color: colors.tertiary,
-  },
-  dateTime: {
-    ...textStyles.body2,
-    color: colors.tertiary,
-  },
-});

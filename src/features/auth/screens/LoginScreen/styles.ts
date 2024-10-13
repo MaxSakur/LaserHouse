@@ -13,6 +13,8 @@ interface Styles {
   privacyLink: TextStyle;
   buttonContainer: ViewStyle;
   image: ImageStyle;
+  modalContentHeader: TextStyle;
+  modalContentText: TextStyle;
 }
 
 export const styles = StyleSheet.create<Styles>({
@@ -58,6 +60,7 @@ export const styles = StyleSheet.create<Styles>({
   privacyLink: {
     ...textStyles.headline2,
     color: colors.buttonAccent,
+    alignSelf: 'center',
     zIndex: -1,
   },
   buttonContainer: {
@@ -68,5 +71,12 @@ export const styles = StyleSheet.create<Styles>({
   },
   image: {
     height: 100,
+  },
+  modalContentHeader: {
+    ...textStyles.title2,
+    textAlign: 'center',
+  },
+  modalContentText: {
+    ...textStyles.body1,
   },
 });

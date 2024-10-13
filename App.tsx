@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import Video from 'react-native-video';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import AppNavigator from './src/navigation/AppNavigator';
-import {NotifierWrapper} from 'react-native-notifier';
+// import {NotifierWrapper} from 'react-native-notifier';
 import './i18n';
 import {LogLevel, OneSignal} from 'react-native-onesignal';
 import preloadVideo from './assets/video/waitscreen.mp4';
@@ -36,24 +36,24 @@ const App = () => {
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
-      <NotifierWrapper>
-        {videoEnded ? (
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              <AppNavigator />
-            </PersistGate>
-          </Provider>
-        ) : (
-          <Video
-            source={{uri: preloadVideo}}
-            style={styles.video}
-            resizeMode="cover"
-            onEnd={() => setVideoEnded(true)}
-            muted={false}
-            repeat={false}
-          />
-        )}
-      </NotifierWrapper>
+      {/* <NotifierWrapper> */}
+      {videoEnded ? (
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <AppNavigator />
+          </PersistGate>
+        </Provider>
+      ) : (
+        <Video
+          source={{uri: preloadVideo}}
+          style={styles.video}
+          resizeMode="cover"
+          onEnd={() => setVideoEnded(true)}
+          muted={false}
+          repeat={false}
+        />
+      )}
+      {/* </NotifierWrapper> */}
     </GestureHandlerRootView>
   );
 };

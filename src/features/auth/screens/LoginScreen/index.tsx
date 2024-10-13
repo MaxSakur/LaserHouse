@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {
   AuthNavigationRoutes,
@@ -19,6 +20,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {authService} from '../../services/authService';
 import {DefaultButton} from '../../components/buttons/DefaultButton';
 import FastImage from 'react-native-fast-image';
+import useModalContent from '../../../../hooks/useModalContent';
 
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -37,6 +39,19 @@ export const LoginScreen: React.FC = () => {
       setPhone('');
     }
   };
+
+  const {open, ModalComponent} = useModalContent({
+    header: (
+      <Text style={styles.modalContentHeader}>
+        {t('registerScreen.privacyAgreementHeader')}
+      </Text>
+    ),
+    content: (
+      <Text style={styles.modalContentText}>
+        {t('registerScreen.privacyAgreementText')}
+      </Text>
+    ),
+  });
 
   return (
     <SafeAreaView style={styles.loginScreen}>
@@ -63,12 +78,16 @@ export const LoginScreen: React.FC = () => {
               isMajor={true}
             />
 
-            <Text style={styles.privacyText}>
-              {t('loginScreen.privacyPolicy')} {'\n'}
-              <Text style={styles.privacyLink}>
-                {t('loginScreen.privacyPolicyLink')}
+            <View>
+              <Text style={styles.privacyText}>
+                {t('loginScreen.privacyPolicy')}
               </Text>
-            </Text>
+              <TouchableOpacity onPress={open}>
+                <Text style={styles.privacyLink}>
+                  {t('loginScreen.privacyPolicyLink')}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <DefaultButton
             buttonText={t('loginScreen.enter')}
@@ -76,6 +95,7 @@ export const LoginScreen: React.FC = () => {
             onPress={handleLogin}
           />
         </ScrollView>
+        {ModalComponent}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

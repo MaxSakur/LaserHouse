@@ -16,6 +16,7 @@ interface CustomTextInputProps {
   onBlur: () => void;
   isFocused: boolean;
   disabled?: boolean;
+  isRequired?: boolean;
 }
 
 export const DefaultInput: React.FC<CustomTextInputProps> = ({
@@ -61,6 +62,7 @@ export const DefaultInput: React.FC<CustomTextInputProps> = ({
           isFocused && styles.focusedInput,
           disabled && styles.disabledInput,
         ]}
+        placeholderTextColor={colors.quaternary}
         placeholder={placeholder}
         editable={!disabled}
         value={value}
