@@ -2,6 +2,7 @@
 
 import {configureStore} from '@reduxjs/toolkit';
 import notificationReducer from './notificationSlice';
+import userReducer from './tokenUserSlice';
 import {
   persistStore,
   persistReducer,
@@ -27,6 +28,7 @@ const persistedNotificationReducer = persistReducer(
 export const store = configureStore({
   reducer: {
     notification: persistedNotificationReducer,
+    user: userReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

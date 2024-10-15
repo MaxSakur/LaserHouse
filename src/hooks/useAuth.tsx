@@ -5,7 +5,9 @@ import React, {
   useState,
   ReactNode,
 } from 'react';
-import {authService} from '../features/auth/services/authService';
+import {useSelector, useDispatch} from 'react-redux';
+import {RootState} from '../store';
+import {clearUser} from '../store/tokenUserSlice';
 
 interface AuthContextProps {
   isLoggedIn: boolean;
@@ -20,26 +22,28 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const {isTokenValid} = authService;
+  const dispatch = useDispatch();
+
+  const token = useSelector((state: RootState) => state.user.token);
 
   const checkAuthStatus = async () => {
-    if (await isTokenValid()) {
-      setIsLoggedIn(true);
+    if (token) {
+      setLoading(false);
     } else {
-      setIsLoggedIn(false);
+      dispatch(clearUser());
+      setLoading(false);
     }
-    setLoading(false); // Завершаем загрузку после проверки токена
   };
 
   useEffect(() => {
     checkAuthStatus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token]);
 
   return (
-    <AuthContext.Provider value={{isLoggedIn, loading, checkAuthStatus}}>
+    <AuthContext.Provider
+      value={{isLoggedIn: !!token, loading, checkAuthStatus}}>
       {children}
     </AuthContext.Provider>
   );

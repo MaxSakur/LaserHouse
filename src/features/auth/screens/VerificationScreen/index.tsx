@@ -1,25 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import {View, Text, KeyboardAvoidingView, Platform} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {Trans, useTranslation} from 'react-i18next';
 import {
   RootStackParamList,
-  LoggedInNavigationRoutes,
   AuthNavigationRoutes,
+  LoggedInNavigationRoutes,
 } from '../../../../types/navigation';
 import {VerificationCodeInput} from '../../components/inputs';
 import {styles} from './styles';
-import useNotification from '../../../../hooks/useNotification';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {DefaultButton} from '../../components/buttons/DefaultButton';
 import {authService} from '../../services/authService';
 import {RouteService} from '../../services/routeService';
+import {useDispatch} from 'react-redux';
 
 type VerificationScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -29,44 +23,12 @@ type VerificationScreenRouteProp = RouteProp<
 export const VerificationScreen: React.FC = () => {
   const [code, setCode] = useState('');
   const [isResendAvailable, setIsResendAvailable] = useState(true);
-  const [isCodeValid, setIsCodeValid] = useState(true);
   const [resendCounter, setResendCounter] = useState(0);
   const {t} = useTranslation();
   const route = useRoute<VerificationScreenRouteProp>();
-  const {phone, data: verificationData} = route.params;
-  const [codeToEqual, setCodeToEqual] = useState('');
-  const {showNotification} = useNotification();
-
-  useEffect(() => {
-    if (verificationData?.code) {
-      setCodeToEqual(verificationData.code);
-    }
-  }, [verificationData]);
-
-  useEffect(() => {
-    const verifyCode = async () => {
-      console.log('verificationData', verificationData);
-      if (code.length === 4) {
-        if (codeToEqual === code) {
-          if (verificationData?.isRegistered) {
-            const {statusCode, data} = await authService.login(phone);
-            if (statusCode === 200 && data?.token && data.token !== null) {
-              await authService.storeToken(data.token);
-
-              RouteService.navigate(LoggedInNavigationRoutes.loggedStack, {
-                screen: LoggedInNavigationRoutes.balance,
-              });
-            }
-          } else {
-            setIsCodeValid(false);
-          }
-        }
-        Keyboard.dismiss();
-      }
-    };
-
-    verifyCode();
-  }, [code, codeToEqual, showNotification, t, verificationData, phone]);
+  const [showRegistrationButton, setShowRegistrationButton] = useState(false);
+  const {phone} = route.params;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -80,13 +42,36 @@ export const VerificationScreen: React.FC = () => {
     return () => clearInterval(timer);
   }, [resendCounter]);
 
-  const handleResendCode = async () => {
-    const {statusCode, data} = await authService.sendVerificationCode(phone);
+  useEffect(() => {
+    const checkCode = async () => {
+      console.log('phone:', phone, code);
 
-    if (statusCode === 200 && data && data.code) {
+      if (code.length === 4) {
+        const result = await authService.checkEquilCode(phone, code, dispatch);
+        if (result === 'proceed_to_main') {
+          RouteService.navigate(LoggedInNavigationRoutes.loggedStack, {
+            screen: LoggedInNavigationRoutes.balance,
+          });
+        } else if (result === 'show_registration') {
+          setShowRegistrationButton(true);
+        } else {
+          setCode('');
+        }
+      }
+    };
+
+    // Запускаем асинхронную функцию
+    if (code.length === 4) {
+      checkCode();
+    }
+  }, [code, phone, dispatch]);
+
+  const handleResendCode = async () => {
+    const {statusCode} = await authService.sendVerificationCode(phone);
+
+    if (statusCode === 200) {
       setIsResendAvailable(false);
       setResendCounter(60);
-      setCodeToEqual(data.code);
     }
   };
 
@@ -116,26 +101,24 @@ export const VerificationScreen: React.FC = () => {
             <VerificationCodeInput value={code} onChange={setCode} />
           </View>
 
-          {verificationData?.isRegistered && (
+          {showRegistrationButton && (
             <View style={styles.notRegistered}>
               <DefaultButton
                 buttonText={t('verificationScreen.create')}
-                disabled={verificationData.isRegistered}
+                disabled={false}
                 onPress={handleRegister}
               />
             </View>
           )}
 
-          {isCodeValid && (
-            <DefaultButton
-              buttonText={
-                t('verificationScreen.resend') +
-                (resendCounter > 0 ? ` (${resendCounter})` : '')
-              }
-              disabled={!isResendAvailable}
-              onPress={handleResendCode}
-            />
-          )}
+          <DefaultButton
+            buttonText={
+              t('verificationScreen.resend') +
+              (resendCounter > 0 ? ` (${resendCounter})` : '')
+            }
+            disabled={!isResendAvailable}
+            onPress={handleResendCode}
+          />
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>

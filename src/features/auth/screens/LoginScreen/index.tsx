@@ -33,9 +33,9 @@ export const LoginScreen: React.FC = () => {
   const {t} = useTranslation();
 
   const handleLogin = async () => {
-    const {statusCode, data} = await authService.sendVerificationCode(phone);
-    if (statusCode === 200 && data !== null) {
-      navigation.navigate(AuthNavigationRoutes.verification, {phone, data});
+    const {statusCode} = await authService.sendVerificationCode(phone);
+    if (statusCode === 200) {
+      navigation.navigate(AuthNavigationRoutes.verification, {phone});
       setPhone('');
     }
   };

@@ -1,75 +1,109 @@
 import api from '../../../api';
+import {AppDispatch} from '../../../store';
+import {addNotification} from '../../../store/notificationSlice';
+import {setFullName, setToken} from '../../../store/tokenUserSlice';
 import {
   IDefaultResponse,
   IVarificateResponse,
-  ILoginResponse,
   IRegistrationResponse,
   IRegisterRequest,
-  ILoginResult,
   IRegisterResult,
 } from '../../../types/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const formatPhoneNumber = (phone: string): string => {
+  const cleaned = phone.replace(/\D/g, '');
+
+  if (cleaned.startsWith('380')) {
+    return cleaned.slice(2);
+  }
+  if (cleaned.startsWith('48')) {
+    return cleaned.slice(2);
+  }
+
+  return cleaned;
+};
+
+export const checkEquilCode = async (
+  phone: string,
+  code: string,
+  dispatch: AppDispatch,
+): Promise<'show_registration' | 'proceed_to_main' | 'error'> => {
+  try {
+    const formattedPhone = formatPhoneNumber(phone);
+
+    const {data, status} = await api.get<IDefaultResponse<IVarificateResponse>>(
+      `/user/${formattedPhone}/${code}`,
+    );
+
+    if (status === 200 && data.success) {
+      if (!data.data) {
+        return 'show_registration';
+      }
+
+      const {token, name} = data.data;
+      dispatch(setToken(token));
+      dispatch(setFullName(name));
+
+      // Переход на главный экран
+      return 'proceed_to_main';
+    }
+
+    // Если success === false, показываем уведомление
+    dispatch(
+      addNotification({
+        id: new Date().toISOString(),
+        title: 'Ошибка',
+        body: data.message || 'Неверный код. Попробуйте снова.',
+      }),
+    );
+
+    return 'error';
+  } catch (error) {
+    console.error('checkEquilCode error:', error);
+
+    dispatch(
+      addNotification({
+        id: new Date().toISOString(),
+        title: 'Ошибка',
+        body: 'Произошла ошибка при проверке кода. Попробуйте позже.',
+      }),
+    );
+
+    return 'error';
+  }
+};
 
 const sendVerificationCode = async (
   phone: string,
 ): Promise<IDefaultResponse<IVarificateResponse>> => {
+  const formattedPhone = formatPhoneNumber(phone);
+  console.log('Formatted phone:', formattedPhone);
   try {
-    const {data, status} = await api.post<
-      IDefaultResponse<IVarificateResponse>
-    >('/varificate', {phone});
+    const {status} = await api.get<IDefaultResponse<IVarificateResponse>>(
+      `/user/${formattedPhone}`,
+    );
 
-    return {
-      success: status === 200,
-      statusCode: status,
-      message:
-        status === 200
-          ? `Verification code was sent to ${phone}`
-          : 'Failed to send verification code',
-      data: data?.data || null,
-    };
+    if (status === 200) {
+      return {
+        success: true,
+        statusCode: 200,
+        message: `Verification code sent to ${formattedPhone}`,
+        data: null,
+      };
+    } else {
+      return {
+        success: false,
+        statusCode: status,
+        message: 'Failed to send verification code',
+        data: null,
+      };
+    }
   } catch (error) {
     console.error('sendVerificationCode error:', error);
     return {
       success: false,
       statusCode: 500,
       message: 'An error occurred while sending verification code',
-      data: null,
-    };
-  }
-};
-
-const login = async (
-  phone: string,
-): Promise<IDefaultResponse<ILoginResult>> => {
-  try {
-    const {data, status} = await api.post<IDefaultResponse<ILoginResponse>>(
-      '/login',
-      {phone},
-    );
-
-    if (!data.success) {
-      return {
-        success: false,
-        statusCode: status,
-        message: data.message || 'Login failed',
-        data: null,
-      };
-    }
-
-    const token = data.data?.token;
-
-    return {
-      success: true,
-      statusCode: status,
-      message: 'Login successful',
-      data: {token: token || null},
-    };
-  } catch (error) {
-    console.error('login error:', error);
-    return {
-      success: false,
-      statusCode: 500,
-      message: 'An error occurred during login',
       data: null,
     };
   }
@@ -111,79 +145,8 @@ const register = async (
   }
 };
 
-const storeToken = async (token: string): Promise<IDefaultResponse<null>> => {
-  try {
-    await AsyncStorage.setItem('@user_token', token);
-    return {
-      success: true,
-      statusCode: 200,
-      message: 'Token stored successfully',
-      data: null,
-    };
-  } catch (e) {
-    return {
-      success: false,
-      statusCode: 500,
-      message: 'Failed to store token',
-      data: null,
-    };
-  }
-};
-
-const getToken = async (): Promise<IDefaultResponse<string | null>> => {
-  try {
-    const token = await AsyncStorage.getItem('@user_token');
-    return {
-      success: true,
-      statusCode: 200,
-      message: 'Token retrieved successfully',
-      data: token !== null ? token : null,
-    };
-  } catch (e) {
-    return {
-      success: false,
-      statusCode: 500,
-      message: 'Failed to retrieve token',
-      data: null,
-    };
-  }
-};
-
-const removeToken = async (): Promise<IDefaultResponse<null>> => {
-  try {
-    await AsyncStorage.removeItem('@user_token');
-    return {
-      success: true,
-      statusCode: 200,
-      message: 'Token removed successfully',
-      data: null,
-    };
-  } catch (e) {
-    return {
-      success: false,
-      statusCode: 500,
-      message: 'Failed to remove token',
-      data: null,
-    };
-  }
-};
-
-const isTokenValid = async (): Promise<IDefaultResponse<boolean>> => {
-  const {data: token} = await getToken();
-  return {
-    success: true,
-    statusCode: 200,
-    message: token ? 'Token is valid' : 'Token is invalid',
-    data: token ? true : false,
-  };
-};
-
 export const authService = {
   sendVerificationCode,
-  login,
+  checkEquilCode,
   register,
-  getToken,
-  removeToken,
-  storeToken,
-  isTokenValid,
 };

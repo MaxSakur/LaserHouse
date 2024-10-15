@@ -1,7 +1,5 @@
 import {Coupon} from './coupons';
 
-// TODO: SPLIT FOR EACH STACK
-
 export interface IVarificateResponse {
   isRegistered?: boolean;
   code?: string;
@@ -9,7 +7,7 @@ export interface IVarificateResponse {
 
 export type AuthStackParamList = {
   Login: undefined;
-  Verification: {phone: string; data: IVarificateResponse};
+  Verification: {phone: string};
   Register: {phone: string};
 };
 

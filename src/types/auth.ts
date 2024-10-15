@@ -15,8 +15,8 @@ export interface IVarificateRequest {
 }
 
 export interface IVarificateResponse {
-  isRegistered?: boolean;
-  code?: string;
+  token: string;
+  name: string;
 }
 
 export interface ILoginRequest {
